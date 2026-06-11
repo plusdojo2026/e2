@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class UserDto implements Serializable {
 	private String id; //ユーザーID
-    private String password; //パスワード
+    private String pw; //パスワード
     private String name; //ユーザーネーム
 	
     public String getId() {
@@ -14,10 +14,10 @@ public class UserDto implements Serializable {
 		this.id = id;
 	}
 	public String getPassword() {
-		return password;
+		return pw;
 	}
 	public void setPassword(String password) {
-		this.password = password;
+		this.pw = pw;
 	}
 	public String getName() {
 		return name;
@@ -25,16 +25,16 @@ public class UserDto implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public UserDto(String id, String password, String name) {
+	public UserDto(String id, String pw, String name) {
 		super();
 		this.id = id;
-		this.password = password;
+		this.pw = pw;
 		this.name = name;
 	}
 	public UserDto() {
 		super();
 		this.id ="";
-		this.password = "";
+		this.pw = "";
 		this.name ="";
 	}
 }
