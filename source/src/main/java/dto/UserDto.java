@@ -16,7 +16,7 @@ public class UserDto implements Serializable {
 	public String getPassword() {
 		return pw;
 	}
-	public void setPassword(String password) {
+	public void setPassword(String pw) {
 		this.pw = pw;
 	}
 	public String getName() {
