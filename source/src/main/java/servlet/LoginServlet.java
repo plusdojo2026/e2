@@ -54,6 +54,14 @@ public class LoginServlet extends HttpServlet {
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
 		
+
+		//IdPwのDTO
+				////IdPw idpw = new IdPw(id,pw);
+				//IdPwのDao
+				////IdPwDao idpwDao = new IdPwDao();
+				//セレクトの実行
+				////List<IdPw> result= idpwDao.select(idpw);
+
 		
 		//取得できたパスワードと一致していたらホームサーブレットにリダイレクトする
 		//result.get(0)はログインしているユーザーのこと
