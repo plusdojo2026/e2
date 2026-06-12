@@ -69,12 +69,13 @@ public class UserDao {
 
 				// データベースに接続する
 				conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/kakemi_db?"
-						+ "characterEncoding=UTF8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+								+ "characterEncoding=UTF8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=GMT%2B9"
+,
 						"root", "password");
 				
 				// SQL文を準備する
-				String sql = "INSERT INTO usrs (id,pw,name) "
-	           + "VALUES (?,?,?)";
+				String sql = "INSERT INTO users (id,pw) "
+	           + "VALUES (?,?)";
 
 				PreparedStatement pStmt = conn.prepareStatement(sql);
 				
@@ -91,12 +92,6 @@ public class UserDao {
 				    pStmt.setString(2, "");
 				}
 
-				if (users.getName() != null) {
-				    pStmt.setString(3, users.getName());
-				} else {
-				    pStmt.setString(3, "");
-				}
-				
 				// SQL文を実行する
 				if (pStmt.executeUpdate() == 1) {
 					result = true;

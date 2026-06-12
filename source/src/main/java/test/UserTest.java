@@ -16,7 +16,6 @@ public class UserTest {
 	UserDto user = new UserDto();
 	user.setId("testuser");
 	user.setPw("1234");
-	user.setName("テスト太郎");
 	
 	// ① 登録
 	boolean insertResult = dao.insert(user);
