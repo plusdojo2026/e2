@@ -1,0 +1,71 @@
+html {
+    font-size: 15px;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+    color: #696167;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+/* ヘッダー背景*/
+header{
+    background-color: #EFD8EA;
+    height: 90px;
+}
+/*ヘッダーの文字*/
+#logo{
+    padding-top: 30px;
+}
+
+/*テーブルの位置調整*/
+.forms{
+    padding-top: 150px;
+}
+
+/*入力フォーム(ここから）*/
+label {
+    font-size: 20px;
+    padding-right: 0px;
+}
+
+.idpw{
+    margin-right: 120px;
+    
+}
+
+input {
+    width: 250px;
+    height: 40px;
+    font-size: 20px;
+    margin-left: 35px;
+}
+
+
+
+/*入力フォーム(ここまで）*/
+
+/*登録＆リセットボタン*/
+.image-button {
+background: transparent;
+border: none;
+cursor: pointer;
+}
+footer{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 90px;
+    background-color: #EFD8EA;
+}
+
+.imgb{
+    margin-left: 40px; 
+    margin-top: 40px;   
+}
+
+body {
+background-color: #F8F8F8;
+}
