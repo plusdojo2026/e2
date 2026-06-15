@@ -21,43 +21,59 @@
 	<!-- メイン（ここから） -->
 
 	<main>
-		<form id="login_form" action="result.html">
-			<table>
-				<div class="forms">
-
-					<tr>
-						<td><label>
-								<div class="idpw">
-									ユーザーID<br>
-								</div> <input type="text" id="id" name="id" placeholder="ユーザーIDを入力">
-						</label></td>
-					</tr>
-					<tr>
-						<td><label>
-								<div class="idpw">
-									パスワード<br>
-								</div> <input type="password" id="pw" name="pw" placeholder="パスワードを入力">
-						</label></td>
-					</tr>
-				</div>
+		<form id="login_form" action="LoginServlet" method="post">
+			<table class="forms idpw">
 
 				<tr>
-					<td colspan="2"><span class="login"> <br> <span
-							id="error_message"></span>
-							<div class="imgb">
+					<td colspan = "2">
+							<label> ユーザーID<br> <input type="text" id="id"
+								name="id" placeholder="ユーザーIDを入力">
+							</label>
+					</td>
+				</tr>
+				<tr >
+					<td colspan = "2">
+	
+							<label> パスワード<br> <input type="password" id="pw"
+								name="pw" placeholder="パスワードを入力">
+							</label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan = "2">
+						<span id="error_message"></span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						
+							<div class="login"> 
+
 								<button type="submit" name="login" class="image-button">
 									<img
 										src="${pageContext.request.contextPath}/images/loginbutton.png"
-										width="150" alt="ログイン">
-								</button></span> <span class="reset">
-							<button type="reset" name="login" class="image-button">
-								<img
-									src="${pageContext.request.contextPath}/images/resetbutton.png"
-									width="150" alt="リセット">
-							</button>
-							</div>
-					</span> <br> <br> <a href="newRegister.jsp">新規登録はこちら</a>
+										alt="ログイン">
+								</button>
+							</div >
+						
+					</td>
 					<td>
+						
+							<div  class="reset">
+								<button type="reset" name="login" class="image-button">
+									<img
+										src="${pageContext.request.contextPath}/images/resetbutton.png"
+										alt="リセット">
+								</button>
+
+							</div >
+						
+					</td>
+				</tr>
+				<tr>
+					<td colspan = "2">
+						<br> <br> <a href="SignupServlet">新規登録はこちら</a>
+					</td>
 				</tr>
 			</table>
 		</form>
