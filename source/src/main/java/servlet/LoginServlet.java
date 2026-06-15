@@ -42,19 +42,14 @@ public class LoginServlet extends HttpServlet {
 					response.sendRedirect("HomeServlet");
 				}
 	}
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-    
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
-		
-
+		response.sendRedirect("HomeServlet");
 		//IdPwのDTO
 				////IdPw idpw = new IdPw(id,pw);
 				//IdPwのDao
