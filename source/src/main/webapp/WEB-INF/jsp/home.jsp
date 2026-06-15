@@ -38,7 +38,7 @@
 			</div>
 		</section>
 
-		<form method="POST" action="/e2/HomeServlet">
+		<form method="POST" action="HomeServlet">
 			<!-- 目標貯金額 -->
 			<section class="card">
 				<div class="card-left">
@@ -51,8 +51,8 @@
 				</div>
 
 				<div class="card-right">
-					<input type="text" name="target_amount" value="${budget.target_amount}">
-					<button class="save-button">保存</button>
+					<input type="text" name="goal_amount" value="${budget.goal_amount}">
+					<button class="save-button" type="submit" name="action" value="goal">保存</button>
 				</div>
 			</section>
 
@@ -68,7 +68,7 @@
 				</div>
 				<div class="card-right">
 					<input type="text" name="budget_amount" value="${budget.budget_amount}">
-					<button class="save-button">保存</button>
+					<button class="save-button" type="submit" name="action" value="budget">保存</button>
 				</div>
 			</section>
 
@@ -85,7 +85,7 @@
 				</div>
 			</div>
 			<div class="card-right">
-				<div class="amount balance-amount">¥300,000</div>
+				<div class="balance-amount">¥300,000</div>
 			</div>
 		</section>
 
@@ -94,13 +94,13 @@
 	<!-- フッター -->
 	<footer class="footer">
 		<nav class="nav-bar">
-			<a class="nav-item" href="Servlet"> <span class="icon">:house:</span>
+			<a class="nav-item" href="HomeServlet"> <span class="icon">🏠</span>
 				<span>ホーム</span>
-			</a> <a class="nav-item active" href="Servlet"> <span class="icon">:pencil2:</span>
+			</a> <a class="nav-item active" href="RegistServlet"> <span class="icon">✏️</span>
 				<span>登録</span>
-			</a> <a class="nav-item" href="Servlet"> <span class="icon">:clipboard:</span>
+			</a> <a class="nav-item" href="ListServlet"> <span class="icon">📋</span>
 				<span>一覧</span>
-			</a> <a class="nav-item" href="Servlet"> <span class="icon">:door:</span>
+			</a> <a class="nav-item" href="Servlet"> <span class="icon">🚪</span>
 				<span>ログアウト</span>
 			</a>
 		</nav>

@@ -5,10 +5,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import dto.BudgetDto;
 
 public class BudgetDao {
+	//登録
 	public boolean insert(BudgetDto budget) {
 
         Connection conn = null;
@@ -20,7 +23,7 @@ public class BudgetDao {
 
             // DB接続
             conn = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/webapp1?"
+                "jdbc:mysql://localhost:3306/kakemi_db?"
                 + "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
                 "root",
                 "password"
@@ -33,7 +36,7 @@ public class BudgetDao {
 
             // パラメータ設定
             pStmt.setInt(1, budget.getBudget_amount());
-            pStmt.setInt(2, budget.getTarget_amount());
+            pStmt.setInt(2, budget.getGoal_amount());
             pStmt.setString(3, budget.getUser_id());
 
             // 実行
@@ -59,6 +62,7 @@ public class BudgetDao {
         return result;
     }
 	
+	//更新
 	public boolean update(BudgetDto budget) {
 
 	    Connection conn = null;
@@ -68,7 +72,7 @@ public class BudgetDao {
 	        Class.forName("com.mysql.cj.jdbc.Driver");
 
 	        conn = DriverManager.getConnection(
-	            "jdbc:mysql://localhost:3306/webapp1?"
+	            "jdbc:mysql://localhost:3306/kakemi_db?"
 	            + "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
 	            "root",
 	            "password"
@@ -79,7 +83,7 @@ public class BudgetDao {
 	        PreparedStatement pStmt = conn.prepareStatement(sql);
 
 	        pStmt.setInt(1, budget.getBudget_amount());
-            pStmt.setInt(2, budget.getTarget_amount());
+            pStmt.setInt(2, budget.getGoal_amount());
             pStmt.setString(3, budget.getUser_id());
 
 	        if (pStmt.executeUpdate() == 1) {
@@ -101,34 +105,38 @@ public class BudgetDao {
 	    return result;
 	}
 	
-	public BudgetDto select(String userId) {
+	//表示
+	public List<BudgetDto> select(String userId) {
 
-		 Connection conn = null;
-	     BudgetDto budget = null;
+	    Connection conn = null;
+	    List<BudgetDto> budgetList = new ArrayList<>();
 
 	    try {
 	        Class.forName("com.mysql.cj.jdbc.Driver");
 
 	        conn = DriverManager.getConnection(
-	            "jdbc:mysql://localhost:3306/webapp1?"
+	            "jdbc:mysql://localhost:3306/kakemi_db?"
 	            + "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
 	            "root",
 	            "password"
 	        );
 
-	        String sql = "SELECT budget_amount, target_amount "
-	                + "FROM budgets WHERE user_id = ?";
+	        String sql =
+	            "SELECT budget_amount, target_amount " +
+	            "FROM budgets WHERE user_id = ?";
 
 	        PreparedStatement pStmt = conn.prepareStatement(sql);
 	        pStmt.setString(1, userId);
 
 	        ResultSet rs = pStmt.executeQuery();
-	        
-	        if (rs.next()) {
-	        	budget = new BudgetDto();
-                budget.setBudget_amount(rs.getInt("budget_amount"));
-                budget.setTarget_amount(rs.getInt("target_amount"));
-                budget.setUser_id(userId);
+
+	        while (rs.next()) {
+	            BudgetDto budget = new BudgetDto();
+	            budget.setBudget_amount(rs.getInt("budget_amount"));
+	            budget.setGoal_amount(rs.getInt("goal_amount"));
+	            budget.setUser_id(userId);
+
+	            budgetList.add(budget);
 	        }
 
 	    } catch (Exception e) {
@@ -141,7 +149,7 @@ public class BudgetDao {
 	        }
 	    }
 
-	    return budget;
+	    return budgetList;
 	}
 }
 

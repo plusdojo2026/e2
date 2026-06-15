@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class BudgetDto implements Serializable {
 	private int id;
 	private int budget_amount;
-	private int target_amount;
+	private int goal_amount;
 	private String user_id;
 	
 	public int getId() {
@@ -25,12 +25,12 @@ public class BudgetDto implements Serializable {
 		this.budget_amount = budget_amount;
 	}
 
-	public int getTarget_amount() {
-		return target_amount;
+	public int getGoal_amount() {
+		return goal_amount;
 	}
 
-	public void setTarget_amount(int targetamount) {
-		this.target_amount = targetamount;
+	public void setGoal_amount(int targetamount) {
+		this.goal_amount = targetamount;
 	}
 
 	
@@ -46,7 +46,7 @@ public class BudgetDto implements Serializable {
 		super();
 		this.id = 0;
 		this.budget_amount = 0;
-		this.target_amount = 0;
+		this.goal_amount = 0;
 		this.user_id = "";
 	}
 	
@@ -54,7 +54,7 @@ public class BudgetDto implements Serializable {
 		super();
 		this.id = id;
 		this.budget_amount = budget_amount;
-		this.target_amount = target_amount;
+		this.goal_amount = target_amount;
 		this.user_id = user_id;
 	}
 	
