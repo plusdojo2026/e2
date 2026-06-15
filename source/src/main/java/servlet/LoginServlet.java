@@ -42,11 +42,7 @@ public class LoginServlet extends HttpServlet {
 					response.sendRedirect("HomeServlet");
 				}
 	}
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-    
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -60,6 +56,7 @@ public class LoginServlet extends HttpServlet {
 				////IdPwDao idpwDao = new IdPwDao();
 				//セレクトの実行
 				////List<IdPw> result= idpwDao.select(idpw);
+
 		
 		//取得できたパスワードと一致していたらホームサーブレットにリダイレクトする
 		//result.get(0)はログインしているユーザーのこと
