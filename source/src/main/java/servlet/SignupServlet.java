@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -35,27 +37,33 @@ public class SignupServlet extends HttpServlet {
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
 		
-		// ID未入力ならエラーメッセージ
-		if(id == null|| pw.isEmpty()) {
-			request.setAttribute("error", "ユーザーIDを入力してください");
-		    request.getRequestDispatcher("/WEB-INF/jsp/Signup.jsp")
-		           .forward(request, response);
-		}
 
-		// PW未入力ならエラーメッセージ
-		else if(pw == null|| pw.isEmpty()) {
-			request.setAttribute("error", "パスワードを入力してください");
-		    request.getRequestDispatcher("/WEB-INF/jsp/Signup.jsp")
-		           .forward(request, response);
-		}
+		// どちらか片方でも空ならエラー表示
+		List<String> errors = new ArrayList<>();
 
+
+		if (id == null || id.isEmpty() || pw == null || pw.isEmpty()) {
+				    errors.add("IDとパスワードを入力してください");
+				}
+
+				if (!errors.isEmpty()) {
+				    request.setAttribute("errors", errors);
+				    request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp")
+				           .forward(request, response);
+				    return;
+				}
+
+
+		
+		
+		
 		// 登録処理を行う
 //					UserDAO Dao = new UserDAO();
 //					boolean result = dao.insert(id,pw)
 //					if(result) {
 //						response.sendRedirect("LoginServlet");
 //					}else {		
-//						request.getRequestDispatcher("/WEB-INF/jsp/Signup.jsp");
+//						request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp");
 //						.forward(request, response);
 //					}
 	}

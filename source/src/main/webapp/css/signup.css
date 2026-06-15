@@ -31,8 +31,11 @@ label {
 }
 
 .idpw{
-    margin-right: 120px;
-    
+    margin-right: auto;
+    text-align:left;
+    margin-left:auto;
+    width:60%;
+    max_width:250px;
 }
 
 input {
@@ -41,8 +44,6 @@ input {
     font-size: 20px;
     margin-left: 35px;
 }
-
-
 
 /*入力フォーム(ここまで）*/
 
