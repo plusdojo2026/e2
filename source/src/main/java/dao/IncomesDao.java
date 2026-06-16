@@ -11,141 +11,229 @@ import dto.Incomes;
 
 public class IncomesDao {
 
-    // ✅ ユーザーごとのデータ取得
-    public List<Incomes> selectByUser(String user_id) {
-        List<Incomes> incomeList = new ArrayList<>();
+	// ✅ ユーザーごとのデータ取得
+	public List<Incomes> selectByUser(String user_id) {
+		List<Incomes> incomeList = new ArrayList<>();
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
 
-            Connection conn = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/webapp2?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
-                "root", "password"
-            );
+			Connection conn = DriverManager.getConnection(
+					"jdbc:mysql://localhost:3306/webapp2?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
+					"root", "password");
 
-            String sql = "SELECT * FROM incomes WHERE user_id = ?";
-            PreparedStatement pStmt = conn.prepareStatement(sql);
-            pStmt.setString(1, user_id);
+			String sql = "SELECT * FROM incomes WHERE user_id = ?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, user_id);
 
-            ResultSet rs = pStmt.executeQuery();
+			ResultSet rs = pStmt.executeQuery();
 
-            while (rs.next()) {
-                Incomes income = new Incomes(
-                    rs.getInt("id"),
-                    rs.getString("user_id"),
-                    rs.getString("created_at"),
-                    rs.getInt("amount"),
-                    rs.getString("emotion"),
-                    rs.getString("category")
-                );
+			while (rs.next()) {
+				Incomes income = new Incomes(rs.getInt("id"), rs.getString("user_id"), rs.getString("created_at"),
+						rs.getInt("amount"), rs.getString("emotion"), rs.getString("category"));
 
-                incomeList.add(income);
-            }
+				incomeList.add(income);
+			}
 
-            conn.close();
+			conn.close();
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-        return incomeList;
-    }
+		return incomeList;
+	}
 
-    // ✅ データ登録
-    public boolean insert(Incomes income) {
-        boolean result = false;
+	public List<Incomes> selectByCalendar(String user_id, String date) {
+		List<Incomes> incomeList = new ArrayList<>();
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
 
-            Connection conn = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/webapp2?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
-                "root", "password"
-            );
+			Connection conn = DriverManager.getConnection(
+					"jdbc:mysql://localhost:3306/webapp2?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
+					"root", "password");
 
-            String sql = "INSERT INTO incomes (user_id, created_at, amount, emotion, category) VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement pStmt = conn.prepareStatement(sql);
+			String sql = "SELECT * FROM incomes " + "WHERE user_id = ? " + "AND created_at LIKE ? "
+					+ "ORDER BY created_at";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, user_id);
+			pStmt.setString(2, date + "%");
 
-            pStmt.setString(1, income.getUser_id());
-            pStmt.setString(2, income.getCreated_at());
-            pStmt.setInt(3, income.getAmount());
-            pStmt.setString(4, income.getEmotion());
-            pStmt.setString(5, income.getCategory());
+			ResultSet rs = pStmt.executeQuery();
 
-            if (pStmt.executeUpdate() == 1) {
-                result = true;
-            }
+			while (rs.next()) {
+				Incomes income = new Incomes(rs.getInt("id"), rs.getString("user_id"), rs.getString("created_at"),
+						rs.getInt("amount"), rs.getString("emotion"), rs.getString("category"));
 
-            conn.close();
+				incomeList.add(income);
+			}
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+			conn.close();
 
-        return result;
-    }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-    // ✅ 更新
-    public boolean update(Incomes income) {
-        boolean result = false;
+		return incomeList;
+	}
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+	// ✅ データ登録
+	public boolean insert(Incomes income) {
+		boolean result = false;
 
-            Connection conn = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/webapp2?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
-                "root", "password"
-            );
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
 
-            String sql = "UPDATE incomes SET created_at=?, amount=?, emotion=?, category=? WHERE id=?";
-            PreparedStatement pStmt = conn.prepareStatement(sql);
+			Connection conn = DriverManager.getConnection(
+					"jdbc:mysql://localhost:3306/webapp2?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
+					"root", "password");
 
-            pStmt.setString(1, income.getCreated_at());
-            pStmt.setInt(2, income.getAmount());
-            pStmt.setString(3, income.getEmotion());
-            pStmt.setString(4, income.getCategory());
-            pStmt.setInt(5, income.getId());
+			String sql = "INSERT INTO incomes (user_id, created_at, amount, emotion, category) VALUES (?, ?, ?, ?, ?)";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
 
-            if (pStmt.executeUpdate() == 1) {
-                result = true;
-            }
+			pStmt.setString(1, income.getUser_id());
+			pStmt.setString(2, income.getCreated_at());
+			pStmt.setInt(3, income.getAmount());
+			pStmt.setString(4, income.getEmotion());
+			pStmt.setString(5, income.getCategory());
 
-            conn.close();
+			if (pStmt.executeUpdate() == 1) {
+				result = true;
+			}
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+			conn.close();
 
-        return result;
-    }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-    // ✅ 削除
-    public boolean delete(int id) {
-        boolean result = false;
+		return result;
+	}
 
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
+	// ✅ 更新
+	public boolean update(Incomes income) {
+		boolean result = false;
 
-            Connection conn = DriverManager.getConnection(
-                "jdbc:mysql://localhost:3306/webapp2?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
-                "root", "password"
-            );
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
 
-            String sql = "DELETE FROM incomes WHERE id=?";
-            PreparedStatement pStmt = conn.prepareStatement(sql);
+			Connection conn = DriverManager.getConnection(
+					"jdbc:mysql://localhost:3306/webapp2?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
+					"root", "password");
 
-            pStmt.setInt(1, id);
+			String sql = "UPDATE incomes SET created_at=?, amount=?, emotion=?, category=? WHERE id=?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
 
-            if (pStmt.executeUpdate() == 1) {
-                result = true;
-            }
+			pStmt.setString(1, income.getCreated_at());
+			pStmt.setInt(2, income.getAmount());
+			pStmt.setString(3, income.getEmotion());
+			pStmt.setString(4, income.getCategory());
+			pStmt.setInt(5, income.getId());
 
-            conn.close();
+			if (pStmt.executeUpdate() == 1) {
+				result = true;
+			}
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+			conn.close();
 
-        return result;
-    }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
+	// ✅ 削除
+	public boolean delete(int id) {
+		boolean result = false;
+
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			Connection conn = DriverManager.getConnection(
+					"jdbc:mysql://localhost:3306/webapp2?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
+					"root", "password");
+
+			String sql = "DELETE FROM incomes WHERE id=?";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			pStmt.setInt(1, id);
+
+			if (pStmt.executeUpdate() == 1) {
+				result = true;
+			}
+
+			conn.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
+	public List<Incomes> selectByCondition(Incomes condition) {
+		List<Incomes> incomeList = new ArrayList<>();
+
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			Connection conn = DriverManager.getConnection(
+					"jdbc:mysql://localhost:3306/kakemi_db?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
+					"root", "password");
+
+			String sql = "SELECT * FROM incomes WHERE user_id = ?";
+			List<Object> params = new ArrayList<>();
+
+			params.add(condition.getUser_id());
+
+			// 日付
+			if (condition.getCreated_at() != null && !condition.getCreated_at().isEmpty()) {
+				sql += " AND created_at = ?";
+				params.add(condition.getCreated_at());
+			}
+
+			// カテゴリ
+			if (condition.getCategory() != null && !condition.getCategory().isEmpty()) {
+				sql += " AND category = ?";
+				params.add(condition.getCategory());
+			}
+
+			// 感情
+			if (condition.getEmotion() != null && !condition.getEmotion().isEmpty()) {
+				sql += " AND emotion = ?";
+				params.add(condition.getEmotion());
+			}
+
+			// 金額
+			if (condition.getAmount() != null) {
+				sql += " AND amount = ?";
+				params.add(condition.getAmount());
+			}
+
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+
+			for (int i = 0; i < params.size(); i++) {
+				pStmt.setObject(i + 1, params.get(i));
+			}
+
+			ResultSet rs = pStmt.executeQuery();
+
+			while (rs.next()) {
+				Incomes income = new Incomes(rs.getInt("id"), rs.getString("user_id"), rs.getString("created_at"),
+						rs.getInt("amount"), rs.getString("emotion"), rs.getString("category"));
+
+				incomeList.add(income);
+			}
+
+			conn.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return incomeList;
+	}
+
 }

@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -11,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.IncomeDao;
 import dao.IncomesDao;
 import dto.Incomes;
 
@@ -33,6 +34,7 @@ public class ListServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 
+			
 		HttpSession session = request.getSession();
 		if (session.getAttribute("id") == null) {
 			response.sendRedirect("LoginServlet");
@@ -44,14 +46,32 @@ public class ListServlet extends HttpServlet {
 		 * LoginUser loginUser = (LoginUser) session.getAttribute("id"); String userId =
 		 * loginUser.getId(); request.setAttribute("userId", userId);
 		 */
+		
+		/*カレンダーでの年月を取得
+		String yearMonth = request.getParameter("month");*/
+		
+		IncomesDao incomesDao = new IncomesDao();
+		//現在の年月を自動で取得
+		String yearMonth =
+			    LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM"));
+		
+		System.out.println("userId = " + userId);
+		System.out.println("yearMonth = " + yearMonth);
+
+		List<Incomes> incomeList =
+		    incomesDao.selectByCalendar(userId, yearMonth);
+
+		System.out.println("取得件数 = " + incomeList.size());
+		
+		
 
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 
-		IncomesDao incomesDao = new IncomesDao();
+		//IncomesDao incomesDao = new IncomesDao();
 		// ExpensesDao expensesDao = new ExpensesDao();
 		// PatienceDao patienceDao = new PatienceDao();
 
-		List<Incomes> incomeList = incomesDao.selectByUser(userId);
+		//List<Incomes> incomeList = incomesDao.selectByCalendar(userId,yearMonth);
 		// List<Expenses> expenseList = expensesDao.select(userId);
 		// List<Patience> patienceList = patienceDao.select(userId);
 
@@ -82,9 +102,9 @@ public class ListServlet extends HttpServlet {
 			return;
 		}
 
-		IncomeDao incomeDao = new IncomeDao();
+		IncomesDao incomesDao = new IncomesDao();
 
-		List<Incomes> incomeList = incomeDao.select(userId);
+		List<Incomes> incomeList = incomesDao.selectByUser(userId);
 
 		request.setAttribute("incomeList", incomeList);
 
@@ -107,14 +127,13 @@ public class ListServlet extends HttpServlet {
 			}
 		}
 
-		Incomes condition = new Incomes(userId, hiduke, amount, emotion, category);
-
+		
 		// 検索処理を行う
 		IncomesDao iDao = new IncomesDao();
-		List<Incomes> incomeList = iDao.selectByCondition(condition);
+		List<Incomes> incometotalList = iDao.selectByCondition(new Incomes(userId, hiduke, amount, emotion, category));
 
 		// 検索結果をリクエストスコープに格納する
-		request.setAttribute("incomeList", incomeList);
+		request.setAttribute("incomeList", incometotalList);
 
 		// 結果ページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/list.jsp");
