@@ -49,6 +49,7 @@ public class LoginServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String id = request.getParameter("id");
 		String pw = request.getParameter("pw");
+		request.getSession().setAttribute("user_id", "test");
 		response.sendRedirect("HomeServlet");
 		//IdPwのDTO
 				////IdPw idpw = new IdPw(id,pw);
