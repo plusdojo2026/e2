@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.time.YearMonth;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -12,9 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.BudgetDao;
-import dao.IncomesDao;
 import dto.BudgetDto;
-import dto.Incomes;
 
 /**
  * Servlet implementation class HomeServlet
@@ -42,20 +39,22 @@ public class HomeServlet extends HttpServlet {
 		// 予算、目標貯金額DAO生成
 		BudgetDao budgetDao = new BudgetDao();
 		// 収入DAO生成
-		IncomesDao incomesDao = new IncomesDao();
+		//IncomesDao incomesDao = new IncomesDao();
 		// 支出DAO生成
 		// ExpensesDao expensesDao = new ExpensesDao();
 
 		// 予算・目標貯金額取得
 		List<BudgetDto> budgetList = budgetDao.select(userId);
 		// 収入取得
-		List<Incomes> incomeList = incomesDao.selectByUser(userId);
+		//List<Incomes> incomeList = incomesDao.selectByUser(userId);
 		// 支出取得
 		// List<Expenses> expenseList = expensesDao.select(userId);
-
+		
+		/*
 		// 今月の年月を取得
 		YearMonth thisMonth = YearMonth.now();
-
+		
+		
 		// 今月の収入合計
 		int incomesTotal = 0;
 		for (Incomes income : incomeList) {
@@ -63,7 +62,7 @@ public class HomeServlet extends HttpServlet {
 			if (incomeMonth.equals(thisMonth)) {
 				incomesTotal += income.getAmount();
 			}
-		}
+		}*/
 
 		// 今月の支出合計
 		/*
@@ -88,7 +87,7 @@ public class HomeServlet extends HttpServlet {
 
 		// JSPへ渡す
 		request.setAttribute("budget", budget);
-		request.setAttribute("incomesTotal", incomesTotal);
+		//request.setAttribute("incomesTotal", incomesTotal);
 		// request.setAttribute("expencesTotal", expencesTotal);
 		// request.setAttribute("balance", balance);
 
