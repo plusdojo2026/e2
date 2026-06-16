@@ -100,7 +100,7 @@
 				<span>登録</span>
 			</a> <a class="nav-item" href="ListServlet"> <span class="icon">📋</span>
 				<span>一覧</span>
-			</a> <a class="nav-item" href="loginServlet"> <span class="icon">🚪</span>
+			</a> <a class="nav-item" href="LoginServlet"> <span class="icon">🚪</span>
 				<span>ログアウト</span>
 			</a>
 		</nav>

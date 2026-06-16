@@ -10,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import dao.BudgetDao;
 import dao.IncomesDao;
@@ -28,7 +27,7 @@ public class HomeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		HttpSession session = request.getSession();
+		/*HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("user_id");
 
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
@@ -36,9 +35,9 @@ public class HomeServlet extends HttpServlet {
 		if (userId == null) {
 			response.sendRedirect("LoginServlet");
 			return;
-		}
+		}*/
 
-		// String userId = "test";
+		String userId = "test";
 
 		// 予算、目標貯金額DAO生成
 		BudgetDao budgetDao = new BudgetDao();
