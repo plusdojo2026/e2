@@ -19,7 +19,7 @@ public class IncomesDao {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			Connection conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/webapp2?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
+					"jdbc:mysql://localhost:3306/kakemi_db?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
 					"root", "password");
 
 			String sql = "SELECT * FROM incomes WHERE user_id = ?";
@@ -51,7 +51,7 @@ public class IncomesDao {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			Connection conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/webapp2?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
+					"jdbc:mysql://localhost:3306/kakemi_db?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
 					"root", "password");
 
 			String sql = "SELECT * FROM incomes " + "WHERE user_id = ? " + "AND created_at LIKE ? "
@@ -86,7 +86,7 @@ public class IncomesDao {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			Connection conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/webapp2?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
+					"jdbc:mysql://localhost:3306/kakemi_db?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
 					"root", "password");
 
 			String sql = "INSERT INTO incomes (user_id, created_at, amount, emotion, category) VALUES (?, ?, ?, ?, ?)";
@@ -119,7 +119,7 @@ public class IncomesDao {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			Connection conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/webapp2?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
+					"jdbc:mysql://localhost:3306/kakemi_db?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
 					"root", "password");
 
 			String sql = "UPDATE incomes SET created_at=?, amount=?, emotion=?, category=? WHERE id=?";
@@ -152,7 +152,7 @@ public class IncomesDao {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			Connection conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/webapp2?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
+					"jdbc:mysql://localhost:3306/kakemi_db?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
 					"root", "password");
 
 			String sql = "DELETE FROM incomes WHERE id=?";

@@ -76,4 +76,11 @@ public class Incomes implements Serializable {
         this.emotion = emotion;
         this.category = category;
     }
+	public Incomes(String user_id, String created_at, Integer amount, String emotion, String category) {
+        this.user_id = user_id;
+        this.created_at = created_at;
+        this.amount = amount;
+        this.emotion = emotion;
+        this.category = category;
+	}
 }
