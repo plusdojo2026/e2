@@ -1,3 +1,4 @@
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -29,6 +30,19 @@
 	 -->
 
 	<div id="income" class="content active">
+
+		<p>件数:${incomeList.size()}</p>
+
+<c:forEach var="e" items="${incomeList}">
+    <p>
+        ID:${e.id}
+        日付:${e.created_at}
+        金額:${e.amount}
+        感情:${e.emotion}
+        カテゴリ:${e.category}
+    </p>
+</c:forEach>
+
 		<div class="calendar">
 			<input type="month" name="calendar">
 		</div>
@@ -197,6 +211,7 @@
 			</div>
 		</c:forEach>
 	</div>
+	
 	<div id="expense" class="content">
 		<div class="calendar">
 			<input type="month" name="calendar">
@@ -242,8 +257,8 @@
 									<c:forEach var="s" items="${situationList}">
 										<option value="${s.key}">
 											<c:if test="${s.id == e.situation}">selected
-                                            </c:if>>
-											${s.sname}</option>
+                                            </c:if>> ${s.sname}
+										</option>
 									</c:forEach>
 								</select> <select name="emotion" class="emo">
 									<c:forEach var="em" items="${emotionList}">
@@ -311,8 +326,8 @@
 									<c:forEach var="s" items="${situationList}">
 										<option value="${s.key}">
 											<c:if test="${s.id == e.situation}">selected
-                                            </c:if>>
-											${s.sname}</option>
+                                            </c:if>> ${s.sname}
+										</option>
 									</c:forEach>
 								</select> <select name="emotion" class="emo">
 									<c:forEach var="em" items="${emotionList}">
@@ -378,8 +393,8 @@
 									<c:forEach var="s" items="${situationList}">
 										<option value="${s.key}">
 											<c:if test="${s.id == e.situation}">selected
-                                            </c:if>>
-											${s.sname}</option>
+                                            </c:if>> ${s.sname}
+										</option>
 									</c:forEach>
 								</select> <select name="emotion" class="emo">
 									<c:forEach var="em" items="${emotionList}">
@@ -444,8 +459,8 @@
 									<c:forEach var="s" items="${situationList}">
 										<option value="${s.key}">
 											<c:if test="${s.id == e.situation}">selected
-                                            </c:if>>
-											${s.sname}</option>
+                                            </c:if>> ${s.sname}
+										</option>
 									</c:forEach>
 								</select> <select name="emotion" class="emo">
 									<c:forEach var="em" items="${emotionList}">
@@ -511,8 +526,8 @@
 									<c:forEach var="s" items="${situationList}">
 										<option value="${s.key}">
 											<c:if test="${s.id == e.situation}">selected
-                                            </c:if>>
-											${s.sname}</option>
+                                            </c:if>> ${s.sname}
+										</option>
 									</c:forEach>
 								</select> <select name="emotion" class="emo">
 									<c:forEach var="em" items="${emotionList}">
@@ -575,8 +590,8 @@
 									<c:forEach var="s" items="${situationList}">
 										<option value="${s.key}">
 											<c:if test="${s.id == e.situation}">selected
-                                            </c:if>>
-											${s.sname}</option>
+                                            </c:if>> ${s.sname}
+										</option>
 									</c:forEach>
 								</select> <select name="emotion" class="emo">
 									<c:forEach var="em" items="${emotionList}">
@@ -642,8 +657,8 @@
 									<c:forEach var="s" items="${situationList}">
 										<option value="${s.key}">
 											<c:if test="${s.id == e.situation}">selected
-                                            </c:if>>
-											${s.sname}</option>
+                                            </c:if>> ${s.sname}
+										</option>
 									</c:forEach>
 								</select> <select name="emotion" class="emo">
 									<c:forEach var="em" items="${emotionList}">
@@ -709,8 +724,8 @@
 									<c:forEach var="s" items="${situationList}">
 										<option value="${s.key}">
 											<c:if test="${s.id == e.situation}">selected
-                                            </c:if>>
-											${s.sname}</option>
+                                            </c:if>> ${s.sname}
+										</option>
 									</c:forEach>
 								</select> <select name="emotion" class="emo">
 									<c:forEach var="em" items="${emotionList}">
@@ -776,8 +791,8 @@
 									<c:forEach var="s" items="${situationList}">
 										<option value="${s.key}">
 											<c:if test="${s.id == e.situation}">selected
-                                            </c:if>>
-											${s.sname}</option>
+                                            </c:if>> ${s.sname}
+										</option>
 									</c:forEach>
 								</select> <select name="emotion" class="emo">
 									<c:forEach var="em" items="${emotionList}">
@@ -819,7 +834,7 @@
 					href="${pageContext.request.contextPath}/HomeServlet">         <span
 					class="icon">🏠</span>         <span>ホーム</span>       
 				</a>       <a class="nav-item "
-					href="${pageContext.request.contextPath}/RegistServlet">
+					href="${pageContext.request.contextPath}/Regist1Servlet">
 					        <span class="icon">✏️</span>         <span>登録</span>       
 				</a>       <a class="nav-item active"
 					href="${pageContext.request.contextPath}/ListServlet">         <span

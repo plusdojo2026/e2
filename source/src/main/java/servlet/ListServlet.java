@@ -11,7 +11,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import dao.IncomesDao;
 import dto.Incomes;
@@ -22,10 +21,13 @@ import dto.Incomes;
 @WebServlet("/ListServlet")
 public class ListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	
 
 	// テスト用ユーザID定義
 	String userId = "test";
 
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -33,13 +35,15 @@ public class ListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
+		
+		System.out.println("★★★★ ListServlet開始 ★★★★");
 
-			
+		/*
 		HttpSession session = request.getSession();
 		if (session.getAttribute("id") == null) {
 			response.sendRedirect("LoginServlet");
 			return;
-		}
+		}*/
 
 		// ユーザ情報取得用
 		/*
@@ -96,11 +100,13 @@ public class ListServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
+		
+		/*
 		HttpSession session = request.getSession();
 		if (session.getAttribute("id") == null) {
 			response.sendRedirect("LoginServlet");
 			return;
-		}
+		}*/
 
 		IncomesDao incomesDao = new IncomesDao();
 
