@@ -7,9 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>支出登録画面</title>
 
-  <link rel="stylesheet" href="sisyututouroku.css">
+  <link rel="stylesheet" href="regist.css">
 
-  <script src="sisyututouroku.js" defer></script>
+  <script src="regist.js" defer></script>
 </head>
 
 <body>
