@@ -60,7 +60,7 @@ public class Regist2Servlet extends HttpServlet {
         // DAO
         IncomesDao dao = new IncomesDao();
 
-        // DTO（ここ重要：user_id入れてる）
+        // DTO
         Incomes income = new Incomes(0,user_id,created_at,amount, emotion, category);
 
         // DB登録
