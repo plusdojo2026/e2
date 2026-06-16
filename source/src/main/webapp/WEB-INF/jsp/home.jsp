@@ -26,7 +26,7 @@
 				<div class="logo">
 					<img src="images/arrow1.png" alt="">
 				</div>
-				<div class="amount">¥300,000</div>
+				<div class="amount">${incomesTotal}</div>
 			</div>
 
 			<div class="summary-card expense">
@@ -34,7 +34,7 @@
 				<div class="logo">
 					<img src="images/arrow2.png" alt="">
 				</div>
-				<div class="amount">¥300,000</div>
+				<div class="amount">${expencesTotal}</div>
 			</div>
 		</section>
 
@@ -85,7 +85,7 @@
 				</div>
 			</div>
 			<div class="card-right">
-				<div class="balance-amount">¥300,000</div>
+				<div class="balance-amount">${balance}</div>
 			</div>
 		</section>
 
@@ -96,11 +96,11 @@
 		<nav class="nav-bar">
 			<a class="nav-item" href="HomeServlet"> <span class="icon">🏠</span>
 				<span>ホーム</span>
-			</a> <a class="nav-item active" href="RegistServlet"> <span class="icon">✏️</span>
+			</a> <a class="nav-item active" href="Regist1Servlet"> <span class="icon">✏️</span>
 				<span>登録</span>
 			</a> <a class="nav-item" href="ListServlet"> <span class="icon">📋</span>
 				<span>一覧</span>
-			</a> <a class="nav-item" href="Servlet"> <span class="icon">🚪</span>
+			</a> <a class="nav-item" href="loginServlet"> <span class="icon">🚪</span>
 				<span>ログアウト</span>
 			</a>
 		</nav>

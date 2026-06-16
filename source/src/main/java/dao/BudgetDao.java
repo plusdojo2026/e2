@@ -30,7 +30,7 @@ public class BudgetDao {
             );
 
             // SQL
-            String sql = "INSERT INTO budgets (budget_amount, target_amount, user_id) "
+            String sql = "INSERT INTO budgets (budget_amount, goal_amount, user_id) "
                   + "VALUES (?, ?, ?)";
             PreparedStatement pStmt = conn.prepareStatement(sql);
 
@@ -78,7 +78,7 @@ public class BudgetDao {
 	            "password"
 	        );
 
-	        String sql = "UPDATE budgets SET budget_amount = ?, target_amount = ? "
+	        String sql = "UPDATE budgets SET budget_amount = ?, goal_amount = ? "
 	                + "WHERE user_id = ?";
 	        PreparedStatement pStmt = conn.prepareStatement(sql);
 
@@ -122,7 +122,7 @@ public class BudgetDao {
 	        );
 
 	        String sql =
-	            "SELECT budget_amount, target_amount " +
+	            "SELECT budget_amount, goal_amount " +
 	            "FROM budgets WHERE user_id = ?";
 
 	        PreparedStatement pStmt = conn.prepareStatement(sql);

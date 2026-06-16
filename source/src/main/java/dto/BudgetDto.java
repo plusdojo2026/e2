@@ -50,11 +50,11 @@ public class BudgetDto implements Serializable {
 		this.user_id = "";
 	}
 	
-	public BudgetDto(int id, int budget_amount, int target_amount, String user_id) {
+	public BudgetDto(int id, int budget_amount, int goal_amount, String user_id) {
 		super();
 		this.id = id;
 		this.budget_amount = budget_amount;
-		this.goal_amount = target_amount;
+		this.goal_amount = goal_amount;
 		this.user_id = user_id;
 	}
 	

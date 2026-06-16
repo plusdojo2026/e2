@@ -19,6 +19,8 @@ body {
 .main {
     padding: 16px;
     padding-bottom: 90px;
+    margin: auto;
+    max-width: 1000px;
 }
 
 .summary {
