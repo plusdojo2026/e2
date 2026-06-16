@@ -78,9 +78,9 @@
 									type="date" name="useDate" value="${e.useDate}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
-										<option value="${c.id}"
+										<option value="${c.key}"
 											<c:if test="${c.id == e.category}">selected</c:if>>
-											${c.cname}</option>
+											${c.value}</option>
 									</c:forEach>
 								</select> <select name="emotion" class="emo">
 									<c:forEach var="em" items="${emotionList}">
@@ -111,7 +111,7 @@
 					onclick="toggleContent('cat${st.index}_ic', this)">
 
 					<c:forEach var="c" items="${categoryList}">
-						<option value="${c.id}">${c.cname}</option>
+						<option value="${c.key}">${c.value}</option>
 					</c:forEach>
 					の支出合計 <span class="amount"> ¥${categoryTotalMap[entry.key]}
 					</span> <span class="arrow">▼</span>
@@ -134,9 +134,9 @@
 									type="date" name="useDate" value="${e.useDate}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
-										<option value="${c.id}"
+										<option value="${c.key}"
 											<c:if test="${c.id == e.category}">selected</c:if>>
-											${c.cname}</option>
+											${c.value}</option>
 									</c:forEach>
 								</select> <select name="emotion" class="emo">
 									<c:forEach var="em" items="${emotionList}">
@@ -186,9 +186,9 @@
 									type="date" name="useDate" value="${e.useDate}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
-										<option value="${c.id}"
+										<option value="${c.key}"
 											<c:if test="${c.id == e.category}">selected</c:if>>
-											${c.cname}</option>
+											${c.value}</option>
 									</c:forEach>
 								</select> <select name="emotion" class="emo">
 									<c:forEach var="em" items="${emotionList}">
@@ -242,10 +242,10 @@
 									type="date" name="useDate" value="${e.useDate}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
-										<option value="${c.id}"
+										<option value="${c.key}"
 											<c:if test="${c.id == e.category}">selected
                                             </c:if>>
-											${c.cname}</option>
+											${c.value}</option>
 									</c:forEach>
 								</select> <select name="tag">
 									<c:forEach var="t" items="${tagList}">
@@ -291,7 +291,7 @@
 					onclick="toggleContent('cat${st.index}_c', this)">
 
 					<c:forEach var="c" items="${categoryList}">
-						<option value="${c.id}">${c.cname}</option>
+						<option value="${c.key}">${c.value}</option>
 					</c:forEach>
 					<span class="amount"> ¥${categoryTotalMap[entry.key]} </span> <span
 						class="arrow">▼</span>
@@ -311,10 +311,10 @@
 									type="date" name="useDate" value="${e.useDate}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
-										<option value="${c.id}"
+										<option value="${c.key}"
 											<c:if test="${c.id == e.category}">selected
                                             </c:if>>
-											${c.cname}</option>
+											${c.value}</option>
 									</c:forEach>
 								</select> <select name="tag">
 									<c:forEach var="t" items="${tagList}">
@@ -378,10 +378,10 @@
 									type="date" name="useDate" value="${e.useDate}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
-										<option value="${c.id}"
+										<option value="${c.key}"
 											<c:if test="${c.id == e.category}">selected
                                             </c:if>>
-											${c.cname}</option>
+											${c.value}</option>
 									</c:forEach>
 								</select> <select name="tag">
 									<c:forEach var="t" items="${tagList}">
@@ -444,10 +444,10 @@
 									type="date" name="useDate" value="${e.useDate}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
-										<option value="${c.id}"
+										<option value="${c.key}"
 											<c:if test="${c.id == e.category}">selected
                                             </c:if>>
-											${c.cname}</option>
+											${c.value}</option>
 									</c:forEach>
 								</select> <select name="tag">
 									<c:forEach var="t" items="${tagList}">
@@ -511,10 +511,10 @@
 									type="date" name="useDate" value="${e.useDate}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
-										<option value="${c.id}"
+										<option value="${c.key}"
 											<c:if test="${c.id == e.category}">selected
                                             </c:if>>
-											${c.cname}</option>
+											${c.value}</option>
 									</c:forEach>
 								</select> <select name="tag">
 									<c:forEach var="t" items="${tagList}">
@@ -581,10 +581,10 @@
 									type="date" name="useDate" value="${e.useDate}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
-										<option value="${c.id}"
+										<option value="${c.key}"
 											<c:if test="${c.id == e.category}">selected
                                             </c:if>>
-											${c.cname}</option>
+											${c.value}</option>
 									</c:forEach>
 								</select> <select name="situation">
 									<c:forEach var="s" items="${situationList}">
@@ -622,7 +622,7 @@
 					onclick="toggleContent('cat${st.index}_c', this)">
 
 					<c:forEach var="c" items="${categoryList}">
-						<option value="${c.id}">${c.cname}</option>
+						<option value="${c.key}">${c.value}</option>
 					</c:forEach>
 					<span class="amount"> ¥${categoryTotalMap[entry.key]} </span> <span
 						class="arrow">▼</span>
@@ -642,10 +642,10 @@
 									type="date" name="useDate" value="${e.useDate}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
-										<option value="${c.id}"
+										<option value="${c.key}"
 											<c:if test="${c.id == e.category}">selected
                                             </c:if>>
-											${c.cname}</option>
+											${c.value}</option>
 									</c:forEach>
 								</select> <select name="tag">
 									<c:forEach var="t" items="${tagList}">
@@ -709,10 +709,10 @@
 									type="date" name="useDate" value="${e.useDate}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
-										<option value="${c.id}"
+										<option value="${c.key}"
 											<c:if test="${c.id == e.category}">selected
                                             </c:if>>
-											${c.cname}</option>
+											${c.value}</option>
 									</c:forEach>
 								</select> <select name="tag">
 									<c:forEach var="t" items="${tagList}">
@@ -776,10 +776,10 @@
 									type="date" name="useDate" value="${e.useDate}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
-										<option value="${c.id}"
+										<option value="${c.key}"
 											<c:if test="${c.id == e.category}">selected
                                             </c:if>>
-											${c.cname}</option>
+											${c.value}</option>
 									</c:forEach>
 								</select> <select name="tag">
 									<c:forEach var="t" items="${tagList}">
