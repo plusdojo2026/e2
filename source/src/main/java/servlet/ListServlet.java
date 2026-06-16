@@ -3,7 +3,10 @@ package servlet;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,8 +15,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.CategoryDao;
+import dao.EmotionDao;
 import dao.IncomesDao;
 import dto.Incomes;
+import dto.KeyValueDto;
 
 /**
  * Servlet implementation class SearchServlet
@@ -54,6 +60,20 @@ public class ListServlet extends HttpServlet {
 		/*カレンダーでの年月を取得
 		String yearMonth = request.getParameter("month");*/
 		
+		//カテゴリセレクトの項目取得
+		CategoryDao cDao = new CategoryDao();
+		List<KeyValueDto> categoryList = cDao.select();
+
+		request.setAttribute("categoryList", categoryList);
+		
+		//感情セレクトの項目取得
+		EmotionDao eDao = new EmotionDao();
+		List<KeyValueDto> emotionList = eDao.select();
+
+		request.setAttribute("emotionList", emotionList);
+		
+		
+		
 		IncomesDao incomesDao = new IncomesDao();
 		//現在の年月を自動で取得
 		String yearMonth =
@@ -64,6 +84,44 @@ public class ListServlet extends HttpServlet {
 
 		List<Incomes> incomeList =
 		    incomesDao.selectByCalendar(userId, yearMonth);
+		
+		//カテゴリ単位の合計算出
+		Map<String, List<Incomes>> incomeCategoryMap =
+			    incomeList.stream()
+			        .collect(Collectors.groupingBy(
+			            Incomes::getCategory,
+			            LinkedHashMap::new,
+			            Collectors.toList()
+			        ));
+		
+		//カテゴリ単位の合計算出
+		Map<String, List<Incomes>> incomeEmotionMap =
+			    incomeList.stream()
+			        .collect(Collectors.groupingBy(
+			            Incomes::getEmotion,
+			            LinkedHashMap::new,
+			            Collectors.toList()
+			        ));
+		
+		//収入合計の算出
+		Map<String, Integer> incomeTotalMap = new LinkedHashMap<>();
+
+		for (Map.Entry<String, List<Incomes>> entry : incomeCategoryMap.entrySet()) {
+
+		    int total = 0;
+
+		    for (Incomes i : entry.getValue()) {
+		        if (i.getAmount() != null) {
+		            total += i.getAmount();
+		        }
+		    }
+
+		    incomeTotalMap.put(entry.getKey(), total);
+		}
+		
+		//jspに表示
+		request.setAttribute("incomeCategoryMap", incomeCategoryMap);
+		request.setAttribute("incomeTotalMap", incomeTotalMap);
 
 		System.out.println("取得件数 = " + incomeList.size());
 		
