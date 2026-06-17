@@ -1,7 +1,7 @@
-
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!doctype html>
 <html>
 
@@ -31,34 +31,20 @@
 
 	<div id="income" class="content active">
 
-		<p>件数:${incomeList.size()}</p>
-
-<c:forEach var="e" items="${incomeList}">
-    <p>
-        ID:${e.id}
-        日付:${e.created_at}
-        金額:${e.amount}
-        感情:${e.emotion}
-        カテゴリ:${e.category}
-    </p>
-</c:forEach>
-
-		<div class="calendar">
-			<input type="month" name="calendar">
-		</div>
+		<!-- カレンダー押した瞬間表示切替＆選択した年月保持 -->
+		<form method="get" action="ListServlet">
+			<input type="month" name="month" value="${yearMonth}"
+				onchange="this.form.submit()">
+		</form>
 
 		<c:forEach var="entry" items="${incomeCategoryMap}" varStatus="st">
 
-			<!-- テスト用
-		${incomeList}
-		-->
 
 			<div class="tcard">
 
 				<div class="header"
 					onclick="toggleContent('cat${st.index}_it', this)">
-
-					<span> ${entry.key} の収入合計 </span> <span class="amount">
+					<span> 月の収入総合計 </span> <span class="amount">
 						¥${incomeTotalMap[entry.key]} </span> <span class="arrow">▼</span>
 
 				</div>
@@ -68,26 +54,22 @@
 						<c:forEach var="e" items="${entry.value}">
 
 							<div class="row-item">
-
-
-
-
 								<input type="checkbox" name="deleteIds" value="${e.id}">
 
 								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="useDate" value="${e.useDate}"> <select
+									type="date" name="useDate" value="${e.created_at}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
 										<option value="${c.key}"
-											<c:if test="${c.id == e.category}">selected</c:if>>
+											<c:if test="${c.key == e.category}">selected</c:if>>
 											${c.value}</option>
 									</c:forEach>
 								</select> <select name="emotion" class="emo">
 									<c:forEach var="em" items="${emotionList}">
 										<option value="${em.key}"
-											<c:if test="${em.id == e.emotion}">selected
+											<c:if test="${em.key == e.emotion}">selected
                                             </c:if>>
-											${em.ename}</option>
+											${em.value}</option>
 									</c:forEach>
 								</select> <input type="text" name="amount" value="${e.amount}">
 							</div>
@@ -110,10 +92,15 @@
 				<div class="header"
 					onclick="toggleContent('cat${st.index}_ic', this)">
 
-					<c:forEach var="c" items="${categoryList}">
-						<option value="${c.key}">${c.value}</option>
-					</c:forEach>
-					の支出合計 <span class="amount"> ¥${categoryTotalMap[entry.key]}
+
+
+					<select name="tag" id="select_menu">
+						<c:forEach var="c" items="${categoryList}">
+							<option value="${c.key}">${c.value}</option>
+						</c:forEach>
+
+
+					</select> の収入合計 <span class="amount"> ¥${categoryTotalMap[entry.key]}
 					</span> <span class="arrow">▼</span>
 
 				</div>
@@ -131,19 +118,19 @@
 								<input type="checkbox" name="deleteIds" value="${e.id}">
 
 								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="useDate" value="${e.useDate}"> <select
+									type="date" name="useDate" value="${e.created_at}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
 										<option value="${c.key}"
-											<c:if test="${c.id == e.category}">selected</c:if>>
+											<c:if test="${c.key == e.category}">selected</c:if>>
 											${c.value}</option>
 									</c:forEach>
 								</select> <select name="emotion" class="emo">
 									<c:forEach var="em" items="${emotionList}">
 										<option value="${em.key}"
-											<c:if test="${em.id == e.emotion}">selected
+											<c:if test="${em.key == e.emotion}">selected
                                             </c:if>>
-											${em.ename}</option>
+											${em.value}</option>
 									</c:forEach>
 								</select> <input type="text" name="amount" value="${e.amount}">
 							</div>
@@ -163,11 +150,10 @@
 				<div class="header"
 					onclick="toggleContent('cat${st.index}_ie', this)">
 
-					<span> <select name="tag" id="select_menu">
-							<option value="1">😐</option>
-							<option value="2">😊</option>
-							<option value="3">😢</option>
-							<option value="4">😡</option>
+					<span> <select name="emotion" id="select_menu">
+							<c:forEach var="em" items="${emotionList}">
+								<option value="${em.key}">${em.value}</option>
+							</c:forEach>
 					</select> の収入合計
 					</span> <span class="amount"> ¥${categoryTotalMap[entry.key]} </span> <span
 						class="arrow">▼</span>
@@ -183,19 +169,19 @@
 								<input type="checkbox" name="deleteIds" value="${e.id}">
 
 								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="useDate" value="${e.useDate}"> <select
+									type="date" name="useDate" value="${e.created_at}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
 										<option value="${c.key}"
-											<c:if test="${c.id == e.category}">selected</c:if>>
+											<c:if test="${c.key == e.category}">selected</c:if>>
 											${c.value}</option>
 									</c:forEach>
 								</select> <select name="emotion" class="emo">
 									<c:forEach var="em" items="${emotionList}">
 										<option value="${em.key}"
-											<c:if test="${em.id == e.emotion}">selected
+											<c:if test="${em.key == e.emotion}">selected
                                             </c:if>>
-											${em.ename}</option>
+											${em.value}</option>
 									</c:forEach>
 								</select> <input type="text" name="amount" value="${e.amount}">
 							</div>
@@ -211,7 +197,7 @@
 			</div>
 		</c:forEach>
 	</div>
-	
+
 	<div id="expense" class="content">
 		<div class="calendar">
 			<input type="month" name="calendar">
@@ -239,11 +225,11 @@
 								<input type="checkbox" name="deleteIds" value="${e.id}">
 
 								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="useDate" value="${e.useDate}"> <select
+									type="date" name="useDate" value="${e.created_at}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
 										<option value="${c.key}"
-											<c:if test="${c.id == e.category}">selected
+											<c:if test="${c.key == e.category}">selected
                                             </c:if>>
 											${c.value}</option>
 									</c:forEach>
@@ -256,16 +242,16 @@
 								</select> <select name="situation">
 									<c:forEach var="s" items="${situationList}">
 										<option value="${s.key}">
-											<c:if test="${s.id == e.situation}">selected
-                                            </c:if>> ${s.sname}
+											<c:if test="${s.key == e.situation}">selected
+                                            </c:if>> ${s.value}
 										</option>
 									</c:forEach>
 								</select> <select name="emotion" class="emo">
 									<c:forEach var="em" items="${emotionList}">
 										<option value="${em.key}"
-											<c:if test="${em.id == e.emotion}">selected
+											<c:if test="${em.key == e.emotion}">selected
                                             </c:if>>
-											${em.ename}</option>
+											${em.value}</option>
 									</c:forEach>
 								</select> <input type="text" name="amount" value="${e.amount}">
 							</div>
@@ -308,11 +294,11 @@
 								<input type="checkbox" name="deleteIds" value="${e.id}">
 
 								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="useDate" value="${e.useDate}"> <select
+									type="date" name="useDate" value="${e.created_at}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
 										<option value="${c.key}"
-											<c:if test="${c.id == e.category}">selected
+											<c:if test="${c.key == e.category}">selected
                                             </c:if>>
 											${c.value}</option>
 									</c:forEach>
@@ -325,16 +311,16 @@
 								</select> <select name="situation">
 									<c:forEach var="s" items="${situationList}">
 										<option value="${s.key}">
-											<c:if test="${s.id == e.situation}">selected
-                                            </c:if>> ${s.sname}
+											<c:if test="${s.key == e.situation}">selected
+                                            </c:if>> ${s.value}
 										</option>
 									</c:forEach>
 								</select> <select name="emotion" class="emo">
 									<c:forEach var="em" items="${emotionList}">
 										<option value="${em.key}"
-											<c:if test="${em.id == e.emotion}">selected
+											<c:if test="${em.key == e.emotion}">selected
                                             </c:if>>
-											${em.ename}</option>
+											${em.value}</option>
 									</c:forEach>
 								</select> <input type="text" name="amount" value="${e.amount}">
 							</div>
@@ -375,11 +361,11 @@
 								<input type="checkbox" name="deleteIds" value="${e.id}">
 
 								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="useDate" value="${e.useDate}"> <select
+									type="date" name="useDate" value="${e.created_at}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
 										<option value="${c.key}"
-											<c:if test="${c.id == e.category}">selected
+											<c:if test="${c.key == e.category}">selected
                                             </c:if>>
 											${c.value}</option>
 									</c:forEach>
@@ -392,16 +378,16 @@
 								</select> <select name="situation">
 									<c:forEach var="s" items="${situationList}">
 										<option value="${s.key}">
-											<c:if test="${s.id == e.situation}">selected
-                                            </c:if>> ${s.sname}
+											<c:if test="${s.key == e.situation}">selected
+                                            </c:if>> ${s.value}
 										</option>
 									</c:forEach>
 								</select> <select name="emotion" class="emo">
 									<c:forEach var="em" items="${emotionList}">
 										<option value="${em.key}"
-											<c:if test="${em.id == e.emotion}">selected
+											<c:if test="${em.key == e.emotion}">selected
                                             </c:if>>
-											${em.ename}</option>
+											${em.value}</option>
 									</c:forEach>
 								</select> <input type="text" name="amount" value="${e.amount}">
 							</div>
@@ -441,11 +427,11 @@
 								<input type="checkbox" name="deleteIds" value="${e.id}">
 
 								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="useDate" value="${e.useDate}"> <select
+									type="date" name="useDate" value="${e.created_at}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
 										<option value="${c.key}"
-											<c:if test="${c.id == e.category}">selected
+											<c:if test="${c.key == e.category}">selected
                                             </c:if>>
 											${c.value}</option>
 									</c:forEach>
@@ -458,16 +444,16 @@
 								</select> <select name="situation">
 									<c:forEach var="s" items="${situationList}">
 										<option value="${s.key}">
-											<c:if test="${s.id == e.situation}">selected
-                                            </c:if>> ${s.sname}
+											<c:if test="${s.key == e.situation}">selected
+                                            </c:if>> ${s.value}
 										</option>
 									</c:forEach>
 								</select> <select name="emotion" class="emo">
 									<c:forEach var="em" items="${emotionList}">
 										<option value="${em.key}"
-											<c:if test="${em.id == e.emotion}">selected
+											<c:if test="${em.key == e.emotion}">selected
                                             </c:if>>
-											${em.ename}</option>
+											${em.value}</option>
 									</c:forEach>
 								</select> <input type="text" name="amount" value="${e.amount}">
 							</div>
@@ -508,11 +494,11 @@
 								<input type="checkbox" name="deleteIds" value="${e.id}">
 
 								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="useDate" value="${e.useDate}"> <select
+									type="date" name="useDate" value="${e.created_at}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
 										<option value="${c.key}"
-											<c:if test="${c.id == e.category}">selected
+											<c:if test="${c.key == e.category}">selected
                                             </c:if>>
 											${c.value}</option>
 									</c:forEach>
@@ -525,16 +511,16 @@
 								</select> <select name="situation">
 									<c:forEach var="s" items="${situationList}">
 										<option value="${s.key}">
-											<c:if test="${s.id == e.situation}">selected
-                                            </c:if>> ${s.sname}
+											<c:if test="${s.key == e.situation}">selected
+                                            </c:if>> ${s.value}
 										</option>
 									</c:forEach>
 								</select> <select name="emotion" class="emo">
 									<c:forEach var="em" items="${emotionList}">
 										<option value="${em.key}"
-											<c:if test="${em.id == e.emotion}">selected
+											<c:if test="${em.key == e.emotion}">selected
                                             </c:if>>
-											${em.ename}</option>
+											${em.value}</option>
 									</c:forEach>
 								</select> <input type="text" name="amount" value="${e.amount}">
 							</div>
@@ -578,27 +564,27 @@
 								<input type="checkbox" name="deleteIds" value="${e.id}">
 
 								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="useDate" value="${e.useDate}"> <select
+									type="date" name="useDate" value="${e.created_at}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
 										<option value="${c.key}"
-											<c:if test="${c.id == e.category}">selected
+											<c:if test="${c.key == e.category}">selected
                                             </c:if>>
 											${c.value}</option>
 									</c:forEach>
 								</select> <select name="situation">
 									<c:forEach var="s" items="${situationList}">
 										<option value="${s.key}">
-											<c:if test="${s.id == e.situation}">selected
-                                            </c:if>> ${s.sname}
+											<c:if test="${s.key == e.situation}">selected
+                                            </c:if>> ${s.value}
 										</option>
 									</c:forEach>
 								</select> <select name="emotion" class="emo">
 									<c:forEach var="em" items="${emotionList}">
 										<option value="${em.key}"
-											<c:if test="${em.id == e.emotion}">selected
+											<c:if test="${em.key == e.emotion}">selected
                                             </c:if>>
-											${em.ename}</option>
+											${em.value}</option>
 									</c:forEach>
 								</select> <input type="text" name="amount" value="${e.amount}">
 							</div>
@@ -639,11 +625,11 @@
 								<input type="checkbox" name="deleteIds" value="${e.id}">
 
 								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="useDate" value="${e.useDate}"> <select
+									type="date" name="useDate" value="${e.created_at}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
 										<option value="${c.key}"
-											<c:if test="${c.id == e.category}">selected
+											<c:if test="${c.key == e.category}">selected
                                             </c:if>>
 											${c.value}</option>
 									</c:forEach>
@@ -656,16 +642,16 @@
 								</select> <select name="situation">
 									<c:forEach var="s" items="${situationList}">
 										<option value="${s.key}">
-											<c:if test="${s.id == e.situation}">selected
-                                            </c:if>> ${s.sname}
+											<c:if test="${s.key == e.situation}">selected
+                                            </c:if>> ${s.value}
 										</option>
 									</c:forEach>
 								</select> <select name="emotion" class="emo">
 									<c:forEach var="em" items="${emotionList}">
 										<option value="${em.key}"
-											<c:if test="${em.id == e.emotion}">selected
+											<c:if test="${em.key == e.emotion}">selected
                                             </c:if>>
-											${em.ename}</option>
+											${em.value}</option>
 									</c:forEach>
 								</select> <input type="text" name="amount" value="${e.amount}">
 							</div>
@@ -706,11 +692,11 @@
 								<input type="checkbox" name="deleteIds" value="${e.id}">
 
 								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="useDate" value="${e.useDate}"> <select
+									type="date" name="useDate" value="${e.created_at}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
 										<option value="${c.key}"
-											<c:if test="${c.id == e.category}">selected
+											<c:if test="${c.key == e.category}">selected
                                             </c:if>>
 											${c.value}</option>
 									</c:forEach>
@@ -723,16 +709,16 @@
 								</select> <select name="situation">
 									<c:forEach var="s" items="${situationList}">
 										<option value="${s.key}">
-											<c:if test="${s.id == e.situation}">selected
-                                            </c:if>> ${s.sname}
+											<c:if test="${s.key == e.situation}">selected
+                                            </c:if>> ${s.value}
 										</option>
 									</c:forEach>
 								</select> <select name="emotion" class="emo">
 									<c:forEach var="em" items="${emotionList}">
 										<option value="${em.key}"
-											<c:if test="${em.id == e.emotion}">selected
+											<c:if test="${em.key == e.emotion}">selected
                                             </c:if>>
-											${em.ename}</option>
+											${em.value}</option>
 									</c:forEach>
 								</select> <input type="text" name="amount" value="${e.amount}">
 							</div>
@@ -773,11 +759,11 @@
 								<input type="checkbox" name="deleteIds" value="${e.id}">
 
 								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="useDate" value="${e.useDate}"> <select
+									type="date" name="useDate" value="${e.created_at}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
 										<option value="${c.key}"
-											<c:if test="${c.id == e.category}">selected
+											<c:if test="${c.key == e.category}">selected
                                             </c:if>>
 											${c.value}</option>
 									</c:forEach>
@@ -790,16 +776,16 @@
 								</select> <select name="situation">
 									<c:forEach var="s" items="${situationList}">
 										<option value="${s.key}">
-											<c:if test="${s.id == e.situation}">selected
-                                            </c:if>> ${s.sname}
+											<c:if test="${s.key == e.situation}">selected
+                                            </c:if>> ${s.value}
 										</option>
 									</c:forEach>
 								</select> <select name="emotion" class="emo">
 									<c:forEach var="em" items="${emotionList}">
 										<option value="${em.key}"
-											<c:if test="${em.id == e.emotion}">selected
+											<c:if test="${em.key == e.emotion}">selected
                                             </c:if>>
-											${em.ename}</option>
+											${em.value}</option>
 									</c:forEach>
 								</select> <input type="text" name="amount" value="${e.amount}">
 							</div>
@@ -829,22 +815,20 @@
 	<!--フッター-->
 	<div id="footer">
 		<nav class="nav-bar">
-			<nav class="nav-bar">
-				      <a class="nav-item"
-					href="${pageContext.request.contextPath}/HomeServlet">         <span
-					class="icon">🏠</span>         <span>ホーム</span>       
-				</a>       <a class="nav-item "
-					href="${pageContext.request.contextPath}/Regist1Servlet">
-					        <span class="icon">✏️</span>         <span>登録</span>       
-				</a>       <a class="nav-item active"
-					href="${pageContext.request.contextPath}/ListServlet">         <span
-					class="icon">📋</span>         <span>一覧</span>       
-				</a>       <a class="nav-item"
-					href="${pageContext.request.contextPath}/LoginServlet">
-					        <span class="icon">🚪</span>         <span>ログアウト</span>
-					      
-				</a>     
-			</nav>
+			 <a class="nav-item"
+				href="${pageContext.request.contextPath}/HomeServlet">         
+				<span class="icon">🏠</span>          <span>ホーム</span>       
+			</a>        <a class="nav-item "
+				href="${pageContext.request.contextPath}/Regist1Servlet">
+				        <span class="icon">✏️</span>         <span>登録</span>       
+			</a>       <a class="nav-item active"
+				href="${pageContext.request.contextPath}/ListServlet">         <span
+				class="icon">📋</span>         <span>一覧</span>       
+			</a>       <a class="nav-item"
+				href="${pageContext.request.contextPath}/LoginServlet">         <span
+				class="icon">🚪</span>         <span>ログアウト</span>       
+			</a>     
+		</nav>
 	</div>
 	<!--フッター終わり-->
 </footer>

@@ -27,13 +27,10 @@ import dto.KeyValueDto;
 @WebServlet("/ListServlet")
 public class ListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
-	
 
 	// テスト用ユーザID定義
 	String userId = "test";
 
-	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -41,99 +38,83 @@ public class ListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-		
+
 		System.out.println("★★★★ ListServlet開始 ★★★★");
 
 		/*
-		HttpSession session = request.getSession();
-		if (session.getAttribute("id") == null) {
-			response.sendRedirect("LoginServlet");
-			return;
-		}*/
+		 * HttpSession session = request.getSession(); if (session.getAttribute("id") ==
+		 * null) { response.sendRedirect("LoginServlet"); return; }
+		 */
 
 		// ユーザ情報取得用
 		/*
 		 * LoginUser loginUser = (LoginUser) session.getAttribute("id"); String userId =
 		 * loginUser.getId(); request.setAttribute("userId", userId);
 		 */
-		
-		/*カレンダーでの年月を取得
-		String yearMonth = request.getParameter("month");*/
-		
-		//カテゴリセレクトの項目取得
+
+		// カレンダーでの年月を取得
+		String yearMonth = request.getParameter("month");
+
+		// カテゴリセレクトの項目取得
 		CategoryDao cDao = new CategoryDao();
 		List<KeyValueDto> categoryList = cDao.select();
 
 		request.setAttribute("categoryList", categoryList);
-		
-		//感情セレクトの項目取得
+
+		// 感情セレクトの項目取得
 		EmotionDao eDao = new EmotionDao();
 		List<KeyValueDto> emotionList = eDao.select();
 
 		request.setAttribute("emotionList", emotionList);
-		
-		
-		
+
 		IncomesDao incomesDao = new IncomesDao();
-		//現在の年月を自動で取得
-		String yearMonth =
-			    LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM"));
-		
+		// 現在の年月を自動で取得
+		if (yearMonth == null) {
+			yearMonth = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM"));
+		}
+
 		System.out.println("userId = " + userId);
 		System.out.println("yearMonth = " + yearMonth);
 
-		List<Incomes> incomeList =
-		    incomesDao.selectByCalendar(userId, yearMonth);
-		
-		//カテゴリ単位の合計算出
-		Map<String, List<Incomes>> incomeCategoryMap =
-			    incomeList.stream()
-			        .collect(Collectors.groupingBy(
-			            Incomes::getCategory,
-			            LinkedHashMap::new,
-			            Collectors.toList()
-			        ));
-		
-		//カテゴリ単位の合計算出
-		Map<String, List<Incomes>> incomeEmotionMap =
-			    incomeList.stream()
-			        .collect(Collectors.groupingBy(
-			            Incomes::getEmotion,
-			            LinkedHashMap::new,
-			            Collectors.toList()
-			        ));
-		
-		//収入合計の算出
+		List<Incomes> incomeList = incomesDao.selectByCalendar(userId, yearMonth);
+
+		// カテゴリ単位の合計算出
+		Map<String, List<Incomes>> incomeCategoryMap = incomeList.stream()
+				.collect(Collectors.groupingBy(Incomes::getCategory, LinkedHashMap::new, Collectors.toList()));
+
+		// カテゴリ単位の合計算出
+		Map<String, List<Incomes>> incomeEmotionMap = incomeList.stream()
+				.collect(Collectors.groupingBy(Incomes::getEmotion, LinkedHashMap::new, Collectors.toList()));
+
+		// 収入合計の算出
 		Map<String, Integer> incomeTotalMap = new LinkedHashMap<>();
 
 		for (Map.Entry<String, List<Incomes>> entry : incomeCategoryMap.entrySet()) {
 
-		    int total = 0;
+			int total = 0;
 
-		    for (Incomes i : entry.getValue()) {
-		        if (i.getAmount() != null) {
-		            total += i.getAmount();
-		        }
-		    }
+			for (Incomes i : entry.getValue()) {
+				if (i.getAmount() != null) {
+					total += i.getAmount();
+				}
+			}
 
-		    incomeTotalMap.put(entry.getKey(), total);
+			incomeTotalMap.put(entry.getKey(), total);
 		}
-		
-		//jspに表示
+
+		// jspに表示
 		request.setAttribute("incomeCategoryMap", incomeCategoryMap);
 		request.setAttribute("incomeTotalMap", incomeTotalMap);
 
 		System.out.println("取得件数 = " + incomeList.size());
-		
-		
 
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 
-		//IncomesDao incomesDao = new IncomesDao();
+		// IncomesDao incomesDao = new IncomesDao();
 		// ExpensesDao expensesDao = new ExpensesDao();
 		// PatienceDao patienceDao = new PatienceDao();
 
-		//List<Incomes> incomeList = incomesDao.selectByCalendar(userId,yearMonth);
+		// List<Incomes> incomeList = incomesDao.selectByCalendar(userId,yearMonth);
 		// List<Expenses> expenseList = expensesDao.select(userId);
 		// List<Patience> patienceList = patienceDao.select(userId);
 
@@ -158,17 +139,21 @@ public class ListServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-		
+
 		/*
-		HttpSession session = request.getSession();
-		if (session.getAttribute("id") == null) {
-			response.sendRedirect("LoginServlet");
-			return;
-		}*/
+		 * HttpSession session = request.getSession(); if (session.getAttribute("id") ==
+		 * null) { response.sendRedirect("LoginServlet"); return; }
+		 */
 
 		IncomesDao incomesDao = new IncomesDao();
 
-		List<Incomes> incomeList = incomesDao.selectByUser(userId);
+		String yearMonth = request.getParameter("month");
+
+		if (yearMonth == null) {
+			yearMonth = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM"));
+		}
+
+		List<Incomes> incomeList = incomesDao.selectByCalendar(userId, yearMonth);
 
 		request.setAttribute("incomeList", incomeList);
 
@@ -182,7 +167,7 @@ public class ListServlet extends HttpServlet {
 		String amountString = request.getParameter("amount");
 		Integer amount = null;
 
-		//数字以外が入力されたらnullに変更
+		// 数字以外が入力されたらnullに変更
 		if (amountString != null && !amountString.isEmpty()) {
 			try {
 				amount = Integer.parseInt(amountString);
@@ -191,7 +176,6 @@ public class ListServlet extends HttpServlet {
 			}
 		}
 
-		
 		// 検索処理を行う
 		IncomesDao iDao = new IncomesDao();
 		List<Incomes> incometotalList = iDao.selectByCondition(new Incomes(userId, hiduke, amount, emotion, category));

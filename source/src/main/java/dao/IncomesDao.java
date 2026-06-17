@@ -50,9 +50,11 @@ public class IncomesDao {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
-			Connection conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost:3306/kakemi_db?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
-					"root", "password");
+			Connection conn = DriverManager
+					.getConnection(
+							"jdbc:mysql://localhost:3306/kakemi_db" + "?characterEncoding=utf8" + "&useSSL=false"
+									+ "&serverTimezone=Asia/Tokyo" + "&allowPublicKeyRetrieval=true",
+							"root", "password");
 
 			String sql = "SELECT * FROM incomes " + "WHERE user_id = ? " + "AND created_at LIKE ? "
 					+ "ORDER BY created_at";

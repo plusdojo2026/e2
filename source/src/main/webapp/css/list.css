@@ -1,111 +1,94 @@
 body {
-    font-size: 14px;
-    background: #f4f4f4;
-    margin: 0;
-
-    max-width: 400px;
-    margin: 0 auto;
+	font-size: 14px;
+	background: #f4f4f4;
+	margin: 0;
+	padding-bottom: 100px;
+	max-width: 400px;
+	margin: 0 auto;
 }
-
-
-
-
 
 /* ヘッダー */
 header {
-    background: #d9ccd3;
-    text-align: center;
-    padding: 10px;
-    font-size: 16px;
+	background: #FAF0F6;
+	text-align: center;
+	padding: 10px;
+	font-size: 16px;
 }
 
-
-
-
-
 .accordion-header {
-    font-size: 15px;
+	font-size: 15px;
 }
 
 .accordion-content {
-    font-size: 14px;
+	font-size: 14px;
 }
 
-
 #bar {
-    background: #FAF0F6;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px 0 12px;
-    border-top: 1px solid #F0DCEA;
+	background: #FAF0F6;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	padding: 10px 0 12px;
+	border-top: 1px solid #F0DCEA;
 }
 
 /*切り替えタブ用*/
-
 .tabs {
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
-    margin-bottom: 15px;
+	display: flex;
+	gap: 10px;
+	margin-top: 15px;
+	margin-bottom: 15px;
 }
 
 .tab {
-    flex: 1;
-    padding: 8px;
-    border-radius: 15px;
-    border: none;
-    background: #FAF0F6;
-    font-size: 18px;
+	flex: 1;
+	padding: 8px;
+	border-radius: 15px;
+	border: none;
+	background: #FAF0F6;
+	font-size: 18px;
 }
-
 
 .tab.active {
-    background: #ffffff;
-    border: 1px solid #F0DCEA;
-    font-weight: bold;
+	background: #ffffff;
+	border: 1px solid #F0DCEA;
+	font-weight: bold;
 }
-
 
 /* タブの中身用 */
 .content {
-    display: none;
-    padding: 10px;
-    background: #fafafa;
-    border-radius: 10px;
+	display: none;
+	padding: 10px;
+	background: #fafafa;
+	border-radius: 10px;
 }
 
 /* タブ表示中 */
 .content.active {
-    display: block;
+	display: block;
 }
 
 /*カレンダー*/
-
 .calendar {
-    background-color: #ffffff;
-    padding: 10px;
-    font-size: 14px;
-    margin: 10px;
-    border-radius: 10px;
+	background-color: #ffffff;
+	padding: 10px;
+	font-size: 14px;
+	margin: 10px;
+	border-radius: 10px;
 }
-
-
 
 /* 年月入力 */
 input[type=month] {
-    width: 140px;
-    padding: 5px;
-    font-size: 14px;
-    border-radius: 10px;
-    border: 1px solid #ccc;
+	width: 140px;
+	padding: 5px;
+	font-size: 14px;
+	border-radius: 10px;
+	border: 1px solid #ccc;
 }
 
-
-
 input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
+	width: 16px;
+	height: 16px;
 }
 
 /*
@@ -114,187 +97,133 @@ select {
     height: 60px;
     font-size: 20px;
 }*/
-
 .emo {
-    padding: 10px;
-    font-size: 16px;
-    height: 40px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+	padding: 10px;
+	font-size: 16px;
+	height: 40px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
 }
 
-
-input[type="text"],
-input[type="date"],
-select {
-    padding: 10px;
-    font-size: 16px;
-    height: 40px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    appearance: none;
+input[type="text"], input[type="date"], select {
+	padding: 10px;
+	font-size: 16px;
+	height: 40px;
+	border-radius: 5px;
+	border: 1px solid #ccc;
+	appearance: none;
 }
-
-
 
 /* 項目別カード */
-.tcard,
-.ccard,
-.scard,
-.tagcard,
-.ecard {
-    background: #fff;
-    border-radius: 12px;
-    margin: 10px;
-    border: 1px solid #ccc;
-    padding: 5px;
+.tcard, .ccard, .scard, .tagcard, .ecard {
+	border-radius: 12px;
+	margin: 10px;
+	border: 1px solid #ccc;
+	padding: 5px;
 }
-
 
 /* カードヘッダー */
 .header {
-    background: none;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    font-size: 14px;
+	background: none;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	font-size: 10px;
 }
-
-
-
-
 
 .amount {
-    text-align: right;
-    font-weight: bold;
+	text-align: right;
+	font-weight: bold;
 }
-
 
 .arrow {
-    margin-left: 10px;
+	margin-left: 10px;
 }
-
-
 
 .detail {
-
-    overflow-x: auto;
-
-
+	overflow-x: auto;
 }
-
-
-
-
-
 
 .row-item {
-
-
-    min-width: 500px;
-
-
-    display: grid;
-    grid-template-columns: 30px 110px 140px 140px 100px 100px  100px;
-
-    gap: 8px;
-    align-items: center;
-
-
-    background: #fafafa;
-    padding: 16px;
-    border-radius: 8px;
-
-    white-space: nowrap;
-
+	min-width: 500px;
+	display: grid;
+	grid-template-columns: 30px 110px 80px 80px 80px 800px 800px;
+	gap: 8px;
+	align-items: center;
+	background: #fafafa;
+	padding: 16px;
+	border-radius: 8px;
+	white-space: nowrap;
 }
 
-
-
-
-.row-item input,
-.row-item select {
-
-
-    width: 100%;
-    height: 32px;
-    padding: 4px 6px;
-
-    border: 1px solid #ccc;
-    border-radius: 6px;
-
-    font-size: 13px;
-    box-sizing: border-box;
+.row-item input, .row-item select {
+	width: 100%;
+	height: 32px;
+	padding: 4px 6px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	font-size: 13px;
+	box-sizing: border-box;
 }
-
 
 .row-item input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
-    margin: auto;
+	width: 16px;
+	height: 16px;
+	margin: auto;
 }
-
-
-
 
 .buttons {
-    margin-top: 10px;
-    display: flex;
-    gap: 10px;
+	margin-top: 10px;
+	display: flex;
+	gap: 10px;
 }
-
 
 .buttons input {
-    border-radius: 8px;
-    height: 36px;
-    border: 1px solid #ccc;
-    background: #f2f2f2;
+	border-radius: 8px;
+	height: 36px;
+	border: 1px solid #ccc;
+	background: #f2f2f2;
 }
-
 
 #select_menu {
-    width: 100px;
-    height: 30px;
-    font-size: 16px;
+	width: 100px;
+	height: 30px;
+	font-size: 10px;
+	padding: 0px;
 }
-
-
 
 /*フッター用*/
 .nav-bar {
-    background: #FAF0F6;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px 0 12px;
-    border-top: 1px solid #F0DCEA;
-
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    max-width: 400px;
-
+	background: #FAF0F6;
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	padding: 10px 0 12px;
+	border-top: 1px solid #F0DCEA;
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	max-width: 400px;
 }
 
-
 .nav-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-    cursor: pointer;
-    color: #C090A8;
-    font-size: 10px;
-    font-weight: bold;
-    text-decoration: none;
-    opacity: 0.7;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2px;
+	cursor: pointer;
+	color: #C090A8;
+	font-size: 10px;
+	font-weight: bold;
+	text-decoration: none;
+	opacity: 0.7;
 }
 
 .nav-item.active {
-    opacity: 1;
-    color: #A06080;
+	opacity: 1;
+	color: #A06080;
 }
 
 .nav-item span.icon {
-    font-size: 20px;
+	font-size: 20px;
 }
