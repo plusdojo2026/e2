@@ -24,10 +24,10 @@ public class Regist1Servlet extends HttpServlet {
         HttpSession session = request.getSession();
 
         // ログインチェック
-        if (session.getAttribute("user_id") == null) {
-            response.sendRedirect("LoginServlet");
-            return;
-        }
+//        if (session.getAttribute("user_id") == null) {
+//            response.sendRedirect("LoginServlet");
+//            return;
+//        }
 
         // 登録画面へ
         RequestDispatcher dispatcher =
@@ -41,12 +41,12 @@ public class Regist1Servlet extends HttpServlet {
 
         HttpSession session = request.getSession();
 
-        // ログインチェック
-        String user_id = (String) session.getAttribute("user_id");
-        if (user_id == null) {
-            response.sendRedirect("LoginServlet");
-            return;
-        }
+//         ログインチェック
+//        String user_id = (String) session.getAttribute("user_id");
+//        if (user_id == null) {
+//            response.sendRedirect("LoginServlet");
+//            return;
+//        }
 
         // リクエスト取得
         request.setCharacterEncoding("UTF-8");
@@ -73,7 +73,7 @@ public class Regist1Servlet extends HttpServlet {
 
         // 結果画面へ
         RequestDispatcher dispatcher =
-                request.getRequestDispatcher("/WEB-INF/jsp/result.jsp");
+                request.getRequestDispatcher("/WEB-INF/jsp/regist1.jsp");
         dispatcher.forward(request, response);
     }
 }
