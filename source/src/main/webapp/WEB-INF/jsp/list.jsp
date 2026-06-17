@@ -58,7 +58,7 @@
 								<input type="checkbox" name="deleteIds" value="${e.id}">
 
 								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="useDate" value="${e.created_at}"> <select
+									type="date" name="created_at" value="${e.created_at}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
 										<option value="${c.key}"
@@ -119,7 +119,7 @@
 								<input type="checkbox" name="deleteIds" value="${e.id}">
 
 								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="useDate" value="${e.created_at}"> <select
+									type="date" name="created_at" value="${e.created_at}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
 										<option value="${c.key}"
@@ -170,7 +170,7 @@
 								<input type="checkbox" name="deleteIds" value="${e.id}">
 
 								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="useDate" value="${e.created_at}"> <select
+									type="date" name="created_at" value="${e.created_at}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
 										<option value="${c.key}"
@@ -226,7 +226,7 @@
 								<input type="checkbox" name="deleteIds" value="${e.id}">
 
 								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="useDate" value="${e.created_at}"> <select
+									type="date" name="created_at" value="${e.created_at}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
 										<option value="${c.key}"
@@ -295,7 +295,7 @@
 								<input type="checkbox" name="deleteIds" value="${e.id}">
 
 								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="useDate" value="${e.created_at}"> <select
+									type="date" name="created_at" value="${e.created_at}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
 										<option value="${c.key}"
@@ -362,7 +362,7 @@
 								<input type="checkbox" name="deleteIds" value="${e.id}">
 
 								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="useDate" value="${e.created_at}"> <select
+									type="date" name="created_at" value="${e.created_at}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
 										<option value="${c.key}"
@@ -428,7 +428,7 @@
 								<input type="checkbox" name="deleteIds" value="${e.id}">
 
 								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="useDate" value="${e.created_at}"> <select
+									type="date" name="created_at" value="${e.created_at}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
 										<option value="${c.key}"
@@ -495,7 +495,7 @@
 								<input type="checkbox" name="deleteIds" value="${e.id}">
 
 								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="useDate" value="${e.created_at}"> <select
+									type="date" name="created_at" value="${e.created_at}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
 										<option value="${c.key}"
@@ -565,7 +565,7 @@
 								<input type="checkbox" name="deleteIds" value="${e.id}">
 
 								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="useDate" value="${e.created_at}"> <select
+									type="date" name="created_at" value="${e.created_at}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
 										<option value="${c.key}"
@@ -626,7 +626,7 @@
 								<input type="checkbox" name="deleteIds" value="${e.id}">
 
 								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="useDate" value="${e.created_at}"> <select
+									type="date" name="created_at" value="${e.created_at}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
 										<option value="${c.key}"
@@ -693,7 +693,7 @@
 								<input type="checkbox" name="deleteIds" value="${e.id}">
 
 								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="useDate" value="${e.created_at}"> <select
+									type="date" name="created_at" value="${e.created_at}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
 										<option value="${c.key}"
@@ -760,7 +760,7 @@
 								<input type="checkbox" name="deleteIds" value="${e.id}">
 
 								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="useDate" value="${e.created_at}"> <select
+									type="date" name="created_at" value="${e.created_at}"> <select
 									name="category">
 									<c:forEach var="c" items="${categoryList}">
 										<option value="${c.key}"
