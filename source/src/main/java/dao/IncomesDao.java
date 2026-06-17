@@ -29,9 +29,15 @@ public class IncomesDao {
 			ResultSet rs = pStmt.executeQuery();
 
 			while (rs.next()) {
-				Incomes income = new Incomes(rs.getInt("id"), rs.getString("user_id"), rs.getString("created_at"),
-						rs.getInt("amount"), rs.getString("emotion"), rs.getString("category"));
+				Incomes income = new Incomes(
+				    rs.getString("user_id"),
+				    rs.getInt("amount"),
+				    rs.getString("emotion"),
+				    rs.getString("category"),
+				    rs.getString("created_at")
+				);
 
+				income.setId(rs.getInt("id"));
 				incomeList.add(income);
 			}
 
@@ -65,9 +71,15 @@ public class IncomesDao {
 			ResultSet rs = pStmt.executeQuery();
 
 			while (rs.next()) {
-				Incomes income = new Incomes(rs.getInt("id"), rs.getString("user_id"), rs.getString("created_at"),
-						rs.getInt("amount"), rs.getString("emotion"), rs.getString("category"));
+				Incomes income = new Incomes(
+				    rs.getString("user_id"),
+				    rs.getInt("amount"),
+				    rs.getString("emotion"),
+				    rs.getString("category"),
+				    rs.getString("created_at")
+				);
 
+				income.setId(rs.getInt("id"));
 				incomeList.add(income);
 			}
 
@@ -223,9 +235,15 @@ public class IncomesDao {
 			ResultSet rs = pStmt.executeQuery();
 
 			while (rs.next()) {
-				Incomes income = new Incomes(rs.getInt("id"), rs.getString("user_id"), rs.getString("created_at"),
-						rs.getInt("amount"), rs.getString("emotion"), rs.getString("category"));
+				Incomes income = new Incomes(
+			    rs.getString("user_id"),
+			    rs.getInt("amount"),
+			    rs.getString("emotion"),
+			    rs.getString("category"),
+			    rs.getString("created_at")
+			);
 
+				income.setId(rs.getInt("id"));
 				incomeList.add(income);
 			}
 

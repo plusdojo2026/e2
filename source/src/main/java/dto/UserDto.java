@@ -18,7 +18,7 @@ public class UserDto implements Serializable {
 	public void setPw(String pw) {
 		this.pw = pw;
 	}
-	public UserDto(String id, String pw, String name) {
+	public UserDto(String id, String pw) {
 		super();
 		this.id = id;
 		this.pw = pw;

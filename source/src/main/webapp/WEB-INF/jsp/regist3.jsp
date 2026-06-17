@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
 <!DOCTYPE html>
 <html lang="ja">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>支出登録画面</title>
+  <title>我慢登録画面</title>
 
   <link rel="stylesheet" href="css/regist.css">
 
@@ -17,24 +17,33 @@
   <div class="phone-frame">
 
     <!-- ヘッダー -->
-    <div class="header">支出登録画面</div>
+    <div class="header">我慢登録画面</div>
 
     <!-- フォーム -->
     <div class="content">
-      <form id="expenditureForm" action="ExpenseRegisterServlet" method="post">
+      
         <div class="tabs">
-          <button type="button" class="tab active" onclick="location.href='Regist2Servlet'">収入</button>
-          <button type="button" class="tab" onclick="location.href='Regist1Servlet'">支出</button>
-          <button type="button" class="tab" onclick="location.href='Regist3Servlet'">我慢</button>
+			  <button type="button" class="tab active" onclick="location.href='Regist2Servlet'">収入</button>
+	          <button type="button" class="tab" onclick="location.href='Regist1Servlet'">支出</button>
+	          <button type="button" class="tab" onclick="location.href='Regist3Servlet'">我慢</button>
+		</div>
+
+        <!-- タブの中身　-->
+        <div id="income" class="content active">
         </div>
 
+        <div id="expense" class="content">
+        </div>
+
+        <div id="save" class="content">
+        </div>
         <div class="form-row">
           <div class="field-group">
 
             <!-- 日付 -->
             <div class="field-wrap">
               <div class="label-tag">日付</div>
-              <input class="input-field" type="date" id="created_at" name="created_at" placeholder="日付を入力してください" value="">
+              <input class="input-field" type="date" id="created_at" name="created_at"placeholder="日付を入力してください"value="">
             </div>
 
             <!-- 金額 -->
@@ -60,19 +69,7 @@
           </button>
           <input type="hidden" id="emotion" name="emotion" value="">
           <!-- タグ -->
-          <div class="field-wrap" style="margin-bottom:8px;">
-            <div class="label-tag">タグ</div>
-            <select class="select-field" id="tag" name="tag">
-              <option value="" disabled selected>タグ選択</option>
-              <option value="食費">食費</option>
-              <option value="交通費">交通費</option>
-              <option value="日用品">日用品</option>
-              <option value="娯楽">娯楽</option>
-              <option value="医療費">医療費</option>
-              <option value="その他">その他</option>
-            </select>
-            <div class="error-msg" id="errTag">タグを選択してください</div>
-          </div>
+          
           </div>
           
         </div>
