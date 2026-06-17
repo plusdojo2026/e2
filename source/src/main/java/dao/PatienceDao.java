@@ -110,9 +110,9 @@ public class PatienceDao {
 			ResultSet rs = pStmt.executeQuery();
 
 			while (rs.next()) {
-				PatienceDto patience = new PatienceDto(rs.getInt("amount"), rs.getString("created_at"),
-						rs.getString("category"), rs.getString("item_name"), rs.getString("memo"),
-						rs.getString("emotion"), rs.getString("situation"), rs.getInt("id"), rs.getString("user_id"));
+				PatienceDto patience = new PatienceDto(rs.getString("user_id"),rs.getInt("amount"),
+						rs.getString("emotion"),rs.getString("category"),rs.getString("situation"), 
+						rs.getString("item_name"), rs.getString("memo"),rs.getString("created_at"));
 
 				patienceList.add(patience);
 			}
@@ -182,7 +182,7 @@ public class PatienceDao {
 					"jdbc:mysql://localhost:3306/kakemi_db?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
 					"root", "password");
 
-			String sql = "DELETE FROM incomes WHERE id=?";
+			String sql = "DELETE FROM patience WHERE id=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			pStmt.setInt(1, id);
@@ -211,16 +211,16 @@ public class PatienceDao {
 					"jdbc:mysql://localhost:3306/kakemi_db?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
 					"root", "password");
 
-			String sql = "SELECT * FROM PatienceDto WHERE user_id = ?";
+			String sql = "SELECT * FROM Patience WHERE user_id = ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, user_id);
 
 			ResultSet rs = pStmt.executeQuery();
 
 			while (rs.next()) {
-				PatienceDto patience = new PatienceDto(rs.getInt("amount"), rs.getString("created_at"),
-						rs.getString("category"), rs.getString("item_name"), rs.getString("memo"),
-						rs.getString("emotion"), rs.getString("situation"), rs.getInt("id"), rs.getString("user_id"));
+				PatienceDto patience = new PatienceDto( rs.getString("user_id"),rs.getInt("amount"),
+						rs.getString("emotion"),rs.getString("category"), rs.getString("situation"),
+						rs.getString("item_name"), rs.getString("memo"),rs.getString("created_at"));
 
 				patienceList.add(patience);
 			}

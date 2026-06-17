@@ -3,98 +3,64 @@ package dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 import dto.ExpensesDto;
 
 public class ExpensesDao {
 
-	public List<ExpensesDto> select() {
-		//接続状態
-		Connection conn = null;
-		//検索結果を入れるコレクション
-		List<ExpensesDto> cardList = new ArrayList<ExpensesDto>();
+    // ✅ データ登録（完成版）
+    public boolean insert(ExpensesDto expense) {
 
-		try {
-			// JDBCドライバを読み込む
-			Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection conn = null;
+        boolean result = false;
 
-			// データベースに接続する
-			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/webapp1?"
-					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
-					"root", "password");
+        try {
+            // JDBCドライバ読み込み
+            Class.forName("com.mysql.cj.jdbc.Driver");
 
-			// SQL文を準備する
-			String sql = " SELECT * FROM contact";
-			PreparedStatement pStmt = conn.prepareStatement(sql);
+            // DB接続
+            conn = DriverManager.getConnection(
+                "jdbc:mysql://localhost:3306/kakemi_db?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
+                "root", "password"
+            );
 
-			// SQL文を実行し、結果表を取得する
-			ResultSet rs = pStmt.executeQuery();
+            // SQL
+            String sql = "INSERT INTO expenses "
+                    + "(user_id, created_at, amount, emotion, category, situation, item_name, memo, tag) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-			// 結果表をコレクションにコピーする
-			while (rs.next()) {
-		//		ExpensesDto expense = new ExpensesDto (rs.getString("phone"), rs.getString("email"),
-			//			rs.getString("name"), "",rs.getString("remarks"));
-		//		cardList.add(contact);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			cardList = null;
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			cardList = null;
-		} finally {
-			// データベースを切断
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-					cardList = null;
-				}
-			}
-		}
+            PreparedStatement pStmt = conn.prepareStatement(sql);
 
-		// 結果を返す
-		return cardList;
-	}
+            // パラメータ設定
+            pStmt.setString(1, expense.getUser_id());
+            pStmt.setString(2, expense.getCreated_at());
+            pStmt.setInt(3, expense.getAmount());
+            pStmt.setString(4, expense.getEmotion());
+            pStmt.setString(5, expense.getCategory());
+            pStmt.setString(6, expense.getSituation());
+            pStmt.setString(7, expense.getItem_name());
+            pStmt.setString(8, expense.getMemo());
+            pStmt.setString(9, expense.getTag());
 
-	//public boolean insert(Contact contact) {
-		Connection conn = null;
-		boolean result = false;
+            // 実行
+            if (pStmt.executeUpdate() == 1) {
+                result = true;
+            }
 
-		
-		{
-			// INSERT文を準備する
-		//	String sql = "INSERT INTO contact VALUES (0,?,?,?,?,?)";
-		//	PreparedStatement pStmt = conn.prepareStatement(sql);
-		//	pStmt.setString(1, contact.getPhone());
-		//	pStmt.setString(2, contact.getEmail());
-		//	pStmt.setString(3, contact.getName());
-		//	pStmt.setString(5, contact.getCategory());
-		//	pStmt.setString(4, contact.getRemarks());
-		//	System.out.println("step2");
-		//	System.out.println(sql);
-			// SELECT文を実行し、結果表を取得する
-		//	if (pStmt.executeUpdate() == 1) {
-				result = true;
-		//	}
-		
-			// データベースを切断
-			if (conn != null) {
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-					result = false;
-				}
-			}
-	//	}
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // DB切断
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
-		// 結果を返す
-	//	return result;
-	}
+        return result;
+    }
 }

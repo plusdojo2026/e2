@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,8 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-//import dao.ExpencesDao;
-//import dto.Expences;
+import dao.CategoryDao;
+import dao.EmotionDao;
+import dao.ExpensesDao;
+import dto.ExpensesDto;
+import dto.KeyValueDto;
+
 
 @WebServlet("/Regist1Servlet")
 public class Regist1Servlet extends HttpServlet {
@@ -24,11 +29,23 @@ public class Regist1Servlet extends HttpServlet {
         HttpSession session = request.getSession();
 
         // ログインチェック
-//        if (session.getAttribute("user_id") == null) {
-//            response.sendRedirect("LoginServlet");
-//            return;
-//        }
+        if (session.getAttribute("user_id") == null) {
+            response.sendRedirect("LoginServlet");
+            return;
+        }
+        
+        // カテゴリセレクトの項目取得(カテゴリのみ支出・我慢)
+     		CategoryDao cDao = new CategoryDao();
+     		List<KeyValueDto> categoryList = cDao.selectEP();
 
+     		request.setAttribute("categoryList", categoryList);
+     		
+     	// 感情セレクトの項目取得
+    		EmotionDao eDao = new EmotionDao();
+    		List<KeyValueDto> emotionList = eDao.select();
+
+    		request.setAttribute("emotionList", emotionList);
+    		
         // 登録画面へ
         RequestDispatcher dispatcher =
                 request.getRequestDispatcher("/WEB-INF/jsp/regist1.jsp");
@@ -41,12 +58,12 @@ public class Regist1Servlet extends HttpServlet {
 
         HttpSession session = request.getSession();
 
-//         ログインチェック
-//        String user_id = (String) session.getAttribute("user_id");
-//        if (user_id == null) {
-//            response.sendRedirect("LoginServlet");
-//            return;
-//        }
+        //ログインチェック
+       String user_id = (String) session.getAttribute("user_id");
+       if (user_id == null) {
+           response.sendRedirect("LoginServlet");
+           return;
+       }
 
         // リクエスト取得
         request.setCharacterEncoding("UTF-8");
@@ -63,13 +80,14 @@ public class Regist1Servlet extends HttpServlet {
        
 
         // DAO
-        //ExpencesDao dao = new ExpencesDao();
+        ExpensesDao dao = new ExpensesDao();
+        
+        // DTO
 
-        // DTO（ここ重要：user_id入れてる）
-        //xpences income = new Expences(0,user_id,created_at,amount, emotion, category);
+        ExpensesDto expense = new ExpensesDto(user_id,amount,emotion,category,situation,item_name,memo,created_at,tag );
 
         // DB登録
-        //dao.insert(Expences);
+        dao.insert(expense);
 
         // 結果画面へ
         RequestDispatcher dispatcher =
