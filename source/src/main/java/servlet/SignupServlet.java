@@ -58,14 +58,14 @@ public class SignupServlet extends HttpServlet {
 		
 		
 		// 登録処理を行う
-//					UserDAO Dao = new UserDAO();
-//					boolean result = dao.insert(id,pw)
-//					if(result) {
-//						response.sendRedirect("LoginServlet");
-//					}else {		
-//						request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp");
-//						.forward(request, response);
-//					}
+		//			UserDao Dao = new UserDao();
+		//			boolean result = Dao.insert(id,pw);
+		//			if(result) {
+		//				response.sendRedirect("LoginServlet");
+		//			}else {		
+		//			request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp")
+		//				.forward(request, response);
+		//				}
 	}
 
 }

@@ -30,19 +30,24 @@ label {
     padding-right: 0px;
 }
 
+#error_message {
+    font-size: 18px;
+    display: block;
+    height: 5px;
+}
+
 .idpw{
+    margin-left: auto;
     margin-right: auto;
-    text-align:left;
-    margin-left:auto;
+    text-align: left;
     width:60%;
-    max_width:250px;
+    max-width:250px;
 }
 
 input {
     width: 250px;
     height: 40px;
     font-size: 20px;
-    margin-left: 35px;
 }
 
 /*入力フォーム(ここまで）*/
@@ -50,9 +55,16 @@ input {
 /*登録＆リセットボタン*/
 .image-button {
 background: transparent;
-border: none;
-cursor: pointer;
+    border: none;
+    cursor: pointer;
+    width: 90%;
+    max-width:111px;
 }
+
+.image-button > img {
+    width: 100%;
+}
+
 footer{
     position: fixed;
     bottom: 0;
@@ -63,8 +75,18 @@ footer{
 }
 
 .imgb{
-    margin-left: 40px; 
-    margin-top: 40px;   
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    width:60%;
+    max-width:250px;   
+}
+
+.signup{
+	margin-top:25px;
+}
+.reset{
+	margin-top:25px;
 }
 
 body {

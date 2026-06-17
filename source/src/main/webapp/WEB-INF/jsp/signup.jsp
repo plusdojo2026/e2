@@ -1,83 +1,86 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ page import="java.util.List" %>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>新規登録</title>
-  <link rel="stylesheet" href="css/signup.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>新規登録</title>
+<link rel="stylesheet" href="css/signup.css">
 </head>
 <body>
-  <!-- ヘッダー（ここから） -->
-  <header>
-    <h1 id="logo">新規登録</h1>
-  </header>
-  <!-- ヘッダー（ここまで） -->
-  <!-- メイン（ここから） -->
-  <main>
-    <form method="POST" action="SignupServlet">
-      <table class="forms" >
-          <tr>
-            <td>
-            <div class="idpw">
-              <label>
-                ユーザーID<br>
-             <input type="text" name="id" placeholder="ユーザーIDを入力">
-            </label>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>
-            <div class="idpw">
-              <label>               
-                パスワード<br>              
-                <input type="password" name="pw" placeholder="パスワードを入力">              
-              </label>
-              </div>
-            </td>
-          </tr>       
-        <tr>
-          <td>       
-          <% List<String> errors = (List<String>) request.getAttribute("errors"); %>
-           <!-- エラーがある場合、エラーメッセージを赤字で表示-->
-			<% if (errors != null && !errors.isEmpty()) { %>
-    			<div style="color:red;"><%= errors.get(0) %></div>
-			<% } %>
+	<!-- ヘッダー（ここから） -->
+	<header>
+		<h1 id="logo">新規登録</h1>
+	</header>
+	<!-- ヘッダー（ここまで） -->
+	<!-- メイン（ここから） -->
+	<main>
+		<form method="POST" action="SignupServlet">
+			<table class="forms idpw">
+				<tr>
+					<td colspan="2"><label> ユーザーID<br> <input
+							type="text" id="id" name="id" placeholder="ユーザーIDを入力">
+					</label></td>
+				</tr>
+				<tr>
+					<td colspan="2"><label> パスワード<br> <input
+							type="password" id="pw" name="pw" placeholder="パスワードを入力">
+					</label>
+					
+					</td>
+				</tr>
+				<tr>
+				<td colspan = "2">
+				<span id="error_message" style="color: red;"></span>
+			<!-- エラーメッセージ -->
+			<c:if test="${not empty errors}">
+				<div style="color: red;">${errors[0]}</div>
+			</c:if>
+			</td>
+			</tr>
+				<tr>													
+					<td>
+						<div class="signup">
+							<button type="submit" name="signup" class="image-button">
+								<img
+									src="${pageContext.request.contextPath}/images/signupbutton.png"
+									alt="登録">
+							</button>
+						</div>
+					</td>
+					<td>
+						<div class="reset">
+							<button type="reset" name="reset" class="image-button">
+								<img
+									src="${pageContext.request.contextPath}/images/resetbutton.png"
+									alt="リセット">
+							</button>
+						</div>
+					</td>
+				</tr>
+			</table>
 			
-				<div class="imgb">	
-            <span class="signup">
-              <button type="submit" name="signup" class="image-button">
-                <img src="img/Image signupbutton.png" width="150px" height="auto;" alt="登録"></button>
-            </span>
-            <span class="reset">
-              <button type="reset" name="reset" class="image-button">
-                <img src="img/resetbutton.png" width="150px" height="auto;" alt="リセット"></button>
-                </span> 
-                </div>
-          <td>
-        </tr>
-      </table>
-    </form>
-    <script>
-    /* 登録ボタンをクリックしたときの処理 */
-	formObj.onsubmit = function(event) {
-		/* ID,パスワードを必須入力項目とする */
-		if (!formObj.id.value) {
-			errorMessageObj.textContent = '※IDとパスワードを入力してください';
-			event.preventDefault();
-    	}
-    }
-    </script>
-  </main>
-  <!-- メイン（ここまで） -->
-  <!-- フッター（ここから） -->
-  <footer>
+		</form>
+	</main>
+	<!-- メイン（ここまで） -->
+	<script>
+		const formObj = document.querySelector("form");
+		const errorMessageObj = document.getElementById("error_message");
+		/* 登録ボタンをクリックしたときの処理 */
+		formObj.onsubmit = function(event) {
+			/* ID,パスワードを必須入力項目とする */
+			if (!formObj.id.value) {
+				
+				event.preventDefault();
+			}
+		}
+	</script>
 
-  </footer>
-  <!-- フッター（ここまで） -->
-  </body>
 
+	<!-- フッター（ここから） -->
+	<footer> </footer>
+	<!-- フッター（ここまで） -->
+</body>
 </html>
