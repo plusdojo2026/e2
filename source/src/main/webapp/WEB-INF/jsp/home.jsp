@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 
@@ -38,6 +39,11 @@
 			</div>
 		</section>
 
+		<!-- エラーメッセージ表示 -->
+		<c:if test="${not empty errorMsg}">
+			<p style="color: red;">${errorMsg}</p>
+		</c:if>
+
 		<form method="POST" action="HomeServlet">
 			<!-- 目標貯金額 -->
 			<section class="card">
@@ -51,8 +57,9 @@
 				</div>
 
 				<div class="card-right">
-					<input type="text" name="goal_amount" value="${budget.goal_amount}">
-					<button class="save-button" type="submit" name="action" value="goal">保存</button>
+					<input type="number" name="goal_amount" value="${budget.goal_amount}">
+					<button class="save-button" type="submit" name="action"
+						value="goal">保存</button>
 				</div>
 			</section>
 
@@ -67,8 +74,10 @@
 					</div>
 				</div>
 				<div class="card-right">
-					<input type="text" name="budget_amount" value="${budget.budget_amount}">
-					<button class="save-button" type="submit" name="action" value="budget">保存</button>
+					<input type="number" name="budget_amount"
+						value="${budget.budget_amount}">
+					<button class="save-button" type="submit" name="action"
+						value="budget">保存</button>
 				</div>
 			</section>
 
@@ -96,8 +105,8 @@
 		<nav class="nav-bar">
 			<a class="nav-item" href="HomeServlet"> <span class="icon">🏠</span>
 				<span>ホーム</span>
-			</a> <a class="nav-item active" href="Regist1Servlet"> <span class="icon">✏️</span>
-				<span>登録</span>
+			</a> <a class="nav-item active" href="Regist1Servlet"> <span
+				class="icon">✏️</span> <span>登録</span>
 			</a> <a class="nav-item" href="ListServlet"> <span class="icon">📋</span>
 				<span>一覧</span>
 			</a> <a class="nav-item" href="LoginServlet"> <span class="icon">🚪</span>
