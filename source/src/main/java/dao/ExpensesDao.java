@@ -9,7 +9,7 @@ import dto.ExpensesDto;
 
 public class ExpensesDao {
 
-    // ✅ データ登録（完成版）
+    // ✅ データ登録
     public boolean insert(ExpensesDto expense) {
 
         Connection conn = null;
