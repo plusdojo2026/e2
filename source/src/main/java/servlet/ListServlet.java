@@ -54,7 +54,7 @@ public class ListServlet extends HttpServlet {
 
 		// カテゴリセレクトの項目取得
 		CategoryDao cDao = new CategoryDao();
-		List<KeyValueDto> categoryList = cDao.selectEP();
+		List<KeyValueDto> categoryList = cDao.select();
 
 		request.setAttribute("categoryList", categoryList);
 
@@ -67,7 +67,11 @@ public class ListServlet extends HttpServlet {
 		IncomesDao incomesDao = new IncomesDao();
 
 		// 現在の年月を自動で取得
-		String yearMonth = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM"));
+		String yearMonth = request.getParameter("calendar");
+
+		if (yearMonth == null || yearMonth.isEmpty()) {
+			yearMonth = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM"));
+		}
 		// 取得した年月をjspに表示
 		request.setAttribute("yearMonth", yearMonth);
 
@@ -78,11 +82,31 @@ public class ListServlet extends HttpServlet {
 		// カレンダーから取得した年月で一覧表示
 		List<Incomes> incomeList = incomesDao.selectByCalendar(userId, yearMonth);
 
+		// カテゴリを取得
+		List<Incomes> categoryIncomeList = incomeList;
+		String selectedCategory = request.getParameter("selectedCategory");
+
+		if (selectedCategory != null && !selectedCategory.isEmpty()) {
+
+			categoryIncomeList = incomeList.stream().filter(i -> selectedCategory.equals(i.getCategory()))
+					.collect(Collectors.toList());
+		}
+
+		// 感情を取得
+		List<Incomes> emotionIncomeList = incomeList;
+		String selectedEmotion = request.getParameter("selectedEmotion");
+
+		if (selectedEmotion != null && !selectedEmotion.isEmpty()) {
+
+			emotionIncomeList = incomeList.stream().filter(i -> selectedEmotion.equals(i.getEmotion()))
+					.collect(Collectors.toList());
+		}
+
 		// カテゴリ単位の合計算出
 		Map<String, List<Incomes>> incomeCategoryMap = incomeList.stream()
 				.collect(Collectors.groupingBy(Incomes::getCategory, LinkedHashMap::new, Collectors.toList()));
 
-		// カテゴリ単位の合計算出
+		// 感情ごとの合計算出
 		Map<String, List<Incomes>> incomeEmotionMap = incomeList.stream()
 				.collect(Collectors.groupingBy(Incomes::getEmotion, LinkedHashMap::new, Collectors.toList()));
 
@@ -102,9 +126,33 @@ public class ListServlet extends HttpServlet {
 			incomeTotalMap.put(entry.getKey(), total);
 		}
 
+		int selectedCategoryTotal = 0;
+
+		for (Incomes i : categoryIncomeList) {
+			if (i.getAmount() != null) {
+				selectedCategoryTotal += i.getAmount();
+			}
+		}
+
+		int selectedEmotionTotal = 0;
+
+		for (Incomes i : categoryIncomeList) {
+			if (i.getAmount() != null) {
+				selectedEmotionTotal += i.getAmount();
+			}
+		}
+
 		// jspに表示
 		request.setAttribute("incomeCategoryMap", incomeCategoryMap);
+		request.setAttribute("incomeEmotionMap", incomeEmotionMap);
+
 		request.setAttribute("incomeTotalMap", incomeTotalMap);
+		request.setAttribute("selectedCategoryTotal", selectedCategoryTotal);
+		request.setAttribute("selectedEmotionTotal", selectedCategoryTotal);
+
+		request.setAttribute("categoryIncomeList", categoryIncomeList);
+
+		request.setAttribute("emotionIncomeList", emotionIncomeList);
 
 		// デバック用
 		System.out.println("取得件数 = " + incomeList.size());
@@ -146,7 +194,11 @@ public class ListServlet extends HttpServlet {
 		 * null) { response.sendRedirect("LoginServlet"); return; }
 		 */
 
-		 System.out.println("★★★★ doPost開始 ★★★★");
+		// 文字化け防止
+		request.setCharacterEncoding("UTF-8");
+
+		// デバック用
+		System.out.println("★★★★ doPost開始 ★★★★");
 
 		IncomesDao incomesDao = new IncomesDao();
 
@@ -189,6 +241,9 @@ public class ListServlet extends HttpServlet {
 
 		// 編集削除ボタン押した時
 		String submit = request.getParameter("submit");
+		// デバック用
+		System.out.println("submit=" + submit);
+		System.out.println("id=" + request.getParameter("id"));
 
 		// 収入削除処理
 		if ("削除".equals(submit)) {
@@ -217,25 +272,26 @@ public class ListServlet extends HttpServlet {
 			String[] emotions = request.getParameterValues("emotion");
 			String[] amounts = request.getParameterValues("amount");
 
-			IncomesDao dao = new IncomesDao();
-
-			// デバック用
 			System.out.println("編集ボタン押下");
 			System.out.println("件数=" + ids.length);
-			for (String s : ids) {
-				System.out.println("id=" + s);
 
-				for (int i = 0; i < ids.length; i++) {
+			IncomesDao dao = new IncomesDao();
 
-					Incomes income = new Incomes(Integer.parseInt(ids[i]), userId, dates[i],
-							Integer.parseInt(amounts[i]), emotions[i], categories[i]);
+			for (int i = 0; i < ids.length; i++) {
 
-					dao.update(income);
-				}
+				System.out
+						.println(ids[i] + "," + dates[i] + "," + categories[i] + "," + emotions[i] + "," + amounts[i]);
 
-				response.sendRedirect("ListServlet");
-				return;
+				Incomes income = new Incomes(Integer.parseInt(ids[i]), userId, dates[i], Integer.parseInt(amounts[i]),
+						emotions[i], categories[i]);
+
+				boolean result = dao.update(income);
+
+				System.out.println("更新結果=" + result);
 			}
+
+			response.sendRedirect("ListServlet");
+			return;
 		}
 
 		// 検索結果をリクエストスコープに格納する
