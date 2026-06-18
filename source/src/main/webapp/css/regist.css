@@ -309,7 +309,7 @@ input[type="date"]:not(:valid) {
 
 /* エラーメッセージ */
 .error-msg {
-    color: #d9534f;
+    color: #FF0000;
     font-size: 11px;
     margin-top: 3px;
     padding-left: 4px;

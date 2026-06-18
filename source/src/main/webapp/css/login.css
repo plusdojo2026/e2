@@ -35,9 +35,11 @@ label {
 /*エラーメッセージの文字の大きさ*/
 #error_message {
     color:#696167 ;
-    font-size: 18px;
+    font-size: 15px;
     display: block;
     height: 5px;
+    /*一行で表示*/
+     white-space: nowrap;
 }
 .idpw {
 	margin-left: auto;

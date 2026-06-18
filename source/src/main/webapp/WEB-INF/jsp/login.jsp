@@ -25,55 +25,54 @@
 			<table class="forms idpw">
 
 				<tr>
-					<td colspan = "2">
-							<label> ユーザーID<br> <input type="text" id="id"
-								name="id" placeholder="ユーザーIDを入力">
-							</label>
-					</td>
-				</tr>
-				<tr >
-					<td colspan = "2">
-	
-							<label> パスワード<br> <input type="password" id="pw"
-								name="pw" placeholder="パスワードを入力">
-							</label>
-					</td>
+					<td colspan="2"><label> ユーザーID<br> <input
+							type="text" id="id" name="id" placeholder="ユーザーIDを入力">
+					</label></td>
 				</tr>
 				<tr>
-					<td colspan = "2">
-						<span id="error_message"></span>
-					</td>
+					<td colspan="2"><label> パスワード<br> <input
+							type="password" id="pw" name="pw" placeholder="パスワードを入力">
+					</label></td>
 				</tr>
+				<tr>
+    <td colspan="2">
+    <span id="error_message">
+        <% if (request.getAttribute("errorMsg") != null) { %>
+            <%= request.getAttribute("errorMsg") %>
+        <% } %>
+    </span>
+    <br>
+</td>
+</tr>
 				<tr>
 					<td>
-						
-							<div class="login"> 
 
-								<button type="submit" name="login" class="image-button">
-									<img
-										src="${pageContext.request.contextPath}/images/loginbutton.png"
-										alt="ログイン">
-								</button>
-							</div >
-						
+						<div class="login">
+
+							<button type="submit" name="login" class="image-button">
+								<img
+									src="${pageContext.request.contextPath}/images/loginbutton.png"
+									alt="ログイン">
+							</button>
+						</div>
+
 					</td>
 					<td>
-						
-							<div  class="reset">
-								<button type="reset" name="login" class="image-button">
-									<img
-										src="${pageContext.request.contextPath}/images/resetbutton.png"
-										alt="リセット">
-								</button>
 
-							</div >
-						
+						<div class="reset">
+							<button type="reset" name="login" class="image-button">
+								<img
+									src="${pageContext.request.contextPath}/images/resetbutton.png"
+									alt="リセット">
+							</button>
+
+						</div>
+
 					</td>
 				</tr>
 				<tr>
-					<td colspan = "2">
-						<br> <br> <a href="SignupServlet">新規登録はこちら</a>
-					</td>
+					<td colspan="2" style="text-align: center;"><br>
+					<br> <a href="SignupServlet">新規登録はこちら</a></td>
 				</tr>
 			</table>
 		</form>
@@ -89,13 +88,17 @@
 		let errorMessageObj = document.getElementById('error_message');
 
 		/* [ログイン]ボタンをクリックしたときの処理 */
+		/* [ログイン]ボタンをクリックしたときの処理 */
 		formObj.onsubmit = function(event) {
+
+			// 前回のエラーメッセージを消す
+			errorMessageObj.textContent = '';
+
 			if (formObj.id.value === '' || formObj.pw.value === '') {
-				errorMessageObj.textContent = '※IDとパスワードを入力してください';
+				errorMessageObj.textContent = 'IDとパスワードを入力してください';
 				event.preventDefault();
 			}
 		};
-
 		/* [リセット]ボタンをクリックしたときの処理 */
 		formObj.onreset = function() {
 			errorMessageObj.textContent = null;
