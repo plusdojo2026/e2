@@ -3,6 +3,7 @@ package dto;
 import java.io.Serializable;
 
 public class ExpensesDto implements Serializable {
+<<<<<<< HEAD
 	private Integer id; // 主キー
 	private String user_id; //ユーザーID
 	private Integer amount; //金額
@@ -23,6 +24,18 @@ public class ExpensesDto implements Serializable {
 		this.id = id;
 	}
 
+=======
+	private String user_id; // ユーザーID
+	private Integer amount; // 金額
+	private String emotion; // 感情
+	private String category; // カテゴリ
+	private String situation; // 状況
+	private String item_name; // 商品名
+	private String memo; // 備考
+	private String created_at; // 日付
+	private String tag; // タグ
+
+>>>>>>> 4aa7962d2502de930d46a2127e2320a71ea786e3
 	public String getUser_id() {
 		return user_id;
 	}
@@ -53,8 +66,13 @@ public class ExpensesDto implements Serializable {
 
 	public void setCategory(String category) {
 		this.category = category;
+<<<<<<< HEAD
 	}
 
+=======
+	}	
+	
+>>>>>>> 4aa7962d2502de930d46a2127e2320a71ea786e3
 	public String getSituation() {
 		return situation;
 	}
@@ -95,8 +113,12 @@ public class ExpensesDto implements Serializable {
 		this.tag = tag;
 	}
 
+<<<<<<< HEAD
 	//コンストラクタ
 	public ExpensesDto(Integer id, String user_id, Integer amount, String emotion, String category, String situation,
+=======
+	public ExpensesDto(String user_id, Integer amount, String emotion, String category, String situation,
+>>>>>>> 4aa7962d2502de930d46a2127e2320a71ea786e3
 			String item_name, String memo, String created_at, String tag) {
 		super();
 		this.id = id;
@@ -113,7 +135,10 @@ public class ExpensesDto implements Serializable {
 
 	public ExpensesDto() {
 		this.user_id = "";
+<<<<<<< HEAD
 		this.id = 0;
+=======
+>>>>>>> 4aa7962d2502de930d46a2127e2320a71ea786e3
 		this.amount = 0;
 		this.emotion = "";
 		this.category = "";
