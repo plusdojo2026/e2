@@ -78,40 +78,16 @@ public class ListServlet extends HttpServlet {
 		// カレンダーから取得した年月で一覧表示
 		List<Incomes> incomeList = incomesDao.selectByCalendar(userId, yearMonth);
 
-<<<<<<< Updated upstream
-		// カテゴリ単位の合計算出
-		Map<String, List<Incomes>> incomeCategoryMap = incomeList.stream()
-				.collect(Collectors.groupingBy(Incomes::getCategory, LinkedHashMap::new, Collectors.toList()));
 
-		// カテゴリ単位の合計算出
-=======
 		// カテゴリを取得
 		Map<String, List<Incomes>> incomeCategoryMap = incomeList.stream()
 				.collect(Collectors.groupingBy(Incomes::getCategory, LinkedHashMap::new, Collectors.toList()));
 
 		// 感情を取得
->>>>>>> Stashed changes
 		Map<String, List<Incomes>> incomeEmotionMap = incomeList.stream()
 				.collect(Collectors.groupingBy(Incomes::getEmotion, LinkedHashMap::new, Collectors.toList()));
 
 		// 収入合計の算出
-<<<<<<< Updated upstream
-		Map<String, Integer> incomeTotalMap = new LinkedHashMap<>();
-
-		for (Map.Entry<String, List<Incomes>> entry : incomeCategoryMap.entrySet()) {
-
-			int total = 0;
-
-			for (Incomes i : entry.getValue()) {
-				if (i.getAmount() != null) {
-					total += i.getAmount();
-				}
-			}
-
-			incomeTotalMap.put(entry.getKey(), total);
-		}
-
-=======
 		Map<String, Integer> incomeTotalMap = incomeList.stream().collect(Collectors.groupingBy(Incomes::getCategory,
 				LinkedHashMap::new, Collectors.summingInt(i -> i.getAmount() == null ? 0 : i.getAmount())));
 
@@ -150,13 +126,10 @@ public class ListServlet extends HttpServlet {
 				selectedEmotionTotal += i.getAmount();
 			}
 		}
->>>>>>> Stashed changes
+
 		// jspに表示
 		request.setAttribute("incomeTotalMap", incomeTotalMap);
 		request.setAttribute("incomeCategoryMap", incomeCategoryMap);
-<<<<<<< Updated upstream
-		request.setAttribute("incomeTotalMap", incomeTotalMap);
-=======
 		request.setAttribute("incomeEmotionMap", incomeEmotionMap);
 
 		request.setAttribute("selectedCategoryTotal", selectedCategoryTotal);
@@ -166,7 +139,7 @@ public class ListServlet extends HttpServlet {
 		request.setAttribute("emotionIncomeList", emotionIncomeList);
 		request.setAttribute("selectedCategory", selectedCategory);
 		request.setAttribute("selectedEmotion", selectedEmotion);
->>>>>>> Stashed changes
+
 
 		// デバック用
 		System.out.println("取得件数 = " + incomeList.size());
