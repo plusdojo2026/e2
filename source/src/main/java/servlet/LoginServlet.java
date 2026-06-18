@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dao.UserDao;
+import dto.UserDto;
+
+
 /**
  * Servlet implementation class LoginServlet
  */
@@ -33,45 +37,38 @@ public class LoginServlet extends HttpServlet {
 				//ログインの結果がIdPwと一致しているのか
 				// (IdPw)はインスタンスを関連付けしていることを保証する
 				 Object ip = null; //(IdPw)request.getSession().getAttribute("login");
-				//ログインしできたらホーム画面に飛ぶ
-				//ログインしていなかったらログイン画面のまま
-				if(ip == null) {
-					RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
-					dispatcher.forward(request, response);
-				}else {
-					response.sendRedirect("HomeServlet");
-				}
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+				dispatcher.forward(request, response);
 	}
 	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+		protected void doPost(HttpServletRequest request, HttpServletResponse response)
+				throws ServletException, IOException {
 
-		request.setCharacterEncoding("UTF-8");
-		String id = request.getParameter("id");
-		String pw = request.getParameter("pw");
-		request.getSession().setAttribute("user_id", "test");
-		response.sendRedirect("HomeServlet");
-		//IdPwのDTO
-				////IdPw idpw = new IdPw(id,pw);
-				//IdPwのDao
-				////IdPwDao idpwDao = new IdPwDao();
-				//セレクトの実行
-				////List<IdPw> result= idpwDao.select(idpw);
+
+
+
+		    request.setCharacterEncoding("UTF-8");
+		
+		    String id = request.getParameter("id");
+		    String pw = request.getParameter("pw");
+		
+		    UserDao dao = new UserDao();
+		    
+		    UserDto user = new UserDto();
+			user.setId(id);
+			user.setPw(pw);
 
 		
-		//取得できたパスワードと一致していたらホームサーブレットにリダイレクトする
-		//result.get(0)はログインしているユーザーのこと
-//		if(result.size()==1&& result.get(0).getPw().equals(pw)) {
-//			//セッションスコープでログインとユーザーを紐付ける
-//			request.getSession().setAttribute("login", result.get(0));
-//			response.sendRedirect("HomeServlet");
-//		}else {
-//			RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
-//			dispatcher.forward(request, response);
-//			
-//		}
+		    boolean isLogin = dao.Login(user);
 		
-		
-	}
-
+		    if (isLogin) {
+		        request.getSession().setAttribute("user_id", id);
+		        response.sendRedirect("HomeServlet");
+	
+		    } else {
+		        RequestDispatcher dispatcher =
+		            request.getRequestDispatcher("/WEB-INF/jsp/login.jsp");
+		        dispatcher.forward(request, response);
+		    }
+		}
 }
