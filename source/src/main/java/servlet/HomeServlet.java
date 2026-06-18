@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -11,7 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.BudgetDao;
+import dao.ExpensesDao;
+import dao.IncomesDao;
 import dto.BudgetDto;
+import dto.ExpensesDto;
+import dto.Incomes;
 
 /**
  * Servlet implementation class HomeServlet
@@ -39,18 +45,17 @@ public class HomeServlet extends HttpServlet {
 		// 予算、目標貯金額DAO生成
 		BudgetDao budgetDao = new BudgetDao();
 		// 収入DAO生成
-		//IncomesDao incomesDao = new IncomesDao();
+		IncomesDao incomesDao = new IncomesDao();
 		// 支出DAO生成
-		// ExpensesDao expensesDao = new ExpensesDao();
+		ExpensesDao expensesDao = new ExpensesDao();
 
 		// 予算・目標貯金額取得
 		List<BudgetDto> budgetList = budgetDao.select(userId);
 		// 収入取得
-		//List<Incomes> incomeList = incomesDao.selectByUser(userId);
+		List<Incomes> incomeList = incomesDao.selectByUser(userId);
 		// 支出取得
-		// List<Expenses> expenseList = expensesDao.select(userId);
-		
-		/*
+		List<ExpensesDto> expenseList = expensesDao.selectByUser(userId);
+
 		// 今月の年月を取得
 		YearMonth thisMonth = YearMonth.now();
 		
@@ -58,18 +63,29 @@ public class HomeServlet extends HttpServlet {
 		// 今月の収入合計
 		int incomesTotal = 0;
 		for (Incomes income : incomeList) {
-			YearMonth incomeMonth = YearMonth.parse(income.getCreated_at());
+			//yyyy-MM-dd → LocalDate
+			LocalDate date = LocalDate.parse(income.getCreated_at());
+			//LocalDate → YearMonth
+			YearMonth incomeMonth = YearMonth.from(date);
+			//今月かチェック
 			if (incomeMonth.equals(thisMonth)) {
 				incomesTotal += income.getAmount();
 			}
-		}*/
-
+		}
+		
 		// 今月の支出合計
-		/*
-		 * int expensesTotal = 0; for (Expenses expence : expenceList) { YearMonth
-		 * expenceMonth = YearMonth.parse(expence.getCreated_at()); if
-		 * (expenceMonth.equals(thisMonth)) { incomesTotal += expence.getAmount(); } }
-		 */
+		int expensesTotal = 0;
+		for (ExpensesDto expense : expenseList) {
+			//yyyy-MM-dd → LocalDate
+			LocalDate date = LocalDate.parse(expense.getCreated_at());
+			//LocalDate → YearMonth
+			YearMonth expenseMonth = YearMonth.from(date);
+			//今月かチェック
+			if (expenseMonth.equals(thisMonth)) {
+				expensesTotal += expense.getAmount();
+			}
+		}
+
 
 		// 予算、目標貯金額データ取り出す
 		BudgetDto budget;
@@ -83,13 +99,33 @@ public class HomeServlet extends HttpServlet {
 		}
 
 		// 残金計算
-		// int balance = budget - expenceTotal;
+		int balance = budget.getBudget_amount() - expensesTotal;
+		
+		// 目標貯金額の進捗
+		int goalAmount = budget.getGoal_amount();
+		int savedAmount = incomesTotal - expensesTotal; // 今の貯金額（例）
+
+		int goalPercent = 0;
+		if (goalAmount > 0) {
+		    goalPercent = Math.min(100, savedAmount * 100 / goalAmount);
+		}
+
+		// 予算消化率
+		int budgetAmount = budget.getBudget_amount();
+		int budgetPercent = 0;
+		if (budgetAmount > 0) {
+		    budgetPercent = Math.min(100, expensesTotal * 100 / budgetAmount);
+		}
+
+		request.setAttribute("goalPercent", goalPercent);
+		request.setAttribute("budgetPercent", budgetPercent);
 
 		// JSPへ渡す
 		request.setAttribute("budget", budget);
-		//request.setAttribute("incomesTotal", incomesTotal);
-		// request.setAttribute("expencesTotal", expencesTotal);
-		// request.setAttribute("balance", balance);
+
+		request.setAttribute("incomesTotal", incomesTotal);
+		request.setAttribute("expensesTotal", expensesTotal);
+		request.setAttribute("balance", balance);
 
 		// ホームページにフォワードする
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/home.jsp");

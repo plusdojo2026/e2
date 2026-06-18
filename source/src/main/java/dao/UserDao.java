@@ -10,7 +10,7 @@ import dto.UserDto;
 
 public class UserDao {
 	// 引数で指定されたidpwでログイン成功ならtrueを返す
-		public boolean isLoginOK(UserDto user) {
+		public boolean Login(UserDto user) {
 			Connection conn = null;
 			boolean loginResult = false;
 
