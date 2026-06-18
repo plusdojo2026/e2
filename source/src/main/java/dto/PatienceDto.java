@@ -3,8 +3,9 @@ package dto;
 import java.io.Serializable;
 
 public class PatienceDto implements Serializable {
-
-    private String user_id;
+	
+	private Integer id;
+	private String user_id;
     private Integer amount;
     private String emotion;
     private String category;
@@ -14,7 +15,14 @@ public class PatienceDto implements Serializable {
     private String created_at;
 
     // ===== Getter / Setter =====
+    
+    public Integer getId() {
+		return id;
+	}
 
+	public void setId(Integer id) {
+		this.id = id;
+	}
     public String getUser_id() {
         return user_id;
     }
@@ -79,19 +87,10 @@ public class PatienceDto implements Serializable {
         this.created_at = created_at;
     }
 
-	private Integer id;
-	
-	public Integer getId() {
-	    return id;
-	}
-	
-	public void setId(Integer id) {
-	    this.id = id;
-	}
-
 
     
         public PatienceDto(
+        	Integer id,
             String user_id,
             Integer amount,
             String emotion,
@@ -101,7 +100,8 @@ public class PatienceDto implements Serializable {
             String memo,
             String created_at)
         {
-            this.user_id = user_id;
+            this.id = id;
+        	this.user_id = user_id;
             this.amount = amount;
             this.emotion = emotion;
             this.category = category;
@@ -110,9 +110,16 @@ public class PatienceDto implements Serializable {
             this.memo = memo;
             this.created_at = created_at;
         }
-
-        public PatienceDto() {
-            this("", 0, "", "", "", "", "", "");
-        }
+       public PatienceDto() {
+		    this.id = 0;
+		    this.user_id = "";
+		    this.amount = 0;
+		    this.emotion = "";
+		    this.category = "";
+		    this.situation = "";
+		    this.item_name = "";
+		    this.memo = "";
+		    this.created_at = "";
+}
 
 }

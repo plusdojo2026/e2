@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,8 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-//import dao.patienceDao;
-//import dto.patience;
+import dao.CategoryDao;
+import dao.EmotionDao;
+import dao.PatienceDao;
+import dao.SituationDao;
+import dto.KeyValueDto;
+import dto.PatienceDto;
 
 @WebServlet("/Regist3Servlet")
 public class Regist3Servlet extends HttpServlet {
@@ -28,7 +33,24 @@ public class Regist3Servlet extends HttpServlet {
             response.sendRedirect("LoginServlet");
             return;
         }
+        
+        // カテゴリセレクトの項目取得(カテゴリのみ支出・我慢)
+ 		CategoryDao cDao = new CategoryDao();
+ 		List<KeyValueDto> categoryList = cDao.selectEP();
 
+ 		request.setAttribute("categoryList", categoryList);
+ 		
+ 	// 感情セレクトの項目取得
+		EmotionDao eDao = new EmotionDao();
+		List<KeyValueDto> emotionList = eDao.select();
+
+		request.setAttribute("emotionList", emotionList);
+		
+	//状況セレクトの項目事項
+		SituationDao sDao = new SituationDao();
+		List<KeyValueDto> situationList = sDao.select();
+		
+		request.setAttribute("situationList", situationList);
         // 登録画面へ
         RequestDispatcher dispatcher =
                 request.getRequestDispatcher("/WEB-INF/jsp/regist3.jsp");
@@ -61,13 +83,13 @@ public class Regist3Servlet extends HttpServlet {
         String memo = request.getParameter("memo");
 
         // DAO
-        //patienceDao dao = new patienceDao();
+        PatienceDao dao = new PatienceDao();
 
-        // DTO（ここ重要：user_id入れてる）
-        //patience income = new patience(0,user_id,created_at,amount, emotion, category, situation, item_name,memo);
+        // DTO
+        PatienceDto patience = new PatienceDto(0, user_id,amount,emotion,category,situation,item_name,memo,created_at);
 
         // DB登録
-        //dao.insert(income);
+        dao.insert(patience);
 
         // 結果画面へ
         RequestDispatcher dispatcher =

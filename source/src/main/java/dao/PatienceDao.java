@@ -110,7 +110,7 @@ public class PatienceDao {
 			ResultSet rs = pStmt.executeQuery();
 
 			while (rs.next()) {
-				PatienceDto patience = new PatienceDto(rs.getString("user_id"),rs.getInt("amount"),
+				PatienceDto patience = new PatienceDto(rs.getInt("id"),rs.getString("user_id"),rs.getInt("amount"),
 						rs.getString("emotion"),rs.getString("category"),rs.getString("situation"), 
 						rs.getString("item_name"), rs.getString("memo"),rs.getString("created_at"));
 
@@ -218,7 +218,7 @@ public class PatienceDao {
 			ResultSet rs = pStmt.executeQuery();
 
 			while (rs.next()) {
-				PatienceDto patience = new PatienceDto( rs.getString("user_id"),rs.getInt("amount"),
+				PatienceDto patience = new PatienceDto(rs.getInt("id"), rs.getString("user_id"),rs.getInt("amount"),
 						rs.getString("emotion"),rs.getString("category"), rs.getString("situation"),
 						rs.getString("item_name"), rs.getString("memo"),rs.getString("created_at"));
 

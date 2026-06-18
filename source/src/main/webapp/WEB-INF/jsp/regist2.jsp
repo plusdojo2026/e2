@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -21,7 +22,7 @@
 
     <!-- フォーム -->
     <div class="content">
-      
+      	<form id="expenditureForm" action="ExpenseRegisterServlet" method="post">
         <div class="tabs">
 			  <button type="button" class="tab active" onclick="location.href='Regist2Servlet'">収入</button>
 	          <button type="button" class="tab" onclick="location.href='Regist1Servlet'">支出</button>
@@ -66,15 +67,14 @@
         <!-- カテゴリ -->
         <div class="field-wrap" style="margin-bottom:8px;">
           <div class="label-tag">カテゴリ</div>
-          <select class="select-field" id="categories" name="categories">
-            <option value="" disabled selected>カテゴリを選択</option>
-            <option value="食費">食費</option>
-            <option value="交通費">交通費</option>
-            <option value="日用品">日用品</option>
-            <option value="娯楽">娯楽</option>
-            <option value="医療費">医療費</option>
-            <option value="その他">その他</option>
-          </select>
+           <select class="select-field" id ="category" name="category">
+          <option value="" disabled selected>カテゴリを選択</option>
+		  <c:forEach var="c" items="${categoryList}">
+		    <option value="${c.key}">
+		      ${c.value}
+		    </option>
+		  </c:forEach>
+		</select>
           <div class="error-msg" id="errCategory">カテゴリを選択してください</div>
         </div>
         <!-- ボタン -->
@@ -113,10 +113,10 @@
     <div class="modal-card">
       <h3>感情を選んでください</h3>
       <div class="emotion-grid">
-        <button type="button" class="emotion-opt" data-val="😊">😊 嬉しい</button>
-        <button type="button" class="emotion-opt" data-val="😐">😐 普通</button>
-        <button type="button" class="emotion-opt" data-val="😔">😔 後悔</button>
-        <button type="button" class="emotion-opt" data-val="😌">😌 満足</button>
+        <button type="button" class="emotion-opt" data-val="1">😊 嬉しい</button>
+        <button type="button" class="emotion-opt" data-val="2">😐 普通</button>
+        <button type="button" class="emotion-opt" data-val="3">😔 後悔</button>
+        <button type="button" class="emotion-opt" data-val="4">😌 満足</button>
       </div>
       <button type="button" class="modal-close" id="modalClose">閉じる</button>
     </div>
