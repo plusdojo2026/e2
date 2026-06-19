@@ -35,15 +35,14 @@
 					</label></td>
 				</tr>
 				<tr>
-    <td colspan="2">
-    <span id="error_message">
-        <% if (request.getAttribute("errorMsg") != null) { %>
-            <%= request.getAttribute("errorMsg") %>
-        <% } %>
-    </span>
-    <br>
-</td>
-</tr>
+					<td colspan="2"><span id="error_message"> <%
+ if (request.getAttribute("errorMsg") != null) {
+ %>
+							<%=request.getAttribute("errorMsg")%> <%
+ }
+ %>
+					</span> <br></td>
+				</tr>
 				<tr>
 					<td>
 
@@ -71,8 +70,8 @@
 					</td>
 				</tr>
 				<tr>
-					<td colspan="2" style="text-align: center;"><br>
-					<br> <a href="SignupServlet">新規登録はこちら</a></td>
+					<td colspan="2" style="text-align: center;"><br> <br>
+						<a href="SignupServlet">新規登録はこちら</a></td>
 				</tr>
 			</table>
 		</form>
@@ -81,29 +80,7 @@
 	<!-- メイン（ここまで） -->
 	<!-- フッター（ここから） -->
 	<footer> </footer>
-	<!-- JavaScript（ここから） -->
-	<script>
-		/* HTML要素をオブジェクトとして取得する */
-		let formObj = document.getElementById('login_form');
-		let errorMessageObj = document.getElementById('error_message');
-
-		/* [ログイン]ボタンをクリックしたときの処理 */
-		/* [ログイン]ボタンをクリックしたときの処理 */
-		formObj.onsubmit = function(event) {
-
-			// 前回のエラーメッセージを消す
-			errorMessageObj.textContent = '';
-
-			if (formObj.id.value === '' || formObj.pw.value === '') {
-				errorMessageObj.textContent = 'IDとパスワードを入力してください';
-				event.preventDefault();
-			}
-		};
-		/* [リセット]ボタンをクリックしたときの処理 */
-		formObj.onreset = function() {
-			errorMessageObj.textContent = null;
-		};
-	</script>
-	<!-- JavaScript（ここまで） -->
+	<footer></footer>
+<script src="${pageContext.request.contextPath}/js/login.js"></script>
 </body>
 </html>
