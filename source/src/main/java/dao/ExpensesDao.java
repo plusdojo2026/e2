@@ -237,11 +237,10 @@ public class ExpensesDao {
 			pStmt.setString(2, expense.getEmotion());
 			pStmt.setString(3, expense.getCategory());
 			pStmt.setString(4, expense.getSituation());
-			pStmt.setString(5, expense.getItem_name());
-			pStmt.setString(6, expense.getMemo());
-			pStmt.setString(7, expense.getCreated_at());
-			pStmt.setString(8, expense.getTag());
-			pStmt.setInt(9, expense.getId());
+			pStmt.setString(5, expense.getCreated_at());
+			pStmt.setString(6, expense.getTag());
+			pStmt.setInt(7, expense.getId());
+			
 
 			// SQL文を実行して結果を取得する
 			if (pStmt.executeUpdate() == 1) {

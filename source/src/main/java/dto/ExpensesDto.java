@@ -127,18 +127,20 @@ public class ExpensesDto implements Serializable {
 		this.tag = tag;
 	}
 
-
-	public ExpensesDto() {
-		this.user_id = "";
-		this.id = 0;
-		this.amount = 0;
-		this.emotion = "";
-		this.category = "";
-		this.situation = "";
-		this.item_name = "";
-		this.memo = "";
-		this.created_at = "";
-		this.tag = "";
+	public ExpensesDto(int id,String user_id, String created_at, Integer amount, String emotion, String category ,String tag,String situation) {
+		this.id = id;
+		this.user_id = user_id;
+		this.created_at = created_at;
+		this.amount = amount;
+		this.emotion = emotion;
+		this.category = category;
+		this.situation = situation;
+		this.tag = tag;
 	}
+
+
+
+
+
 
 }

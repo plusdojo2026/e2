@@ -122,4 +122,24 @@ public class PatienceDto implements Serializable {
 		    this.created_at = "";
 }
 
+	public PatienceDto(String user_id, int amount, String created_at, String category, String emotion, String situation) {
+    	this.user_id = user_id;
+        this.amount = amount;
+        this.emotion = emotion;
+        this.category = category;
+        this.situation = situation;
+        this.created_at = created_at;
+	}
+
+	public PatienceDto(int id, String user_id, String created_at, int amount, String emotion, String category,
+			String situation) {
+		this.id = id;
+    	this.user_id = user_id;
+        this.amount = amount;
+        this.emotion = emotion;
+        this.category = category;
+        this.situation = situation;
+        this.created_at = created_at;
+	}
+
 }

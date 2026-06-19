@@ -110,9 +110,9 @@ public class PatienceDao {
 			ResultSet rs = pStmt.executeQuery();
 
 			while (rs.next()) {
-				PatienceDto patience = new PatienceDto(rs.getInt("id"),rs.getString("user_id"),rs.getInt("amount"),
-						rs.getString("emotion"),rs.getString("category"),rs.getString("situation"), 
-						rs.getString("item_name"), rs.getString("memo"),rs.getString("created_at"));
+				PatienceDto patience = new PatienceDto(rs.getInt("id"), rs.getString("user_id"), rs.getInt("amount"),
+						rs.getString("emotion"), rs.getString("category"), rs.getString("situation"),
+						rs.getString("item_name"), rs.getString("memo"), rs.getString("created_at"));
 
 				patienceList.add(patience);
 			}
@@ -218,9 +218,9 @@ public class PatienceDao {
 			ResultSet rs = pStmt.executeQuery();
 
 			while (rs.next()) {
-				PatienceDto patience = new PatienceDto(rs.getInt("id"), rs.getString("user_id"),rs.getInt("amount"),
-						rs.getString("emotion"),rs.getString("category"), rs.getString("situation"),
-						rs.getString("item_name"), rs.getString("memo"),rs.getString("created_at"));
+				PatienceDto patience = new PatienceDto(rs.getInt("id"), rs.getString("user_id"), rs.getInt("amount"),
+						rs.getString("emotion"), rs.getString("category"), rs.getString("situation"),
+						rs.getString("item_name"), rs.getString("memo"), rs.getString("created_at"));
 
 				patienceList.add(patience);
 			}
@@ -233,4 +233,48 @@ public class PatienceDao {
 
 		return patienceList;
 	}
+
+	public List<PatienceDto> selectByCalendar(String user_id, String date) {
+		List<PatienceDto> patienceList = new ArrayList<>();
+
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			Connection conn = DriverManager
+					.getConnection(
+							"jdbc:mysql://localhost:3306/kakemi_db" + "?characterEncoding=utf8" + "&useSSL=false"
+									+ "&serverTimezone=Asia/Tokyo" + "&allowPublicKeyRetrieval=true",
+							"root", "password");
+
+			String sql = "SELECT * FROM patience " + "WHERE user_id = ? " + "AND created_at LIKE ? "
+					+ "ORDER BY created_at";
+			PreparedStatement pStmt = conn.prepareStatement(sql);
+			pStmt.setString(1, user_id);
+			pStmt.setString(2, date + "%");
+
+			ResultSet rs = pStmt.executeQuery();
+
+			while (rs.next()) {
+				PatienceDto patience = new PatienceDto(
+				    rs.getString("user_id"),
+				    rs.getInt("amount"),
+				    rs.getString("created_at"),
+				    rs.getString("category"),
+				    rs.getString("emotion"),
+				    rs.getString("situation")
+				);
+
+				patience.setId(rs.getInt("id"));
+				patienceList.add(patience);
+			}
+
+			conn.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return patienceList;
+	}
+
 }
