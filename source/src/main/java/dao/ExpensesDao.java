@@ -230,7 +230,7 @@ public class ExpensesDao {
 					"root", "password");
 
 			// SQL
-			String sql = "UPDATE expenses SET  amount=?,created_at=?,category=?,item_name=?,memo=?,emotion=?,situation=?  + WHERE user_id=?";
+			String sql = "UPDATE expenses SET  amount=?,created_at=?,category=?,item_name=?,memo=?,emotion=?,situation=?  + WHERE id=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			pStmt.setInt(1, expense.getAmount());
