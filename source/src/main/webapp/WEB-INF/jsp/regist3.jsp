@@ -24,9 +24,9 @@
     <div class="content">
       <form id="expenditureForm" action="Regist3Servlet" method="post">
         <div class="tabs">
-			  <button type="button" class="tab active" onclick="location.href='Regist2Servlet'">収入</button>
+			  <button type="button" class="tab" onclick="location.href='Regist2Servlet'">収入</button>
 	          <button type="button" class="tab" onclick="location.href='Regist1Servlet'">支出</button>
-	          <button type="button" class="tab" onclick="location.href='Regist3Servlet'">我慢</button>
+	          <button type="button" class="tab active" onclick="location.href='Regist3Servlet'">我慢</button>
 		</div>
 
         <!-- タブの中身　-->

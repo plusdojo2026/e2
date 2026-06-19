@@ -46,7 +46,7 @@ public class Regist2Servlet extends HttpServlet {
      		request.setAttribute("emotionList", emotionList);
         // 登録画面へ
         RequestDispatcher dispatcher =
-                request.getRequestDispatcher("/WEB-INF/jsp/regist1.jsp");
+                request.getRequestDispatcher("/WEB-INF/jsp/regist2.jsp");
         dispatcher.forward(request, response);
     }
 
