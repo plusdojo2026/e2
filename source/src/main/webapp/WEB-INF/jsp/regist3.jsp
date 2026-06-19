@@ -30,14 +30,6 @@
 		</div>
 
         <!-- タブの中身　-->
-        <div id="income" class="content active">
-        </div>
-
-        <div id="expense" class="content">
-        </div>
-
-        <div id="save" class="content">
-        </div>
         <div class="form-row">
           <div class="field-group">
 
