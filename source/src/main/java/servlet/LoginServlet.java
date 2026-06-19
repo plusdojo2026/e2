@@ -71,7 +71,7 @@ public class LoginServlet extends HttpServlet {
 		// 取得できたパスワードと一致していたらホームサーブレットにリダイレクトする
 		if (result) {
 			HttpSession session = request.getSession();
-			session.setAttribute("login", idpw);
+			session.setAttribute("user_id", id);
 			response.sendRedirect("HomeServlet");
 		} else {
 			// 異なる場合はエラーを表示し、遷移しない
