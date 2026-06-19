@@ -1,7 +1,7 @@
 
 // 今日の日付をセット（サーバー側でセットできない場合のフォールバック）
 window.addEventListener('DOMContentLoaded', function () {
-    var dateField = document.getElementById('expenditureDate');
+    var dateField = document.getElementById('created_at');
     if (!dateField.value) {
         var now = new Date();
         var y = now.getFullYear();
@@ -24,7 +24,7 @@ document.querySelectorAll('.emotion-opt').forEach(function (btn) {
     btn.addEventListener('click', function () {
         document.querySelectorAll('.emotion-opt').forEach(function (b) { b.classList.remove('selected'); });
         btn.classList.add('selected');
-        document.getElementById('emotionLabel').textContent = btn.dataset.val;
+        document.getElementById('emotionLabel').textContent = btn.textContent;
         document.getElementById('emotion').value = btn.dataset.val;
         document.getElementById('emotionModal').classList.remove('open');
     });
@@ -37,7 +37,7 @@ document.getElementById('resetBtn').addEventListener('click', function () {
     var y = now.getFullYear();
     var m = String(now.getMonth() + 1).padStart(2, '0');
     var d = String(now.getDate()).padStart(2, '0');
-    document.getElementById('expenditureDate').value = y + '/' + m + '/' + d;
+    document.getElementById('created_at').value = y + '-' + m + '-' + d;
     document.getElementById('emotionLabel').textContent = '感情';
     document.getElementById('emotion').value = '';
     document.querySelectorAll('.emotion-opt').forEach(function (b) { b.classList.remove('selected'); });
@@ -49,9 +49,9 @@ document.getElementById('expenditureForm').addEventListener('submit', function (
     var valid = true;
 
     // 日付
-    var date = document.getElementById('expenditureDate').value;
+    var date = document.getElementById('created_at').value;
     var dateErr = document.getElementById('errDate');
-    if (!/^\d{4}\/\d{2}\/\d{2}$/.test(date)) {
+    if  (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
         dateErr.style.display = 'block'; valid = false;
     } else { dateErr.style.display = 'none'; }
 
@@ -63,7 +63,7 @@ document.getElementById('expenditureForm').addEventListener('submit', function (
     } else { amountErr.style.display = 'none'; }
 
     // 商品名
-    var itemName = document.getElementById('itemName').value.trim();
+    var itemName = document.getElementById('item_name').value.trim();
     var itemErr = document.getElementById('errItemName');
     if (!itemName) {
         itemErr.style.display = 'block'; valid = false;

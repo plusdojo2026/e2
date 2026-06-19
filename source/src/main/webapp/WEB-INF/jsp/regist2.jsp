@@ -45,6 +45,7 @@
             <div class="field-wrap">
               <div class="label-tag">日付</div>
               <input class="input-field" type="date" id="created_at" name="created_at"placeholder="日付を入力してください"value="">
+              <div class="error-msg" id="errDate">日付を入力してください</div>
             </div>
 
             <!-- 金額 -->

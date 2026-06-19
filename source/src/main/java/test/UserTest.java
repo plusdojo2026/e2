@@ -22,7 +22,7 @@ public class UserTest {
 	System.out.println(insertResult);
 	
 	// ② ログイン
-	boolean loginResult = dao.isLoginOK(user);
+	boolean loginResult = dao.Login(user);
 	System.out.println(loginResult);
 		}
 }
