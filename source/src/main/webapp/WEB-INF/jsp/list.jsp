@@ -15,7 +15,7 @@
 
 <body>
 	<header> 一覧 </header>
-	
+
 
 	<!-- タブ -->
 	<div class="tabs">
@@ -38,89 +38,74 @@
 				onchange="this.form.submit()">
 		</form>
 
-		<c:forEach var="entry" items="${incomeCategoryMap}" varStatus="st">
-
-
-			<div class="tcard">
-
-				<div class="header"
-					onclick="toggleContent('cat${st.index}_it', this)">
-					<span> 月の収入総合計 </span> <span class="amount">
-						¥${incomeTotalMap[entry.key]} </span> <span class="arrow">▼</span>
-
-				</div>
-
-				<div id="cat${st.index}_it" class="detail" style="display: none;">
-					<form method="post" action="ListServlet">
-						<c:forEach var="e" items="${entry.value}">
-
-							<div class="row-item">
-								<input type="checkbox" name="deleteIds" value="${e.id}">
-
-								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="created_at" value="${e.created_at}"> <select
-									name="category">
-									<c:forEach var="c" items="${categoryList}">
-										<option value="${c.key}"
-											<c:if test="${c.key == e.category}">selected</c:if>>
-											${c.value}</option>
-									</c:forEach>
-								</select> <select name="emotion" class="emo">
-									<c:forEach var="em" items="${emotionList}">
-										<option value="${em.key}"
-											<c:if test="${em.key == e.emotion}">selected
-                                            </c:if>>
-											${em.value}</option>
-									</c:forEach>
-								</select> <input type="text" name="amount" value="${e.amount}">
-							</div>
-						</c:forEach>
-						<div class="buttons">
-
-							<input type="submit" name="submit" value="編集"> <input
-								type="submit" name="submit" value="削除">
-						</div>
-
-					</form>
-				</div>
 
 
 
+		<div class="tcard">
+			<div class="header" onclick="toggleContent(this,'cat_it',0)">
+				<span> 月の収入総合計 </span> <span class="amount"> ¥${incomeTotal}
+				</span> <span class="arrow">▼</span>
 			</div>
+			<div id="cat_it" class="detail" style="display: none;">
+				<form method="post" action="ListServlet">
+					<c:forEach var="e" items="${incomeList}">
+						<div class="row-item">
+							<input type="checkbox" name="deleteIds" value="${e.id}">
+							<input type="hidden" name="id" value="${e.id}"> <input
+								type="date" name="created_at" value="${e.created_at}"> <select
+								name="category">
+								<c:forEach var="c" items="${categoryList}">
+									<option value="${c.key}"
+										<c:if test="${c.key == e.category}">selected</c:if>>
+										${c.value}</option>
+								</c:forEach>
+							</select> <select name="emotion" class="emo">
+								<c:forEach var="em" items="${emotionList}">
+									<option value="${em.key}"
+										<c:if test="${em.key == e.emotion}">selected
+                                            </c:if>>
+										${em.value}</option>
+								</c:forEach>
+							</select> <input type="text" name="amount" value="${e.amount}">
+						</div>
+					</c:forEach>
+					<div class="buttons">
+						<input type="submit" name="submit" value="edit">編集 <input
+							type="submit" name="submit" value="delete">削除
+					</div>
+				</form>
+			</div>
+		</div>
 
-			<div class="ccard">
 
+
+		<div class="ccard" id="income_ccard">
+			<form method="post" action="ListServlet">
 				<div class="header"
-					onclick="toggleContent('cat${st.index}_ic', this)">
-
-
-
-					<select name="tag" id="select_menu">
+					onclick="toggleContent(this,'cat_ic','select_menu','income_ccard')">
+					<select name="selectedCategory" id="select_menu">
 						<c:forEach var="c" items="${categoryList}">
 							<option value="${c.key}">${c.value}</option>
 						</c:forEach>
-
-
-					</select> の収入合計 <span class="amount"> ¥${categoryTotalMap[entry.key]}
-					</span> <span class="arrow">▼</span>
-
+					</select> <span class="arrow">▼</span>
 				</div>
 
-				<div id="cat${st.index}_ic" class="detail" style="display: none;">
 
 
+				<c:forEach var="entry" items="${incomeCategoryMap}" varStatus="st">
+					<div id="cat_ic_${entry.key-1}" class="detail"
+						style="display: none;">
+						<span>収入合計</span> <span class="amount">
+							¥${incomeTotalCategoryMap[entry.key]} </span>
 
-					<form method="post" action="ListServlet">
-
-						<c:forEach var="e" items="${entry.value}">
+						<c:forEach var="e" items="${entry.value}" varStatus="row">
 
 							<div class="row-item">
 
 								<input type="checkbox" name="deleteIds" value="${e.id}">
-
-								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="created_at" value="${e.created_at}"> <select
-									name="category">
+								<input type="hidden" name="id" value="${e.id}">
+								<input type="date" name="created_at" value="${e.created_at}">
+								<select name="category">
 									<c:forEach var="c" items="${categoryList}">
 										<option value="${c.key}"
 											<c:if test="${c.key == e.category}">selected</c:if>>
@@ -137,32 +122,38 @@
 							</div>
 						</c:forEach>
 						<div class="buttons">
+						<input type="submit" name="submit" value="edit"> <input
+							type="submit" name="submit" value="delete">
+					</div>
+					</div>
+				</c:forEach>
 
-							<input type="submit" name="submit" value="編集"> <input
-								type="submit" name="submit" value="削除">
-						</div>
 
-					</form>
-				</div>
-			</div>
+			</form>
+		</div>
 
-			<div class="ecard">
-
+		<div class="ecard" id="income_ecard">
+			<form method="post" action="ListServlet">
 				<div class="header"
-					onclick="toggleContent('cat${st.index}_ie', this)">
+					onclick="toggleContent(this,'cat_ie','inemoselect_menu','income_ecard')">
 
-					<span> <select name="emotion" id="select_menu">
-							<c:forEach var="em" items="${emotionList}">
-								<option value="${em.key}">${em.value}</option>
-							</c:forEach>
-					</select> の収入合計
-					</span> <span class="amount"> ¥${categoryTotalMap[entry.key]} </span> <span
-						class="arrow">▼</span>
+
+					<select name="inemo" id="inemoselect_menu">
+						<c:forEach var="em" items="${emotionList}">
+							<option value="${em.key}">${em.value}</option>
+						</c:forEach>
+
+					</select> <span class="arrow">▼</span>
 
 				</div>
 
-				<div id="cat${st.index}_ie" class="detail" style="display: none;">
-					<form method="post" action="ListServlet">
+				<c:forEach var="entry" items="${incomeEmotionMap}" varStatus="st">
+
+
+					<div id="cat_ie_${entry.key-1}" class="detail"
+						style="display: none;">
+						<span>収入合計</span> <span class="amount">
+							¥${incomeTotalEmotionMap[entry.key]} </span>
 						<c:forEach var="e" items="${entry.value}">
 							<div class="row-item">
 
@@ -170,8 +161,8 @@
 								<input type="checkbox" name="deleteIds" value="${e.id}">
 
 								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="created_at" value="${e.created_at}"> <select
-									name="category">
+									type="date" name="created_at" value="${e.created_at}">
+								<select name="category">
 									<c:forEach var="c" items="${categoryList}">
 										<option value="${c.key}"
 											<c:if test="${c.key == e.category}">selected</c:if>>
@@ -187,16 +178,16 @@
 								</select> <input type="text" name="amount" value="${e.amount}">
 							</div>
 						</c:forEach>
-
 						<div class="buttons">
 
 							<input type="submit" name="submit" value="編集"> <input
 								type="submit" name="submit" value="削除">
 						</div>
-					</form>
-				</div>
-			</div>
-		</c:forEach>
+					</div>
+				</c:forEach>
+			</form>
+		</div>
+
 	</div>
 
 	<div id="expense" class="content">
@@ -216,7 +207,7 @@
 
 				</div>
 
-				<div id="cat${st.index}_t" class="detail" style="display: none;">
+				<div id="cat_${st.index}_t" class="detail" style="display: none;">
 					<form method="post" action="ListServlet">
 						<c:forEach var="e" items="${entry.value}">
 
@@ -226,8 +217,8 @@
 								<input type="checkbox" name="deleteIds" value="${e.id}">
 
 								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="created_at" value="${e.created_at}"> <select
-									name="category">
+									type="date" name="created_at" value="${e.created_at}">
+								<select name="category">
 									<c:forEach var="c" items="${categoryList}">
 										<option value="${c.key}"
 											<c:if test="${c.key == e.category}">selected
@@ -259,10 +250,9 @@
 						</c:forEach>
 
 						<div class="buttons">
-
-							<input type="submit" name="submit" value="編集"> <input
-								type="submit" name="submit" value="削除">
-						</div>
+						<input type="submit" name="submit" value="edit">編集 <input
+							type="submit" name="submit" value="delete">削除
+					</div>
 
 
 					</form>
@@ -295,8 +285,8 @@
 								<input type="checkbox" name="deleteIds" value="${e.id}">
 
 								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="created_at" value="${e.created_at}"> <select
-									name="category">
+									type="date" name="created_at" value="${e.created_at}">
+								<select name="category">
 									<c:forEach var="c" items="${categoryList}">
 										<option value="${c.key}"
 											<c:if test="${c.key == e.category}">selected
@@ -342,6 +332,8 @@
 				<div class="header"
 					onclick="toggleContent('cat${st.index}_s', this)">
 
+
+
 					<span> <select name="situetion" id="select_menu">
 							<option value="1">通勤時</option>
 							<option value="2">昼休み</option>
@@ -362,8 +354,8 @@
 								<input type="checkbox" name="deleteIds" value="${e.id}">
 
 								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="created_at" value="${e.created_at}"> <select
-									name="category">
+									type="date" name="created_at" value="${e.created_at}">
+								<select name="category">
 									<c:forEach var="c" items="${categoryList}">
 										<option value="${c.key}"
 											<c:if test="${c.key == e.category}">selected
@@ -428,8 +420,8 @@
 								<input type="checkbox" name="deleteIds" value="${e.id}">
 
 								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="created_at" value="${e.created_at}"> <select
-									name="category">
+									type="date" name="created_at" value="${e.created_at}">
+								<select name="category">
 									<c:forEach var="c" items="${categoryList}">
 										<option value="${c.key}"
 											<c:if test="${c.key == e.category}">selected
@@ -495,8 +487,8 @@
 								<input type="checkbox" name="deleteIds" value="${e.id}">
 
 								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="created_at" value="${e.created_at}"> <select
-									name="category">
+									type="date" name="created_at" value="${e.created_at}">
+								<select name="category">
 									<c:forEach var="c" items="${categoryList}">
 										<option value="${c.key}"
 											<c:if test="${c.key == e.category}">selected
@@ -565,8 +557,8 @@
 								<input type="checkbox" name="deleteIds" value="${e.id}">
 
 								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="created_at" value="${e.created_at}"> <select
-									name="category">
+									type="date" name="created_at" value="${e.created_at}">
+								<select name="category">
 									<c:forEach var="c" items="${categoryList}">
 										<option value="${c.key}"
 											<c:if test="${c.key == e.category}">selected
@@ -626,8 +618,8 @@
 								<input type="checkbox" name="deleteIds" value="${e.id}">
 
 								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="created_at" value="${e.created_at}"> <select
-									name="category">
+									type="date" name="created_at" value="${e.created_at}">
+								<select name="category">
 									<c:forEach var="c" items="${categoryList}">
 										<option value="${c.key}"
 											<c:if test="${c.key == e.category}">selected
@@ -693,8 +685,8 @@
 								<input type="checkbox" name="deleteIds" value="${e.id}">
 
 								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="created_at" value="${e.created_at}"> <select
-									name="category">
+									type="date" name="created_at" value="${e.created_at}">
+								<select name="category">
 									<c:forEach var="c" items="${categoryList}">
 										<option value="${c.key}"
 											<c:if test="${c.key == e.category}">selected
@@ -760,8 +752,8 @@
 								<input type="checkbox" name="deleteIds" value="${e.id}">
 
 								<input type="hidden" name="id" value="${e.id}"> <input
-									type="date" name="created_at" value="${e.created_at}"> <select
-									name="category">
+									type="date" name="created_at" value="${e.created_at}">
+								<select name="category">
 									<c:forEach var="c" items="${categoryList}">
 										<option value="${c.key}"
 											<c:if test="${c.key == e.category}">selected
