@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.BudgetDao;
 import dao.ExpensesDao;
@@ -30,7 +31,7 @@ public class HomeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		/*HttpSession session = request.getSession();
+		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("user_id");
 
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
@@ -38,9 +39,9 @@ public class HomeServlet extends HttpServlet {
 		if (userId == null) {
 			response.sendRedirect("LoginServlet");
 			return;
-		}*/
+		}
 
-		String userId = "test";
+		// String userId = "test";
 
 		// 予算、目標貯金額DAO生成
 		BudgetDao budgetDao = new BudgetDao();
@@ -58,34 +59,32 @@ public class HomeServlet extends HttpServlet {
 
 		// 今月の年月を取得
 		YearMonth thisMonth = YearMonth.now();
-		
-		
+
 		// 今月の収入合計
 		int incomesTotal = 0;
 		for (Incomes income : incomeList) {
-			//yyyy-MM-dd → LocalDate
+			// yyyy-MM-dd → LocalDate
 			LocalDate date = LocalDate.parse(income.getCreated_at());
-			//LocalDate → YearMonth
+			// LocalDate → YearMonth
 			YearMonth incomeMonth = YearMonth.from(date);
-			//今月かチェック
+			// 今月かチェック
 			if (incomeMonth.equals(thisMonth)) {
 				incomesTotal += income.getAmount();
 			}
 		}
-		
+
 		// 今月の支出合計
 		int expensesTotal = 0;
 		for (ExpensesDto expense : expenseList) {
-			//yyyy-MM-dd → LocalDate
+			// yyyy-MM-dd → LocalDate
 			LocalDate date = LocalDate.parse(expense.getCreated_at());
-			//LocalDate → YearMonth
+			// LocalDate → YearMonth
 			YearMonth expenseMonth = YearMonth.from(date);
-			//今月かチェック
+			// 今月かチェック
 			if (expenseMonth.equals(thisMonth)) {
 				expensesTotal += expense.getAmount();
 			}
 		}
-
 
 		// 予算、目標貯金額データ取り出す
 		BudgetDto budget;
@@ -100,27 +99,28 @@ public class HomeServlet extends HttpServlet {
 
 		// 残金計算
 		int balance = budget.getBudget_amount() - expensesTotal;
-		
+
 		// 目標貯金額の進捗
 		int goalAmount = budget.getGoal_amount();
-		int savedAmount = incomesTotal - expensesTotal; // 今の貯金額（例）
+		int savedAmount = incomesTotal - expensesTotal;
 
 		int goalPercent = 0;
 		if (goalAmount > 0) {
-		    goalPercent = Math.min(100, savedAmount * 100 / goalAmount);
+			goalPercent = Math.min(100, savedAmount * 100 / goalAmount);
 		}
 
 		// 予算消化率
 		int budgetAmount = budget.getBudget_amount();
 		int budgetPercent = 0;
 		if (budgetAmount > 0) {
-		    budgetPercent = Math.min(100, expensesTotal * 100 / budgetAmount);
+			int remain = budgetAmount - expensesTotal;
+			budgetPercent = Math.max(0, Math.min(100, remain * 100 / budgetAmount));
 		}
 
+		// JSPへ渡す
 		request.setAttribute("goalPercent", goalPercent);
 		request.setAttribute("budgetPercent", budgetPercent);
 
-		// JSPへ渡す
 		request.setAttribute("budget", budget);
 
 		request.setAttribute("incomesTotal", incomesTotal);
@@ -136,15 +136,17 @@ public class HomeServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		// HttpSession session = request.getSession();
-		// String userId = (String) session.getAttribute("user_id");
+		HttpSession session = request.getSession();
+		String userId = (String) session.getAttribute("user_id");
 
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-		/*
-		 * if (userId == null) { response.sendRedirect("LoginServlet"); return; }
-		 */
 
-		String userId = "test";
+		if (userId == null) {
+			response.sendRedirect("LoginServlet");
+			return;
+		}
+
+		// String userId = "test";
 
 		// JSPのフォームから送信された「予算」と「目標貯金額」を取得
 		int budgetAmount = Integer.parseInt(request.getParameter("budget_amount"));

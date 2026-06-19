@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 
@@ -9,6 +10,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- CSS -->
 <link rel="stylesheet" href="css/home.css">
+<!-- script -->
+<script src="${pageContext.request.contextPath}/js/home.js"></script>
 </head>
 
 <body>
@@ -38,17 +41,11 @@
 			</div>
 		</section>
 
-		<form method="POST" action="HomeServlet">
+		<form method="POST" action="HomeServlet"
+			onsubmit="return validateBudget();">
+			<p id="errorMsg" style="color: red;"></p>
 			<!-- 目標貯金額 -->
 			<section class="card">
-
-				<div class="progress-area">
-					<div class="progress-bar">
-						<div class="progress-fill" style="width: ${goalPercent}%"></div>
-					</div>
-					<div class="progress-text">${goalPercent}%</div>
-				</div>
-
 				<div class="card-both">
 					<div class="card-left">
 						<div class="card-content">
@@ -66,18 +63,17 @@
 							value="goal">保存</button>
 					</div>
 				</div>
+
+				<div class="progress-area">
+					<div class="progress-bar">
+						<div class="progress-fill" style="width: ${goalPercent}%"></div>
+					</div>
+					<div class="progress-text">${goalPercent}%</div>
+				</div>
 			</section>
 
 			<!-- 予算 -->
 			<section class="card">
-
-				<div class="progress-area">
-					<div class="progress-bar">
-						<div class="progress-fill budget" style="width: ${budgetPercent}%"></div>
-					</div>
-					<div class="progress-text">${budgetPercent}%</div>
-				</div>
-
 				<div class="card-both">
 					<div class="card-left">
 						<div class="card-content">
@@ -94,6 +90,13 @@
 						<button class="save-button" type="submit" name="action"
 							value="budget">保存</button>
 					</div>
+				</div>
+
+				<div class="progress-area">
+					<div class="progress-bar">
+						<div class="progress-fill budget" style="width: ${budgetPercent}%"></div>
+					</div>
+					<div class="progress-text">${budgetPercent}%</div>
 				</div>
 			</section>
 
