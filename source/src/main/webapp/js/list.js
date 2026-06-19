@@ -23,7 +23,7 @@ function toggleContent(header, id, selectElementId, controlElemenId) {
 		id = id + "_" + selectedIndex;
 	}
 	if (controlElemenId) {
-		const selector = `#${controlElemenId} [id^="${id}_"]`;
+		const selector =`#${controlElemenId} [id^="${id.split("_")[0]}_"]`;
 		const children = document.querySelectorAll(selector);
 		children.forEach(el => { el.style.display = 'none'; });
 	}

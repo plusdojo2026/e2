@@ -18,15 +18,16 @@ import javax.servlet.http.HttpSession;
 
 import dao.CategoryDao;
 import dao.EmotionDao;
-import dao.IncomesDao;
-import dto.Incomes;
+import dao.PatienceDao;
+import dao.SituationDao;
 import dto.KeyValueDto;
+import dto.PatienceDto;
 
 /**
  * Servlet implementation class SearchServlet
  */
-@WebServlet("/ListServlet")
-public class ListServlet extends HttpServlet {
+@WebServlet("/ListServlet3")
+public class ListServlet3 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	// テスト用ユーザID定義
@@ -36,8 +37,7 @@ public class ListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
@@ -45,15 +45,13 @@ public class ListServlet extends HttpServlet {
 		System.out.println("★★★★ ListServlet開始 ★★★★");
 
 		/*
-		HttpSession session = request.getSession();
-		String userId = (String) session.getAttribute("user_id");
-
-		
-
-		if (userId == null) {
-			response.sendRedirect("LoginServlet");
-			return;
-		}*/
+		 * HttpSession session = request.getSession(); String userId = (String)
+		 * session.getAttribute("user_id");
+		 * 
+		 * 
+		 * 
+		 * if (userId == null) { response.sendRedirect("LoginServlet"); return; }
+		 */
 
 		// カテゴリセレクトの項目取得
 		CategoryDao cDao = new CategoryDao();
@@ -64,10 +62,15 @@ public class ListServlet extends HttpServlet {
 		// 感情セレクトの項目取得
 		EmotionDao eDao = new EmotionDao();
 		List<KeyValueDto> emotionList = eDao.select();
-
 		request.setAttribute("emotionList", emotionList);
 
-		IncomesDao incomesDao = new IncomesDao();
+
+		// 状況の項目取得
+		SituationDao sDao = new SituationDao();
+		List<KeyValueDto> situationList = sDao.select();
+		request.setAttribute("situationList", situationList);
+
+		PatienceDao patienceDao = new PatienceDao();
 
 		// カレンダーから年月が取得できなかったら現在の年月を自動で取得
 		String yearMonth = request.getParameter("month");
@@ -83,38 +86,52 @@ public class ListServlet extends HttpServlet {
 		System.out.println("yearMonth = " + yearMonth);
 
 		// カレンダーから取得した年月で一覧表示
-		List<Incomes> incomeList = incomesDao.selectByCalendar(userId, yearMonth);
+		List<PatienceDto> patienceList = patienceDao.selectByCalendar(userId, yearMonth);
 
 		// カテゴリを取得
-		Map<String, List<Incomes>> incomeCategoryMap = incomeList.stream()
-				.collect(Collectors.groupingBy(Incomes::getCategory, LinkedHashMap::new, Collectors.toList()));
+		Map<String, List<PatienceDto>> patienceCategoryMap = patienceList.stream()
+				.collect(Collectors.groupingBy(PatienceDto::getCategory, LinkedHashMap::new, Collectors.toList()));
 
 		// 感情を取得
-		Map<String, List<Incomes>> incomeEmotionMap = incomeList.stream()
-				.collect(Collectors.groupingBy(Incomes::getEmotion, LinkedHashMap::new, Collectors.toList()));
+		Map<String, List<PatienceDto>> patienceEmotionMap = patienceList.stream()
+				.collect(Collectors.groupingBy(PatienceDto::getEmotion, LinkedHashMap::new, Collectors.toList()));
+
+		// 状況を取得
+		Map<String, List<PatienceDto>> patienceSituationMap = patienceList.stream()
+				.collect(Collectors.groupingBy(PatienceDto::getSituation, LinkedHashMap::new, Collectors.toList()));
 
 		// 収入合計の算出
-		int incomeTotal = incomeList.stream().mapToInt(Incomes::getAmount).sum();
+		int patienceTotal = patienceList.stream().mapToInt(PatienceDto::getAmount).sum();
 
 		// カテゴリ収入合計の算出
-		Map<String, Integer> incomeTotalCategoryMap = incomeCategoryMap.entrySet().stream().collect(Collectors.toMap(
-				(entry) -> entry.getKey(), (entry) -> entry.getValue().stream().mapToInt(Incomes::getAmount).sum()));
+		Map<String, Integer> patienceTotalCategoryMap = patienceCategoryMap.entrySet().stream()
+				.collect(Collectors.toMap((entry) -> entry.getKey(),
+						(entry) -> entry.getValue().stream().mapToInt(PatienceDto::getAmount).sum()));
 
 		// 感情収入合計の算出
-		Map<String, Integer> incomeTotalEmotionMap = incomeEmotionMap.entrySet().stream().collect(Collectors.toMap(
-				(entry) -> entry.getKey(), (entry) -> entry.getValue().stream().mapToInt(Incomes::getAmount).sum()));
+		Map<String, Integer> patienceTotalEmotionMap = patienceEmotionMap.entrySet().stream()
+				.collect(Collectors.toMap((entry) -> entry.getKey(),
+						(entry) -> entry.getValue().stream().mapToInt(PatienceDto::getAmount).sum()));
+
+		// 状況収入合計の算出
+		Map<String, Integer> patienceTotalSituationMap = patienceSituationMap.entrySet().stream()
+				.collect(Collectors.toMap((entry) -> entry.getKey(),
+						(entry) -> entry.getValue().stream().mapToInt(PatienceDto::getAmount).sum()));
 
 		// jspに表示
-		request.setAttribute("incomeTotal", incomeTotal);
+		request.setAttribute("patienceTotal", patienceTotal);
 
-		request.setAttribute("incomeTotalCategoryMap", incomeTotalCategoryMap);
-		request.setAttribute("incomeCategoryMap", incomeCategoryMap);
+		request.setAttribute("patienceTotalCategoryMap", patienceTotalCategoryMap);
+		request.setAttribute("patienceCategoryMap", patienceCategoryMap);
 
-		request.setAttribute("incomeTotalEmotionMap", incomeTotalEmotionMap);
-		request.setAttribute("incomeEmotionMap", incomeEmotionMap);
+		request.setAttribute("patienceTotalEmotionMap", patienceTotalEmotionMap);
+		request.setAttribute("patienceEmotionMap", patienceEmotionMap);
+
+		request.setAttribute("patienceTotalSituationMap", patienceTotalSituationMap);
+		request.setAttribute("patienceSituationMap", patienceSituationMap);
 
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-		request.setAttribute("incomeList", incomeList);
+		request.setAttribute("patienceList", patienceList);
 
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/list.jsp");
 		rd.forward(request, response);
@@ -131,12 +148,14 @@ public class ListServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		System.out.println("submit=[" + request.getParameter("submit") + "]");
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-		
-		  HttpSession session = request.getSession(); if (session.getAttribute("id") ==
-		  null) { response.sendRedirect("LoginServlet"); return; }
-		 
 
-		//現在の年月を取得
+		HttpSession session = request.getSession();
+		if (session.getAttribute("id") == null) {
+			response.sendRedirect("LoginServlet");
+			return;
+		}
+
+		// 現在の年月を取得
 		String yearMonth = request.getParameter("month");
 
 		if (yearMonth == null) {
@@ -146,7 +165,6 @@ public class ListServlet extends HttpServlet {
 		String amountString = request.getParameter("amount");
 		Integer amount;
 
-		
 		if (amountString != null && !amountString.isEmpty()) {
 			try {
 				amount = Integer.parseInt(amountString);
@@ -155,7 +173,6 @@ public class ListServlet extends HttpServlet {
 			}
 		}
 
-		
 		String submit = request.getParameter("submit");
 
 		if ("delete".equals(submit)) {
@@ -163,14 +180,14 @@ public class ListServlet extends HttpServlet {
 			String[] deleteIds = request.getParameterValues("deleteIds");
 
 			if (deleteIds != null) {
-				IncomesDao dao = new IncomesDao();
+				PatienceDao dao = new PatienceDao();
 
 				for (String id : deleteIds) {
 					dao.delete(Integer.parseInt(id));
 				}
 			}
 
-			response.sendRedirect("ListServlet");
+			response.sendRedirect("ListServlet2");
 			return;
 		}
 
@@ -180,20 +197,17 @@ public class ListServlet extends HttpServlet {
 			String[] dates = request.getParameterValues("created_at");
 			String[] categories = request.getParameterValues("category");
 			String[] emotions = request.getParameterValues("emotion");
+			String[] tag = request.getParameterValues("tag");
+			String[] situation = request.getParameterValues("situation");
 			String[] amounts = request.getParameterValues("amount");
 
-			if (ids == null || dates == null || categories == null || emotions == null || amounts == null) {
-				System.out.println("送信データ不足");
-				return;
-			}
-
-			IncomesDao dao = new IncomesDao();
+			PatienceDao dao = new PatienceDao();
 
 			for (int i = 0; i < ids.length; i++) {
-				dao.update(new Incomes(Integer.parseInt(ids[i]), userId, dates[i], Integer.parseInt(amounts[i]),
-						emotions[i], categories[i]));
+				dao.update(new PatienceDto( Integer.parseInt(ids[i]), userId, dates[i], Integer.parseInt(amounts[i]),
+						emotions[i], categories[i], situation[i]));
 			}
-
+			
 			response.sendRedirect("ListServlet");
 			return;
 		}
