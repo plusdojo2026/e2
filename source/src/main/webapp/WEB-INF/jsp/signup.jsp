@@ -17,7 +17,7 @@
 	<!-- ヘッダー（ここまで） -->
 	<!-- メイン（ここから） -->
 	<main>
-		<form method="POST" action="SignupServlet">
+		<form id="signup_form" method="POST" action="SignupServlet">
 			<table class="forms idpw">
 				<tr>
 					<td colspan="2"><label> ユーザーID<br> <input
@@ -27,20 +27,16 @@
 				<tr>
 					<td colspan="2"><label> パスワード<br> <input
 							type="password" id="pw" name="pw" placeholder="パスワードを入力">
-					</label>
-					
-					</td>
+					</label></td>
 				</tr>
 				<tr>
-				<td colspan = "2">
-				<span id="error_message" style="color: red;"></span>
-			<!-- エラーメッセージ -->
-			<c:if test="${not empty errors}">
-				<div style="color: red;">${errors[0]}</div>
-			</c:if>
-			</td>
-			</tr>
-				<tr>													
+					<td colspan="2" style="height: 30px; vertical-align: top;"><span
+						id="error_message" style="color: red;"></span> <!-- エラーメッセージ --> <c:if
+							test="${not empty errors}">
+							<div style="color: red;">${errors[0]}</div>
+						</c:if></td>
+				</tr>
+				<tr>
 					<td>
 						<div class="signup">
 							<button type="submit" name="signup" class="image-button">
@@ -61,23 +57,11 @@
 					</td>
 				</tr>
 			</table>
-			
+
 		</form>
 	</main>
-	<!-- メイン（ここまで） -->
-	<script>
-		const formObj = document.querySelector("form");
-		const errorMessageObj = document.getElementById("error_message");
-		/* 登録ボタンをクリックしたときの処理 */
-		formObj.onsubmit = function(event) {
-			/* ID,パスワードを必須入力項目とする */
-			if (!formObj.id.value) {
-				
-				event.preventDefault();
-			}
-		}
-	</script>
 
+	<!-- メイン（ここまで） -->
 
 	<!-- フッター（ここから） -->
 	<footer> </footer>

@@ -23,7 +23,10 @@ header{
 .forms{
     padding-top: 150px;
 }
-
+/*テーブルの間隔調整*/
+.forms td {
+    padding-bottom: 12px;
+}
 /*入力フォーム(ここから）*/
 label {
     font-size: 20px;
@@ -65,6 +68,7 @@ background: transparent;
     width: 100%;
 }
 
+/*フッターの背景色調整*/
 footer{
     position: fixed;
     bottom: 0;
@@ -81,14 +85,19 @@ footer{
     width:60%;
     max-width:250px;   
 }
-
+/*ボタン位置調整*/
 .signup{
 	margin-top:25px;
 }
 .reset{
 	margin-top:25px;
 }
+/*登録ボタンだけ微調整*/
+.signup button {
+    margin-top: 10px;
+}
 
+/*bodyの背景色*/
 body {
 background-color: #F8F8F8;
 }

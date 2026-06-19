@@ -10,8 +10,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-//import dao.UserDAO;
-//import dto.User;
+
+import dao.UserDao;
+import dto.UserDto;
 /**
  * Servlet implementation class SignupServlet
  */
@@ -38,7 +39,7 @@ public class SignupServlet extends HttpServlet {
 		String pw = request.getParameter("pw");
 		
 
-		// どちらか片方でも空ならエラー表示
+		// どちらか片方でもならエラー表示
 		List<String> errors = new ArrayList<>();
 
 
@@ -53,19 +54,18 @@ public class SignupServlet extends HttpServlet {
 				    return;
 				}
 
-
-		
-		
-		
-		// 登録処理を行う
-		//			UserDao Dao = new UserDao();
-		//			boolean result = Dao.insert(id,pw);
-		//			if(result) {
-		//				response.sendRedirect("LoginServlet");
-		//			}else {		
-		//			request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp")
-		//				.forward(request, response);
-		//				}
+				// 登録処理を行う
+					UserDao Dao = new UserDao();
+					UserDto dto = new UserDto();
+					dto.setId(id);
+					dto.setPw(pw);
+					boolean result = Dao.insert(dto);
+					if(result) {
+						response.sendRedirect("LoginServlet");
+					}else {		
+					request.getRequestDispatcher("/WEB-INF/jsp/signup.jsp")
+						.forward(request, response);
+						}
 	}
 
 }

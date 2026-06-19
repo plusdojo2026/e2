@@ -6,7 +6,7 @@ window.onload = function() {
     formObj.onsubmit = function(event) {
 
         // 未入力チェック
-        if (!formObj.id.value.trim() || !formObj.pw.value.trim()) {
+        if (!formObj.id.trim() || !formObj.pw.trim()) {
             errorMessageObj.textContent = '※IDとパスワードを入力してください';
             event.preventDefault();
             return;
