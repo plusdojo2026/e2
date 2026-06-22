@@ -38,7 +38,7 @@ function toggleContent(header, id, selectElementId, controlElemenId) {
 	//デフォは全非表示　トグルは▲
 	if (detail.style.display === "block") {
 		detail.style.display = "none";
-		arrow.textContent = "▲";
+		arrow.textContent = "▼";
 		return;
 	}
 	//プルダウンで選択された項目を開く
@@ -49,7 +49,7 @@ function toggleContent(header, id, selectElementId, controlElemenId) {
 	}
 	// 選択されたものを開く
 	detail.style.display = "block";
-	arrow.textContent = "▼";
+	arrow.textContent = "▲";
 }
 
 window.onload = function() {
