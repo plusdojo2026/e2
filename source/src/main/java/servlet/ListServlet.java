@@ -3,7 +3,6 @@ package servlet;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -14,7 +13,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import dao.CategoryDao;
 import dao.EmotionDao;
@@ -36,8 +34,7 @@ public class ListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	
-	
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
@@ -45,15 +42,13 @@ public class ListServlet extends HttpServlet {
 		System.out.println("★★★★ ListServlet開始 ★★★★");
 
 		/*
-		HttpSession session = request.getSession();
-		String userId = (String) session.getAttribute("user_id");
-
-		
-
-		if (userId == null) {
-			response.sendRedirect("LoginServlet");
-			return;
-		}*/
+		 * HttpSession session = request.getSession(); String userId = (String)
+		 * session.getAttribute("user_id");
+		 * 
+		 * 
+		 * 
+		 * if (userId == null) { response.sendRedirect("LoginServlet"); return; }
+		 */
 
 		// カテゴリセレクトの項目取得
 		CategoryDao cDao = new CategoryDao();
@@ -87,11 +82,11 @@ public class ListServlet extends HttpServlet {
 
 		// カテゴリを取得
 		Map<String, List<Incomes>> incomeCategoryMap = incomeList.stream()
-				.collect(Collectors.groupingBy(Incomes::getCategory, LinkedHashMap::new, Collectors.toList()));
+				.collect(Collectors.groupingBy(Incomes::getCategory));
 
 		// 感情を取得
 		Map<String, List<Incomes>> incomeEmotionMap = incomeList.stream()
-				.collect(Collectors.groupingBy(Incomes::getEmotion, LinkedHashMap::new, Collectors.toList()));
+				.collect(Collectors.groupingBy(Incomes::getEmotion));
 
 		// 収入合計の算出
 		int incomeTotal = incomeList.stream().mapToInt(Incomes::getAmount).sum();
@@ -130,13 +125,15 @@ public class ListServlet extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 		System.out.println("submit=[" + request.getParameter("submit") + "]");
-		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-		
-		  HttpSession session = request.getSession(); if (session.getAttribute("id") ==
-		  null) { response.sendRedirect("LoginServlet"); return; }
-		 
 
-		//現在の年月を取得
+		// もしもログインしていなかったらログインサーブレットにリダイレクトする
+		/*
+		 * HttpSession session = request.getSession(); String userId = (String)
+		 * session.getAttribute("user_id"); if (session.getAttribute("user_id") == null) {
+		 * response.sendRedirect("LoginServlet"); return; }
+		 */
+
+		// 現在の年月を取得
 		String yearMonth = request.getParameter("month");
 
 		if (yearMonth == null) {
@@ -146,7 +143,6 @@ public class ListServlet extends HttpServlet {
 		String amountString = request.getParameter("amount");
 		Integer amount;
 
-		
 		if (amountString != null && !amountString.isEmpty()) {
 			try {
 				amount = Integer.parseInt(amountString);
@@ -155,7 +151,6 @@ public class ListServlet extends HttpServlet {
 			}
 		}
 
-		
 		String submit = request.getParameter("submit");
 
 		if ("delete".equals(submit)) {

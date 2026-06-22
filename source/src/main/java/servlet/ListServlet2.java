@@ -3,7 +3,6 @@ package servlet;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -31,9 +30,6 @@ import dto.KeyValueDto;
 public class ListServlet2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	// テスト用ユーザID定義
-	String userId = "test";
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -45,19 +41,17 @@ public class ListServlet2 extends HttpServlet {
 
 		System.out.println("★★★★ ListServlet開始 ★★★★");
 
-		/*
-		 * HttpSession session = request.getSession(); String userId = (String)
-		 * session.getAttribute("user_id");
-		 * 
-		 * 
-		 * 
-		 * if (userId == null) { response.sendRedirect("LoginServlet"); return; }
-		 */
+		HttpSession session = request.getSession();
+		String userId = (String) session.getAttribute("user_id");
+
+		if (userId == null) {
+			response.sendRedirect("LoginServlet");
+			return;
+		}
 
 		// カテゴリセレクトの項目取得
 		CategoryDao cDao = new CategoryDao();
 		List<KeyValueDto> categoryList = cDao.selectEP();
-
 		request.setAttribute("categoryList", categoryList);
 
 		// 感情セレクトの項目取得
@@ -70,7 +64,7 @@ public class ListServlet2 extends HttpServlet {
 		List<KeyValueDto> tagList = tDao.select();
 		request.setAttribute("tagList", tagList);
 
-		// タグセレクトの項目取得
+		// 状況セレクトの項目取得
 		SituationDao sDao = new SituationDao();
 		List<KeyValueDto> situationList = sDao.select();
 		request.setAttribute("situationList", situationList);
@@ -95,19 +89,19 @@ public class ListServlet2 extends HttpServlet {
 
 		// カテゴリを取得
 		Map<String, List<ExpensesDto>> expenseCategoryMap = expensesList.stream()
-				.collect(Collectors.groupingBy(ExpensesDto::getCategory, LinkedHashMap::new, Collectors.toList()));
+				.collect(Collectors.groupingBy(ExpensesDto::getCategory));
 
 		// 感情を取得
 		Map<String, List<ExpensesDto>> expenseEmotionMap = expensesList.stream()
-				.collect(Collectors.groupingBy(ExpensesDto::getEmotion, LinkedHashMap::new, Collectors.toList()));
+				.collect(Collectors.groupingBy(ExpensesDto::getEmotion));
 
-		// カテゴリを取得
+		// タグを取得
 		Map<String, List<ExpensesDto>> expenseTagMap = expensesList.stream()
-				.collect(Collectors.groupingBy(ExpensesDto::getTag, LinkedHashMap::new, Collectors.toList()));
+				.collect(Collectors.groupingBy(ExpensesDto::getTag));
 
-		// 感情を取得
+		// 状況を取得
 		Map<String, List<ExpensesDto>> expenseSituationMap = expensesList.stream()
-				.collect(Collectors.groupingBy(ExpensesDto::getSituation, LinkedHashMap::new, Collectors.toList()));
+				.collect(Collectors.groupingBy(ExpensesDto::getSituation));
 
 		// 収入合計の算出
 		int expenseTotal = expensesList.stream().mapToInt(ExpensesDto::getAmount).sum();
@@ -122,12 +116,12 @@ public class ListServlet2 extends HttpServlet {
 				.collect(Collectors.toMap((entry) -> entry.getKey(),
 						(entry) -> entry.getValue().stream().mapToInt(ExpensesDto::getAmount).sum()));
 
-		// カテゴリ収入合計の算出
+		// タグ収入合計の算出
 		Map<String, Integer> expenseTotalTagMap = expenseTagMap.entrySet().stream()
 				.collect(Collectors.toMap((entry) -> entry.getKey(),
 						(entry) -> entry.getValue().stream().mapToInt(ExpensesDto::getAmount).sum()));
 
-		// 感情収入合計の算出
+		// 状況収入合計の算出
 		Map<String, Integer> expenseTotalSituationMap = expenseSituationMap.entrySet().stream()
 				.collect(Collectors.toMap((entry) -> entry.getKey(),
 						(entry) -> entry.getValue().stream().mapToInt(ExpensesDto::getAmount).sum()));
@@ -150,7 +144,10 @@ public class ListServlet2 extends HttpServlet {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 		request.setAttribute("expensesList", expensesList);
 
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/list.jsp");
+		System.out.println("expensesList件数=" + expensesList.size());
+		System.out.println("expenseTotal=" + expenseTotal);
+
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/list2.jsp");
 		rd.forward(request, response);
 	}
 
@@ -163,11 +160,13 @@ public class ListServlet2 extends HttpServlet {
 			throws ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
+
 		System.out.println("submit=[" + request.getParameter("submit") + "]");
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 
 		HttpSession session = request.getSession();
-		if (session.getAttribute("id") == null) {
+		String userId = (String) session.getAttribute("user_id");
+		if (session.getAttribute("user_id") == null) {
 			response.sendRedirect("LoginServlet");
 			return;
 		}
@@ -221,11 +220,11 @@ public class ListServlet2 extends HttpServlet {
 			ExpensesDao dao = new ExpensesDao();
 
 			for (int i = 0; i < ids.length; i++) {
-				dao.update(new ExpensesDto( Integer.parseInt(ids[i]), userId, dates[i], Integer.parseInt(amounts[i]),
+				dao.update(new ExpensesDto(Integer.parseInt(ids[i]), userId, dates[i], Integer.parseInt(amounts[i]),
 						emotions[i], categories[i], tag[i], situation[i]));
 			}
 
-			response.sendRedirect("ListServlet");
+			response.sendRedirect("ListServlet2");
 			return;
 		}
 	}

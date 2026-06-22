@@ -3,7 +3,6 @@ package servlet;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -30,9 +29,6 @@ import dto.PatienceDto;
 public class ListServlet3 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	// テスト用ユーザID定義
-	String userId = "test";
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
@@ -44,14 +40,15 @@ public class ListServlet3 extends HttpServlet {
 
 		System.out.println("★★★★ ListServlet開始 ★★★★");
 
-		/*
-		 * HttpSession session = request.getSession(); String userId = (String)
-		 * session.getAttribute("user_id");
-		 * 
-		 * 
-		 * 
-		 * if (userId == null) { response.sendRedirect("LoginServlet"); return; }
-		 */
+		HttpSession session = request.getSession();
+		String userId = (String) session.getAttribute("user_id");
+
+		
+
+		if (userId == null) {
+			response.sendRedirect("LoginServlet");
+			return;
+		}
 
 		// カテゴリセレクトの項目取得
 		CategoryDao cDao = new CategoryDao();
@@ -90,15 +87,15 @@ public class ListServlet3 extends HttpServlet {
 
 		// カテゴリを取得
 		Map<String, List<PatienceDto>> patienceCategoryMap = patienceList.stream()
-				.collect(Collectors.groupingBy(PatienceDto::getCategory, LinkedHashMap::new, Collectors.toList()));
+				.collect(Collectors.groupingBy(PatienceDto::getCategory));
 
 		// 感情を取得
 		Map<String, List<PatienceDto>> patienceEmotionMap = patienceList.stream()
-				.collect(Collectors.groupingBy(PatienceDto::getEmotion, LinkedHashMap::new, Collectors.toList()));
+				.collect(Collectors.groupingBy(PatienceDto::getEmotion));
 
 		// 状況を取得
 		Map<String, List<PatienceDto>> patienceSituationMap = patienceList.stream()
-				.collect(Collectors.groupingBy(PatienceDto::getSituation, LinkedHashMap::new, Collectors.toList()));
+				.collect(Collectors.groupingBy(PatienceDto::getSituation));
 
 		// 収入合計の算出
 		int patienceTotal = patienceList.stream().mapToInt(PatienceDto::getAmount).sum();
@@ -133,7 +130,7 @@ public class ListServlet3 extends HttpServlet {
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 		request.setAttribute("patienceList", patienceList);
 
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/list.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/list3.jsp");
 		rd.forward(request, response);
 	}
 
@@ -146,11 +143,14 @@ public class ListServlet3 extends HttpServlet {
 			throws ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
+		
+		
 		System.out.println("submit=[" + request.getParameter("submit") + "]");
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 
 		HttpSession session = request.getSession();
-		if (session.getAttribute("id") == null) {
+		String userId = (String) session.getAttribute("user_id");
+		if (session.getAttribute("user_id") == null) {
 			response.sendRedirect("LoginServlet");
 			return;
 		}
@@ -187,7 +187,7 @@ public class ListServlet3 extends HttpServlet {
 				}
 			}
 
-			response.sendRedirect("ListServlet2");
+			response.sendRedirect("ListServlet3");
 			return;
 		}
 
@@ -208,7 +208,7 @@ public class ListServlet3 extends HttpServlet {
 						emotions[i], categories[i], situation[i]));
 			}
 			
-			response.sendRedirect("ListServlet");
+			response.sendRedirect("ListServlet3");
 			return;
 		}
 	}

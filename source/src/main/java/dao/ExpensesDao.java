@@ -79,9 +79,10 @@ public class ExpensesDao {
 					"root", "password");
 
 			String sql = "SELECT * FROM expenses WHERE user_id = ? AND created_at LIKE ? ORDER BY created_at";
+
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, user_id);
-			pStmt.setString(2, date);
+			pStmt.setString(2, date + "%");
 
 			ResultSet rs = pStmt.executeQuery();
 			// 結果表をコレクションにコピーする
@@ -217,6 +218,7 @@ public class ExpensesDao {
 		}
 		return result;
 	}
+
 //更新
 	public boolean update(ExpensesDto expense) {
 
@@ -230,17 +232,16 @@ public class ExpensesDao {
 					"root", "password");
 
 			// SQL
-			String sql = "UPDATE expenses SET  amount=?,created_at=?,category=?,item_name=?,memo=?,emotion=?,situation=?  + WHERE id=?";
+			String sql = "UPDATE expenses SET amount=?, created_at=?, category=?, emotion=?, tag=?, situation=? WHERE id=?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 
 			pStmt.setInt(1, expense.getAmount());
-			pStmt.setString(2, expense.getEmotion());
+			pStmt.setString(2, expense.getCreated_at());
 			pStmt.setString(3, expense.getCategory());
-			pStmt.setString(4, expense.getSituation());
-			pStmt.setString(5, expense.getCreated_at());
-			pStmt.setString(6, expense.getTag());
+			pStmt.setString(4, expense.getEmotion());
+			pStmt.setString(5, expense.getTag());
+			pStmt.setString(6, expense.getSituation());
 			pStmt.setInt(7, expense.getId());
-			
 
 			// SQL文を実行して結果を取得する
 			if (pStmt.executeUpdate() == 1) {
