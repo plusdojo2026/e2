@@ -10,16 +10,16 @@ CREATE TABLE users (id VARCHAR(100) PRIMARY KEY,pw VARCHAR(255) NOT NULL,name VA
 
 
 CREATE TABLE expenses(
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  user_id VARCHAR(100) NOT NULL,
-  amount INT NOT NULL,
-  emotion VARCHAR(50) NOT NULL,
-  category VARCHAR(50),
-  situation VARCHAR(50),
-  item_name VARCHAR(100),
-  memo VARCHAR(255),
-  created_at DATE NOT NULL,
-  tag VARCHAR(50)
+ id INT AUTO_INCREMENT PRIMARY KEY,
+ user_id VARCHAR(100) NOT NULL,
+ amount INT NOT NULL,
+ emotion VARCHAR(50) NOT NULL,
+ category VARCHAR(50),
+ situation VARCHAR(50),
+ item_name VARCHAR(100),
+ memo VARCHAR(255),
+ created_at DATE NOT NULL,
+ tag VARCHAR(50)
 );
 CREATE TABLE incomes (
   id INT AUTO_INCREMENT PRIMARY KEY,
