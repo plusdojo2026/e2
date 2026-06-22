@@ -60,10 +60,9 @@ body {
     background: #fff;
     border: 2.5px solid #e0c8d8;
     border-radius: 12px;
-    color: #7a4a6a;
     padding: 12px 12px 0 12px;
     margin-bottom: 12px;
-
+    color: #7a4a6a;
 }
 .card-both{
 	display: flex;
@@ -128,6 +127,17 @@ input[type="number"] {
     color: #333;
     font-size: 13px;
 }
+
+.balance {
+    font-size: 20px;
+    font-weight: bold;
+    color: #7a4a6a; /* 通常色 */
+}
+
+.balance.red {
+    color: red !important;
+}
+
 /*フッター*/
 .footer {
     position: fixed;

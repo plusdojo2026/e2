@@ -114,8 +114,7 @@
 					</div>
 				</div>
 				<div class="card-right">
-					<span>¥</span>
-					<div class="balance-amount">${balance}</div>
+					<div class="balance <c:if test='${balance < 0}'>red</c:if>">￥ ${balance}</div>
 				</div>
 			</div>
 		</section>

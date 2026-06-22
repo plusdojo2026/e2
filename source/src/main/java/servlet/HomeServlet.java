@@ -16,9 +16,11 @@ import javax.servlet.http.HttpSession;
 import dao.BudgetDao;
 import dao.ExpensesDao;
 import dao.IncomesDao;
+import dao.PatienceDao;
 import dto.BudgetDto;
 import dto.ExpensesDto;
 import dto.Incomes;
+import dto.PatienceDto;
 
 /**
  * Servlet implementation class HomeServlet
@@ -42,13 +44,15 @@ public class HomeServlet extends HttpServlet {
 		}
 
 		// String userId = "test";
-
+		
 		// 予算、目標貯金額DAO生成
 		BudgetDao budgetDao = new BudgetDao();
 		// 収入DAO生成
 		IncomesDao incomesDao = new IncomesDao();
 		// 支出DAO生成
 		ExpensesDao expensesDao = new ExpensesDao();
+		
+		PatienceDao patienceDao = new PatienceDao();
 
 		// 予算・目標貯金額取得
 		List<BudgetDto> budgetList = budgetDao.select(userId);
@@ -56,6 +60,8 @@ public class HomeServlet extends HttpServlet {
 		List<Incomes> incomeList = incomesDao.selectByUser(userId);
 		// 支出取得
 		List<ExpensesDto> expenseList = expensesDao.selectByUser(userId);
+		
+		List<PatienceDto> patienceList = patienceDao.select(userId);
 
 		// 今月の年月を取得
 		YearMonth thisMonth = YearMonth.now();
@@ -85,6 +91,16 @@ public class HomeServlet extends HttpServlet {
 				expensesTotal += expense.getAmount();
 			}
 		}
+		
+		int patienceTotal = 0;
+		for (PatienceDto patience : patienceList) {
+		    LocalDate date = LocalDate.parse(patience.getCreated_at());
+		    YearMonth month = YearMonth.from(date);
+
+		    if (month.equals(thisMonth)) {
+		        patienceTotal += patience.getAmount();
+		    }
+		}
 
 		// 予算、目標貯金額データ取り出す
 		BudgetDto budget;
@@ -100,13 +116,13 @@ public class HomeServlet extends HttpServlet {
 		// 残金計算
 		int balance = budget.getBudget_amount() - expensesTotal;
 
+
 		// 目標貯金額の進捗
 		int goalAmount = budget.getGoal_amount();
-		int savedAmount = incomesTotal - expensesTotal;
 
 		int goalPercent = 0;
 		if (goalAmount > 0) {
-			goalPercent = Math.min(100, savedAmount * 100 / goalAmount);
+			goalPercent = Math.min(100, patienceTotal * 100 / goalAmount);
 		}
 
 		// 予算消化率
@@ -125,6 +141,7 @@ public class HomeServlet extends HttpServlet {
 
 		request.setAttribute("incomesTotal", incomesTotal);
 		request.setAttribute("expensesTotal", expensesTotal);
+		request.setAttribute("patienceTotal", patienceTotal);
 		request.setAttribute("balance", balance);
 
 		// ホームページにフォワードする
