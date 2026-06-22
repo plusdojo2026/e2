@@ -13,6 +13,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.CategoryDao;
 import dao.EmotionDao;
@@ -26,113 +27,70 @@ import dto.KeyValueDto;
 @WebServlet("/ListServlet")
 public class ListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	// テスト用ユーザID定義
-	String userId = "test";
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-
-		System.out.println("★★★★ ListServlet開始 ★★★★");
-
-		/*
-		 * HttpSession session = request.getSession(); String userId = (String)
-		 * session.getAttribute("user_id");
-		 * 
-		 * 
-		 * 
-		 * if (userId == null) { response.sendRedirect("LoginServlet"); return; }
-		 */
-
+		 HttpSession session = request.getSession(); String userId = (String)
+		 session.getAttribute("user_id");
+		 if (userId == null) { response.sendRedirect("LoginServlet"); return; }
 		// カテゴリセレクトの項目取得
 		CategoryDao cDao = new CategoryDao();
 		List<KeyValueDto> categoryList = cDao.selectEP();
-
 		request.setAttribute("categoryList", categoryList);
-
 		// 感情セレクトの項目取得
 		EmotionDao eDao = new EmotionDao();
 		List<KeyValueDto> emotionList = eDao.select();
-
 		request.setAttribute("emotionList", emotionList);
-
+		
 		IncomesDao incomesDao = new IncomesDao();
-
 		// カレンダーから年月が取得できなかったら現在の年月を自動で取得
 		String yearMonth = request.getParameter("month");
-
 		if (yearMonth == null || yearMonth.isEmpty()) {
 			yearMonth = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM"));
 		}
 		// 取得した年月をjspに表示
 		request.setAttribute("yearMonth", yearMonth);
-
 		// デバック用
 		System.out.println("userId = " + userId);
 		System.out.println("yearMonth = " + yearMonth);
-
 		// カレンダーから取得した年月で一覧表示
 		List<Incomes> incomeList = incomesDao.selectByCalendar(userId, yearMonth);
-
 		// カテゴリを取得
 		Map<String, List<Incomes>> incomeCategoryMap = incomeList.stream()
 				.collect(Collectors.groupingBy(Incomes::getCategory));
-
 		// 感情を取得
 		Map<String, List<Incomes>> incomeEmotionMap = incomeList.stream()
 				.collect(Collectors.groupingBy(Incomes::getEmotion));
-
 		// 収入合計の算出
 		int incomeTotal = incomeList.stream().mapToInt(Incomes::getAmount).sum();
-
 		// カテゴリ収入合計の算出
 		Map<String, Integer> incomeTotalCategoryMap = incomeCategoryMap.entrySet().stream().collect(Collectors.toMap(
 				(entry) -> entry.getKey(), (entry) -> entry.getValue().stream().mapToInt(Incomes::getAmount).sum()));
-
 		// 感情収入合計の算出
 		Map<String, Integer> incomeTotalEmotionMap = incomeEmotionMap.entrySet().stream().collect(Collectors.toMap(
 				(entry) -> entry.getKey(), (entry) -> entry.getValue().stream().mapToInt(Incomes::getAmount).sum()));
-
 		// jspに表示
+		//総収入合計と全データ
 		request.setAttribute("incomeTotal", incomeTotal);
-
+		request.setAttribute("incomeList", incomeList);
+		//カテゴリごとの総収入合計金額とカテゴリごとのデータ
 		request.setAttribute("incomeTotalCategoryMap", incomeTotalCategoryMap);
 		request.setAttribute("incomeCategoryMap", incomeCategoryMap);
-
+		//感情ごとの総収入合計金額とカテゴリごとのデータ
 		request.setAttribute("incomeTotalEmotionMap", incomeTotalEmotionMap);
 		request.setAttribute("incomeEmotionMap", incomeEmotionMap);
-
+		
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-		request.setAttribute("incomeList", incomeList);
-
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/list.jsp");
 		rd.forward(request, response);
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
 		request.setCharacterEncoding("UTF-8");
-		System.out.println("submit=[" + request.getParameter("submit") + "]");
-
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-		/*
-		 * HttpSession session = request.getSession(); String userId = (String)
-		 * session.getAttribute("user_id"); if (session.getAttribute("user_id") == null) {
-		 * response.sendRedirect("LoginServlet"); return; }
-		 */
-
+		HttpSession session = request.getSession(); String userId = (String)
+		session.getAttribute("user_id"); if (session.getAttribute("user_id") == null) {
+		response.sendRedirect("LoginServlet"); return; }
 		// 現在の年月を取得
 		String yearMonth = request.getParameter("month");
 

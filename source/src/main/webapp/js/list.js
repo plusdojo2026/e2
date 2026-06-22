@@ -27,62 +27,56 @@ function showTab(event, id) {
 //開閉トグル▲▼用
 
 function toggleContent(header, id, selectElementId, controlElemenId) {
-
 	if (selectElementId) {
 		const selectedIndex = document.getElementById(selectElementId).selectedIndex;
 		id = id + "_" + selectedIndex;
 	}
-
 	const detail =
 		document.getElementById(id);
-
 	const arrow =
 		header.querySelector(".arrow");
-
-	if (detail.style.display == "block") {
-
+	//デフォは全非表示　トグルは▲
+	if (detail.style.display === "block") {
 		detail.style.display = "none";
 		arrow.textContent = "▲";
-
-	} else {
-
-		detail.style.display = "block";
-		arrow.textContent = "▼";
-
+		return;
 	}
-
+	//プルダウンで選択された項目を開く
 	if (controlElemenId) {
 		const selector = `#${controlElemenId} [id^="${id.split("_")[0]}_"]`;
 		const children = document.querySelectorAll(selector);
 		children.forEach(el => { el.style.display = 'none'; });
 	}
-
-
-
-
-
+	// 選択されたものを開く
+	detail.style.display = "block";
+	arrow.textContent = "▼";
 }
 
 window.onload = function() {
-
 	const forms = document.querySelectorAll("form");
-
 	forms.forEach(function(formObj) {
-
 		formObj.onsubmit = function(event) {
-
 			const btn = document.activeElement;
-
-			console.log(btn.value);
-
+			const cnt = formObj.querySelectorAll(
+				'input[name="deleteIds"]:checked'
+			).length;
 			if (btn.value === "delete") {
-				if (!confirm("この内容を削除しますか？")) {
+				//選択０件のとき
+				if (cnt === 0) {
+					alert("削除するデータを選択してください");
+					event.preventDefault();
+					return;
+				}
+				if (!confirm(
+					"この" + cnt + "件のデータを削除してもよいですか？"
+				)) {
 					event.preventDefault();
 				}
 			}
-
 			if (btn.value === "edit") {
-				if (!confirm("この内容で編集しますか？")) {
+				if (!confirm(
+					"この" + cnt + "件のデータを編集してもよいですか？"
+				)) {
 					event.preventDefault();
 				}
 			}
