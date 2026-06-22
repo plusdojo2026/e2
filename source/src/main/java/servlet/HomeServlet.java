@@ -60,7 +60,7 @@ public class HomeServlet extends HttpServlet {
 		List<Incomes> incomeList = incomesDao.selectByUser(userId);
 		// 支出取得
 		List<ExpensesDto> expenseList = expensesDao.selectByUser(userId);
-		
+		//我慢取得
 		List<PatienceDto> patienceList = patienceDao.select(userId);
 
 		// 今月の年月を取得
@@ -92,6 +92,7 @@ public class HomeServlet extends HttpServlet {
 			}
 		}
 		
+		//今月の我慢合計
 		int patienceTotal = 0;
 		for (PatienceDto patience : patienceList) {
 		    LocalDate date = LocalDate.parse(patience.getCreated_at());
