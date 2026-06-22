@@ -39,12 +39,13 @@ public class SignupServlet extends HttpServlet {
 		String pw = request.getParameter("pw");
 		
 
-		// どちらか片方でもならエラー表示
+		// どちらか片方でも空ならエラー表示
 		List<String> errors = new ArrayList<>();
 
-
-		if (id == null || id.isEmpty() || pw == null || pw.isEmpty()) {
-				    errors.add("IDとパスワードを入力してください");
+		id = id == null ? null : id.trim();
+		pw = pw == null ? null : pw.trim();
+		if (id == null || id.isBlank() || pw == null || pw.isBlank()) {
+		    errors.add("IDとパスワードを入力してください");
 				}
 
 				if (!errors.isEmpty()) {
@@ -53,6 +54,7 @@ public class SignupServlet extends HttpServlet {
 				           .forward(request, response);
 				    return;
 				}
+
 
 				// 登録処理を行う
 					UserDao Dao = new UserDao();
