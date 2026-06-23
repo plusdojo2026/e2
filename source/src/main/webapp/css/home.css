@@ -2,7 +2,6 @@
 body {
     margin: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    background-color: #F8F8F8;
     font-size: 14px;
 }
 /*ヘッダー*/
@@ -12,8 +11,9 @@ body {
     z-index: 10;
     background: #FAF0F6;
     text-align: center;
-    padding: 20px 0;
+    padding: 14px 0;
     font-weight: bold;
+    color: #a06080;
 }
 /*メイン*/
 .main {
@@ -85,7 +85,7 @@ body {
 }
 
 .progress-area {
-    margin-bottom: 8px;
+    margin-top: 5px;
 }
 
 .progress-bar {
@@ -129,9 +129,7 @@ input[type="number"] {
 }
 
 .balance {
-    font-size: 20px;
-    font-weight: bold;
-    color: #7a4a6a; /* 通常色 */
+    color: #7a4a6a;
 }
 
 .balance.red {

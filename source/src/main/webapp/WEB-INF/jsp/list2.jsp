@@ -19,7 +19,7 @@
 
 	<!-- タブ -->
 	<div class="tabs">
-		<button class="tab" onclick="showTab(event, 'income')">収入</button>
+		<button class="tab" onclick="showTab(event, 'income')">支出</button>
 		<button class="tab active" onclick="showTab(event, 'expense')">支出</button>
 		<button class="tab" onclick="showTab(event, 'patience')">我慢</button>
 	</div>
@@ -41,7 +41,7 @@
 
 		<div class="tcard">
 			<div class="header" onclick="toggleContent(this,'cat_et',0)">
-				<span> 月の収入総合計 </span> <span class="amount"> ¥${expenseTotal}
+				${yearMonth}<span>の支出総合計  </span> <span class="amount"> ¥${expenseTotal}
 				</span> <span class="arrow">▼</span>
 			</div>
 			<div id="cat_et" class="detail" style="display: none;">
@@ -106,7 +106,7 @@
 
 				<c:forEach var="entry" items="${categoryList}" varStatus="st">
 					<div id="cat_ec_${st.index}" class="detail" style="display: none;">
-						<span>収入合計</span> <span class="amount">
+						<span>支出合計</span> <span class="amount">
 							¥${expenseTotalCategoryMap[entry.key]} </span>
 
 						<c:forEach var="e" items="${expenseCategoryMap[entry.key]}"
@@ -170,7 +170,7 @@
 
 				<c:forEach var="entry" items="${situationList}" varStatus="st">
 					<div id="cat_es_${st.index}" class="detail" style="display: none;">
-						<span>収入合計</span> <span class="amount">
+						<span>支出合計</span> <span class="amount">
 							¥${expenseTotalSituationMap[entry.key]} </span>
 
 						<c:forEach var="e" items="${expenseSituationMap[entry.key]}"
@@ -234,7 +234,7 @@
 
 				<c:forEach var="entry" items="${tagList}" varStatus="st">
 					<div id="cat_tag_${st.index}" class="detail" style="display: none;">
-						<span>収入合計</span> <span class="amount">
+						<span>支出合計</span> <span class="amount">
 							¥${expenseTotalTagMap[entry.key]} </span>
 
 						<c:forEach var="e" items="${expenseTagMap[entry.key]}"
@@ -302,7 +302,7 @@
 
 
 					<div id="cat_ee_${st.index}" class="detail" style="display: none;">
-						<span>収入合計</span> <span class="amount">
+						<span>支出合計</span> <span class="amount">
 							¥${expenseTotalEmotionMap[entry.key]} </span>
 						<c:forEach var="e" items="${expenseEmotionMap[entry.key]}">
 							<div class="row-item">

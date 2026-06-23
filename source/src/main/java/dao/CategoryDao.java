@@ -20,9 +20,13 @@ public class CategoryDao {
 			KeyValueDto keyValueDto = new KeyValueDto("3", "お小遣い");
 			result.add(keyValueDto);
 		}
+		{
+			KeyValueDto keyValueDto = new KeyValueDto("4", "その他");
+			result.add(keyValueDto);
+		}
 		return result;
 	}
-	
+
 	public List<KeyValueDto> selectEP() {
 		List<KeyValueDto> result = new ArrayList<>();
 		{
@@ -37,12 +41,18 @@ public class CategoryDao {
 			KeyValueDto keyValueDto = new KeyValueDto("3", "娯楽費");
 			result.add(keyValueDto);
 		}
+		{
+			KeyValueDto keyValueDto = new KeyValueDto("4", "生活費");
+			result.add(keyValueDto);
+		}
+		{
+			KeyValueDto keyValueDto = new KeyValueDto("5", "その他");
+			result.add(keyValueDto);
+		}
 		return result;
 	}
-	
 
-	
-	//category_idに対応するカテゴリ名を取得する用
+	// category_idに対応するカテゴリ名を取得する用
 
 	public KeyValueDto select(String key) {
 		KeyValueDto result = null;

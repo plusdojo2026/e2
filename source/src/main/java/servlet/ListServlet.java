@@ -27,21 +27,25 @@ import dto.KeyValueDto;
 @WebServlet("/ListServlet")
 public class ListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-		 HttpSession session = request.getSession(); String userId = (String)
-		 session.getAttribute("user_id");
-		 if (userId == null) { response.sendRedirect("LoginServlet"); return; }
+		HttpSession session = request.getSession();
+		String userId = (String) session.getAttribute("user_id");
+		if (userId == null) {
+			response.sendRedirect("LoginServlet");
+			return;
+		}
 		// カテゴリセレクトの項目取得
 		CategoryDao cDao = new CategoryDao();
-		List<KeyValueDto> categoryList = cDao.selectEP();
+		List<KeyValueDto> categoryList = cDao.select();
 		request.setAttribute("categoryList", categoryList);
 		// 感情セレクトの項目取得
 		EmotionDao eDao = new EmotionDao();
 		List<KeyValueDto> emotionList = eDao.select();
 		request.setAttribute("emotionList", emotionList);
-		
+
 		IncomesDao incomesDao = new IncomesDao();
 		// カレンダーから年月が取得できなかったら現在の年月を自動で取得
 		String yearMonth = request.getParameter("month");
@@ -70,37 +74,39 @@ public class ListServlet extends HttpServlet {
 		Map<String, Integer> incomeTotalEmotionMap = incomeEmotionMap.entrySet().stream().collect(Collectors.toMap(
 				(entry) -> entry.getKey(), (entry) -> entry.getValue().stream().mapToInt(Incomes::getAmount).sum()));
 		// jspに表示
-		//総収入合計と全データ
+		// 総収入合計と全データ
 		request.setAttribute("incomeTotal", incomeTotal);
 		request.setAttribute("incomeList", incomeList);
-		//カテゴリごとの総収入合計金額とカテゴリごとのデータ
+		// カテゴリごとの総収入合計金額とカテゴリごとのデータ
 		request.setAttribute("incomeTotalCategoryMap", incomeTotalCategoryMap);
 		request.setAttribute("incomeCategoryMap", incomeCategoryMap);
-		//感情ごとの総収入合計金額とカテゴリごとのデータ
+		// 感情ごとの総収入合計金額とカテゴリごとのデータ
 		request.setAttribute("incomeTotalEmotionMap", incomeTotalEmotionMap);
 		request.setAttribute("incomeEmotionMap", incomeEmotionMap);
-		
+
 		response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/list.jsp");
 		rd.forward(request, response);
 	}
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
-		HttpSession session = request.getSession(); String userId = (String)
-		session.getAttribute("user_id"); if (session.getAttribute("user_id") == null) {
-		response.sendRedirect("LoginServlet"); return; }
-		// 現在の年月を取得
+		HttpSession session = request.getSession();
+		String userId = (String) session.getAttribute("user_id");
+		if (session.getAttribute("user_id") == null) {
+			response.sendRedirect("LoginServlet");
+			return;
+		}
+		// カレンダー/現在の年月を取得
 		String yearMonth = request.getParameter("month");
-
 		if (yearMonth == null) {
 			yearMonth = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM"));
 		}
-
+		// 値段変換用
 		String amountString = request.getParameter("amount");
 		Integer amount;
-
 		if (amountString != null && !amountString.isEmpty()) {
 			try {
 				amount = Integer.parseInt(amountString);
@@ -108,45 +114,32 @@ public class ListServlet extends HttpServlet {
 				amount = null;
 			}
 		}
-
 		String submit = request.getParameter("submit");
-
 		if ("delete".equals(submit)) {
-
 			String[] deleteIds = request.getParameterValues("deleteIds");
-
 			if (deleteIds != null) {
 				IncomesDao dao = new IncomesDao();
-
 				for (String id : deleteIds) {
 					dao.delete(Integer.parseInt(id));
 				}
 			}
-
 			response.sendRedirect("ListServlet");
 			return;
-		}
-
-		else if ("edit".equals(submit)) {
-
+		} else if ("edit".equals(submit)) {
 			String[] ids = request.getParameterValues("id");
 			String[] dates = request.getParameterValues("created_at");
 			String[] categories = request.getParameterValues("category");
 			String[] emotions = request.getParameterValues("emotion");
 			String[] amounts = request.getParameterValues("amount");
-
 			if (ids == null || dates == null || categories == null || emotions == null || amounts == null) {
 				System.out.println("送信データ不足");
 				return;
 			}
-
 			IncomesDao dao = new IncomesDao();
-
 			for (int i = 0; i < ids.length; i++) {
 				dao.update(new Incomes(Integer.parseInt(ids[i]), userId, dates[i], Integer.parseInt(amounts[i]),
 						emotions[i], categories[i]));
 			}
-
 			response.sendRedirect("ListServlet");
 			return;
 		}
