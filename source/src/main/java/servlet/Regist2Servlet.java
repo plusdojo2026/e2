@@ -83,7 +83,7 @@ public class Regist2Servlet extends HttpServlet {
 
         // 結果画面へ
         RequestDispatcher dispatcher =
-                request.getRequestDispatcher("/WEB-INF/jsp/result.jsp");
+                request.getRequestDispatcher("/WEB-INF/jsp/regist2.jsp");
         dispatcher.forward(request, response);
     }
 }
