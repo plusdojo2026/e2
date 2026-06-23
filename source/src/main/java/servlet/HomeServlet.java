@@ -178,8 +178,16 @@ public class HomeServlet extends HttpServlet {
 
 		// DAO生成
 		BudgetDao budgetDao = new BudgetDao();
-		// budgetsテーブルを更新
-		budgetDao.update(budget);
+		
+		List<BudgetDto> budgetList = budgetDao.select(userId);
+		
+		if (budgetList == null || budgetList.isEmpty()) {
+		    // 新規ユーザー → INSERT
+		    budgetDao.insert(budget);
+		} else {
+		    // 既存ユーザー → UPDATE
+		    budgetDao.update(budget);
+		}
 
 		// 再表示
 		response.sendRedirect("HomeServlet");
