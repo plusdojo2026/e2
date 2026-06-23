@@ -16,6 +16,10 @@ public class SituationDao {
 			KeyValueDto keyValueDto = new KeyValueDto("2", "昼休み");
 			result.add(keyValueDto);
 		}
+		{
+			KeyValueDto keyValueDto = new KeyValueDto("3", "その他");
+			result.add(keyValueDto);
+		}
 		return result;
 	}
 

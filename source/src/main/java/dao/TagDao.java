@@ -16,6 +16,10 @@ public class TagDao {
 			KeyValueDto keyValueDto = new KeyValueDto("2", "ご褒美");
 			result.add(keyValueDto);
 		}
+		{
+			KeyValueDto keyValueDto = new KeyValueDto("3", "その他");
+			result.add(keyValueDto);
+		}
 		return result;
 	}
 
