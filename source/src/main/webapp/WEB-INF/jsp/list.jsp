@@ -41,7 +41,7 @@
 
 		<div class="tcard">
 			<div class="header" onclick="toggleContent(this,'cat_it',0)">
-				<span> 月の収入総合計 </span> <span class="amount"> ¥${incomeTotal}
+				${yearMonth}<span>の収入総合計  </span> <span class="amount"> ¥${incomeTotal}
 				</span> <span class="arrow">▼</span>
 			</div>
 			<div id="cat_it" class="detail" style="display: none;">
