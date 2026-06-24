@@ -44,7 +44,7 @@
             <div class="field-wrap">
               <div class="label-tag">金額</div>
               <input class="input-field" type="text" id="amount" name="amount" placeholder="金額を入力してください" value="">
-              <div class="error-msg" id="errAmount">整数を入力してください</div>
+              <div class="error-msg" id="errAmount">金額を入力してください</div>
             </div>
 
             <!-- 商品名 -->
