@@ -13,7 +13,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import dao.CategoryDao;
 import dao.EmotionDao;
@@ -29,13 +28,15 @@ public class ListServlet2 extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		String userId = "test";
+		/*
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("user_id");
 		if (userId == null) {
 			response.sendRedirect("LoginServlet");
 			return;
-		}
+		}*/
 		// カテゴリセレクトの項目取得
 		CategoryDao cDao = new CategoryDao();
 		List<KeyValueDto> categoryList = cDao.selectEP();
@@ -118,13 +119,15 @@ public class ListServlet2 extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		/*
 		// もしもログインしていなかったらログインサーブレットにリダイレクトする
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("user_id");
 		if (session.getAttribute("user_id") == null) {
 			response.sendRedirect("LoginServlet");
 			return;
-		}
+		}*/
+		String userId = "test" ;
 		// 現在の年月を取得
 		String yearMonth = request.getParameter("month");
 		if (yearMonth == null) {

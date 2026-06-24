@@ -8,18 +8,23 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="UTF-8">
-<title>一覧 | kakemi</title>
+<title>一覧</title>
 <link rel="stylesheet" type="text/css" href="css/list.css">
 <script src="<c:url value='/js/list.js' />"></script>
 </head>
 
 <body>
-	<header> 一覧 </header>
+	<header>
+		<div class="title">
+			<b> 一覧 </b>
+		</div>
+	</header>
+
 
 
 	<!-- タブ -->
 	<div class="tabs">
-		<button class="tab" onclick="showTab(event, 'income')">支出</button>
+		<button class="tab" onclick="showTab(event, 'income')">収入</button>
 		<button class="tab active" onclick="showTab(event, 'expense')">支出</button>
 		<button class="tab" onclick="showTab(event, 'patience')">我慢</button>
 	</div>
@@ -41,8 +46,8 @@
 
 		<div class="tcard">
 			<div class="header" onclick="toggleContent(this,'cat_et',0)">
-				${yearMonth}<span>の支出総合計  </span> <span class="amount"> ¥${expenseTotal}
-				</span> <span class="arrow">▼</span>
+				${yearMonth}<span>の支出総合計 </span> <span class="amount">
+					¥${expenseTotal} </span> <span class="arrow">▼</span>
 			</div>
 			<div id="cat_et" class="detail" style="display: none;">
 				<form method="post" action="ListServlet2">
@@ -68,8 +73,8 @@
 								<c:forEach var="s" items="${situationList}">
 									<option value="${s.key}"
 										<c:if test="${s.key == e.situation}">selected
-                                            </c:if>> ${s.value}
-									</option>
+                                            </c:if>>
+										${s.value}</option>
 								</c:forEach>
 							</select> <select name="emotion" class="emo">
 								<c:forEach var="em" items="${emotionList}">
@@ -134,8 +139,8 @@
 									<c:forEach var="s" items="${situationList}">
 										<option value="${s.key}"
 											<c:if test="${s.key == e.situation}">selected
-                                            </c:if>> ${s.value}
-										</option>
+                                            </c:if>>
+											${s.value}</option>
 									</c:forEach>
 								</select> <select name="emotion" class="emo">
 									<c:forEach var="em" items="${emotionList}">
@@ -222,7 +227,7 @@
 		</div>
 
 		<div class="tagcard" id="expense_tagcard">
-			<form method="post" action="ListServlet3">
+			<form method="post" action="ListServlet2">
 				<div class="header"
 					onclick="toggleContent(this,'cat_tag','select3_menu','expense_tagcard')">
 					<select name="selectedCategory" id="select3_menu">
@@ -262,8 +267,8 @@
 									<c:forEach var="s" items="${situationList}">
 										<option value="${s.key}"
 											<c:if test="${s.key == e.situation}">selected
-                                            </c:if>> ${s.value}
-										</option>
+                                            </c:if>>
+											${s.value}</option>
 									</c:forEach>
 								</select> <select name="emotion" class="emo">
 									<c:forEach var="em" items="${emotionList}">
@@ -326,8 +331,8 @@
 									<c:forEach var="s" items="${situationList}">
 										<option value="${s.key}"
 											<c:if test="${s.key == e.situation}">selected
-                                            </c:if>> ${s.value}
-										</option>
+                                            </c:if>>
+											${s.value}</option>
 									</c:forEach>
 								</select> <select name="emotion" class="emo">
 									<c:forEach var="em" items="${emotionList}">
@@ -341,8 +346,8 @@
 						</c:forEach>
 						<div class="buttons">
 
-							<input type="submit" name="submit" value="編集"> <input
-								type="submit" name="submit" value="削除">
+							<input type="submit" name="submit" value="edit"> <input
+								type="submit" name="submit" value="delete">
 						</div>
 					</div>
 				</c:forEach>
@@ -366,10 +371,10 @@
 		<nav class="nav-bar">
 			<a class="nav-item" href="HomeServlet"> <span class="icon">🏠</span>
 				<span>ホーム</span>
-			</a> <a class="nav-item active" href="Regist1Servlet"> <span
-				class="icon">✏️</span> <span>登録</span>
-			</a> <a class="nav-item" href="ListServlet"> <span class="icon">📋</span>
-				<span>一覧</span>
+			</a> <a class="nav-item" href="Regist1Servlet"> <span class="icon">✏️</span>
+				<span>登録</span>
+			</a> <a class="nav-item active" href="ListServlet"> <span
+				class="icon">📋</span> <span>一覧</span>
 			</a> <a class="nav-item" href="LoginServlet"> <span class="icon">🚪</span>
 				<span>ログアウト</span>
 			</a>
