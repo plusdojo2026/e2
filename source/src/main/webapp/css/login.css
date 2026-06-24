@@ -71,6 +71,7 @@ input {
 	cursor: pointer;
 	width: 90%;
 	max-width: 111px;
+	margin-top: -30px; /* 上に20px移動 */
 }
 
 .image-button>img {

@@ -70,7 +70,7 @@
 					</td>
 				</tr>
 				<tr>
-					<td colspan="2" style="text-align: center;"><br> <br>
+					<td colspan="2" style="text-align: center;">
 						<a href="SignupServlet">新規登録はこちら</a></td>
 				</tr>
 			</table>
