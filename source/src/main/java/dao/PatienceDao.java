@@ -34,7 +34,12 @@ public class PatienceDao {
 			pStmt.setString(4, patience.getItem_name());
 			pStmt.setString(5, patience.getMemo());
 			pStmt.setString(6, patience.getEmotion());
-			pStmt.setString(7, patience.getSituation());
+			
+			if (patience.getSituation() != null && ! patience.getSituation().isBlank()) {
+				pStmt.setString(7, patience.getSituation());
+			} else {
+				pStmt.setString(1, "6");
+			}
 			pStmt.setString(8, patience.getUser_id());
 
 			if (pStmt.executeUpdate() == 1) {
@@ -211,7 +216,7 @@ public class PatienceDao {
 					"jdbc:mysql://localhost:3306/kakemi_db?characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9",
 					"root", "password");
 
-			String sql = "SELECT * FROM Patience WHERE user_id = ?";
+			String sql = "SELECT * FROM patience WHERE user_id = ?";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			pStmt.setString(1, user_id);
 

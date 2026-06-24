@@ -86,7 +86,7 @@
         <div class="field-wrap" style="margin-bottom:8px;">
           <div class="label-tag">状況</div>
           <select class="select-field" id ="situation" name="situation">
-          <option value="" disabled selected>状況を選択</option>
+          <option value="6" disabled selected>状況を選択</option>
 		  <c:forEach var="s" items="${situationList}">
 		    <option value="${s.key}">
 		      ${s.value}
