@@ -62,6 +62,7 @@ background: transparent;
     cursor: pointer;
     width: 90%;
     max-width:111px;
+    
 }
 
 .image-button > img {
@@ -87,10 +88,10 @@ footer{
 }
 /*ボタン位置調整*/
 .signup{
-	margin-top:25px;
+	margin-top:15px;
 }
 .reset{
-	margin-top:25px;
+	margin-top:15px;
 }
 /*登録ボタンだけ微調整*/
 .signup button {

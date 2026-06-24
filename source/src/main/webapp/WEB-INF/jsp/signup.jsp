@@ -30,11 +30,12 @@
 					</label></td>
 				</tr>
 				<tr>
-					<td colspan="2" style="height: 30px; vertical-align: top;"><span
+					<td colspan="2" style="height: 25px; vertical-align: top;"><span
 						id="error_message" style="color: red;"></span> <!-- エラーメッセージ --> <c:if
 							test="${not empty errors}">
 							<div style="color: red;">${errors[0]}</div>
 						</c:if></td>
+						
 				</tr>
 				<tr>
 					<td>
