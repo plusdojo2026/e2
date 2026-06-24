@@ -8,13 +8,17 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="UTF-8">
-<title>一覧 | kakemi</title>
+<title>一覧</title>
 <link rel="stylesheet" type="text/css" href="css/list.css">
 <script src="<c:url value='/js/list.js' />"></script>
 </head>
 
 <body>
-	<header> 一覧 </header>
+	<header>
+		<div class="title">
+			<b> 一覧 </b>
+		</div>
+	</header>
 
 
 	<!-- タブ -->
@@ -41,8 +45,8 @@
 
 		<div class="tcard">
 			<div class="header" onclick="toggleContent(this,'cat_it',0)">
-				${yearMonth}<span>の収入総合計  </span> <span class="amount"> ¥${incomeTotal}
-				</span> <span class="arrow">▼</span>
+				${yearMonth}<span>の収入総合計 </span> <span class="amount">
+					¥${incomeTotal} </span> <span class="arrow">▼</span>
 			</div>
 			<div id="cat_it" class="detail" style="display: none;">
 				<form method="post" action="ListServlet">
@@ -202,10 +206,10 @@
 		<nav class="nav-bar">
 			<a class="nav-item" href="HomeServlet"> <span class="icon">🏠</span>
 				<span>ホーム</span>
-			</a> <a class="nav-item active" href="Regist1Servlet"> <span
-				class="icon">✏️</span> <span>登録</span>
-			</a> <a class="nav-item" href="ListServlet"> <span class="icon">📋</span>
-				<span>一覧</span>
+			</a> <a class="nav-item " href="Regist1Servlet"> <span class="icon">✏️</span>
+				<span>登録</span>
+			</a> <a class="nav-item active" href="ListServlet"> <span
+				class="icon">📋</span> <span>一覧</span>
 			</a> <a class="nav-item" href="LoginServlet"> <span class="icon">🚪</span>
 				<span>ログアウト</span>
 			</a>

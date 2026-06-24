@@ -9,7 +9,7 @@ public class SituationDao {
 	public List<KeyValueDto> select() {
 		List<KeyValueDto> result = new ArrayList<>();
 		{
-			KeyValueDto keyValueDto = new KeyValueDto("1", "通勤時");
+			KeyValueDto keyValueDto = new KeyValueDto("1", "出勤時");
 			result.add(keyValueDto);
 		}
 		{
@@ -17,7 +17,19 @@ public class SituationDao {
 			result.add(keyValueDto);
 		}
 		{
-			KeyValueDto keyValueDto = new KeyValueDto("3", "その他");
+			KeyValueDto keyValueDto = new KeyValueDto("3", "退勤時");
+			result.add(keyValueDto);
+		}
+		{
+			KeyValueDto keyValueDto = new KeyValueDto("4", "休日");
+			result.add(keyValueDto);
+		}
+		{
+			KeyValueDto keyValueDto = new KeyValueDto("5", "在宅中");
+			result.add(keyValueDto);
+		}
+		{
+			KeyValueDto keyValueDto = new KeyValueDto("6", "その他");
 			result.add(keyValueDto);
 		}
 		return result;

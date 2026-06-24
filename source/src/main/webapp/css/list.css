@@ -9,12 +9,14 @@ body {
 }
 
 /* ヘッダー */
-header {
-	background: #FAF0F6;
-	text-align: center;
-	padding: 10px;
-	font-size: 16px;
-	color: #a06080;
+.header {
+    background: #FAF0F6;
+    color: #a06080;
+    text-align: center;
+    font-size: 13px;
+    font-weight: bold;
+    padding: 14px 0;
+    border-bottom: 1px solid #f0dcea;
 }
 
 .accordion-header {
@@ -87,33 +89,20 @@ input[type=month] {
 	border: 2.5px solid #e0c8d8;
 }
 
+/*チェックボックス用*/
 input[type="checkbox"] {
 	width: 16px;
 	height: 16px;
 	border-color: #a06080;
 }
 
-/*
-select {
-    width: 120px;
-    height: 60px;
-    font-size: 20px;
-}*/
+/*感情サイズ調整*/
 .emo {
 	padding: 10px;
 	font-size: 16px;
 	height: 40px;
 	border-radius: 5px;
 	border: 1px solid #ccc;
-}
-
-input[type="text"], input[type="date"], select {
-	padding: 10px;
-	font-size: 16px;
-	height: 40px;
-	border-radius: 5px;
-	border: 1px solid #e0c8d8;
-	appearance: none;
 }
 
 /* 項目別カード */
@@ -134,11 +123,13 @@ input[type="text"], input[type="date"], select {
 	font-size: 14px;
 }
 
+/* 値段 */
 .amount {
 	text-align: right;
 	font-weight: bold;
 }
 
+/* トグルサイズ調整 */
 .arrow {
 	margin-left: 10px;
 }
@@ -147,6 +138,7 @@ input[type="text"], input[type="date"], select {
 	overflow-x: auto;
 }
 
+/* 一覧データ横幅サイズ調整 */
 .row-item {
 	min-width: 500px;
 	display: grid;
@@ -182,7 +174,6 @@ input[type="text"], input[type="date"], select {
 }
 
 /*フッター用*/
-
 .nav-bar {
     background: #FAF0F6;
 	display: flex;
@@ -251,7 +242,7 @@ input[type="text"], input[type="date"], select {
 	font-size: 20px;
 }
 
- /*ボタンのCSS*/
+ /*ボタン用*/
 .buttons input[type="submit"] {
   padding: 8px 22px;
   margin: 0 6px;
