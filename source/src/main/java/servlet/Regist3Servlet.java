@@ -92,8 +92,6 @@ public class Regist3Servlet extends HttpServlet {
         dao.insert(patience);
 
         // 結果画面へ
-        RequestDispatcher dispatcher =
-                request.getRequestDispatcher("/WEB-INF/jsp/regist3.jsp");
-        dispatcher.forward(request, response);
+        response.sendRedirect("Regist3Servlet");
     }
 }

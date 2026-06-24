@@ -79,16 +79,19 @@ public class Regist1Servlet extends HttpServlet {
         // リクエスト取得
         request.setCharacterEncoding("UTF-8");
 
+        
+        
+        session.setAttribute("user_id", user_id);
         String created_at = request.getParameter("created_at");
-        int amount = Integer.parseInt(request.getParameter("amount"));
+        int amount = Integer.parseInt(request.getParameter("amount"));  
         String emotion = request.getParameter("emotion");
         String category = request.getParameter("category");
         String situation = request.getParameter("situation");
         String item_name = request.getParameter("item_name");
         String memo = request.getParameter("memo");
         String tag = request.getParameter("tag");
-
-       
+        
+     
 
         // DAO
         ExpensesDao dao = new ExpensesDao();
@@ -97,12 +100,11 @@ public class Regist1Servlet extends HttpServlet {
         ExpensesDto expense = new ExpensesDto(0,user_id,amount, emotion, category,situation, item_name,
         		memo,created_at,tag);
 
+    
         // DB登録
         dao.insert(expense);
 
         // 結果画面へ
-        RequestDispatcher dispatcher =
-                request.getRequestDispatcher("/WEB-INF/jsp/regist1.jsp");
-        dispatcher.forward(request, response);
+        response.sendRedirect("Regist1Servlet"); // 一覧画面へリダイレクト
     }
 }
