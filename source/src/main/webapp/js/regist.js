@@ -63,13 +63,22 @@ document.getElementById('expenditureForm').addEventListener('submit', function (
     } else { amountErr.style.display = 'none'; }
 
     // 商品名
-    var itemName = document.getElementById('item_name').value.trim();
-    var itemErr = document.getElementById('errItemName');
-    if (!itemName) {
-        itemErr.style.display = 'block'; valid = false;
-    } else { itemErr.style.display = 'none'; }
+    
+	var itemNameEl = document.getElementById('item_name');
+	var itemErr = document.getElementById('errItemName');
+	
+	if (itemNameEl) {
+	    var itemName = itemNameEl.value.trim();
+	
+	    if (!itemName) {
+	        itemErr.style.display = 'block';
+	        valid = false;
+	    } else {
+	        itemErr.style.display = 'none';
+	    }
+	}
 
-    // カテゴリ
+	// カテゴリ
     var category = document.getElementById('category').value;
     var catErr = document.getElementById('errCategory');
     if (!category) {
@@ -77,13 +86,24 @@ document.getElementById('expenditureForm').addEventListener('submit', function (
     } else { catErr.style.display = 'none'; }
 
  // 状況
-    var situation = document.getElementById('situation').value;
-    var sitErr = document.getElementById('errSituation');
-    if (!situation) {
-        sitErr.style.display = 'block'; valid = false;
-    } else { sitErr.style.display = 'none'; }
+    
+	var situationEl = document.getElementById('situation');
+	var sitErr = document.getElementById('errSituation');
+		
+	if (situationEl && sitErr) {
+		   if (!situationEl.value) {
+		       sitErr.style.display = 'block';
+		       valid = false;
+		   } else {
+		       sitErr.style.display = 'none';
+		   }
+	}
 
-    if (!valid) e.preventDefault();
+    
+	if (!valid) {e.preventDefault();
+	    return false;
+	}
+
 });
 function showTab(event, id) {
     // 全部非表示

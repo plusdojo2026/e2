@@ -67,7 +67,17 @@ public class Regist2Servlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         String created_at = request.getParameter("created_at");
-        int amount = Integer.parseInt(request.getParameter("amount"));
+        String amountStr = request.getParameter("amount");
+
+        if (amountStr == null || amountStr.isEmpty()) {
+            // エラーなら画面に戻す
+            RequestDispatcher dispatcher =
+                request.getRequestDispatcher("/WEB-INF/jsp/regist2.jsp");
+            dispatcher.forward(request, response);
+            return;
+        }
+
+        int amount = Integer.parseInt(amountStr);
         String emotion = request.getParameter("emotion");
         String category = request.getParameter("category");
        
