@@ -76,6 +76,13 @@ document.getElementById('expenditureForm').addEventListener('submit', function (
         catErr.style.display = 'block'; valid = false;
     } else { catErr.style.display = 'none'; }
 
+ // 状況
+    var situation = document.getElementById('situation').value;
+    var sitErr = document.getElementById('errSituation');
+    if (!situation) {
+        sitErr.style.display = 'block'; valid = false;
+    } else { sitErr.style.display = 'none'; }
+
     if (!valid) e.preventDefault();
 });
 function showTab(event, id) {
