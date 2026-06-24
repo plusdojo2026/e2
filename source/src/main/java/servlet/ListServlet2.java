@@ -65,16 +65,16 @@ public class ListServlet2 extends HttpServlet {
 		List<ExpensesDto> expensesList = expensesDao.selectByCalendar(userId, yearMonth);
 		// カテゴリを取得
 		Map<String, List<ExpensesDto>> expenseCategoryMap = expensesList.stream()
-				.collect(Collectors.groupingBy(ExpensesDto::getCategory));
-		// 感情を取得
-		Map<String, List<ExpensesDto>> expenseEmotionMap = expensesList.stream()
-				.collect(Collectors.groupingBy(ExpensesDto::getEmotion));
-		// タグを取得
-		Map<String, List<ExpensesDto>> expenseTagMap = expensesList.stream()
-				.collect(Collectors.groupingBy(ExpensesDto::getTag));
-		// 状況を取得
-		Map<String, List<ExpensesDto>> expenseSituationMap = expensesList.stream()
-				.collect(Collectors.groupingBy(ExpensesDto::getSituation));
+			    .collect(Collectors.groupingBy(e -> e.getCategory() != null ? e.getCategory() : ""));
+
+			Map<String, List<ExpensesDto>> expenseEmotionMap = expensesList.stream()
+			    .collect(Collectors.groupingBy(e -> e.getEmotion() != null ? e.getEmotion() : ""));
+
+			Map<String, List<ExpensesDto>> expenseTagMap = expensesList.stream()
+			    .collect(Collectors.groupingBy(e -> e.getTag() != null ? e.getTag() : ""));
+
+			Map<String, List<ExpensesDto>> expenseSituationMap = expensesList.stream()
+			    .collect(Collectors.groupingBy(e -> e.getSituation() != null ? e.getSituation() : ""));
 		// 収入合計の算出
 		int expenseTotal = expensesList.stream().mapToInt(ExpensesDto::getAmount).sum();
 		// カテゴリ収入合計の算出
