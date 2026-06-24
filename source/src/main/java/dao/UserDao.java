@@ -20,7 +20,7 @@ public class UserDao {
 
 			// データベースに接続する
 			conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/kakemi_db?"
-					+ "characterEncoding=UTF8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
+					+ "characterEncoding=UTF8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true",
 					"root", "password");
 
 			// SELECT文を準備する

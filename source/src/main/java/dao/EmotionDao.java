@@ -9,21 +9,22 @@ public class EmotionDao {
 	public List<KeyValueDto> select() {
 		List<KeyValueDto> result = new ArrayList<>();
 		{
-			KeyValueDto keyValueDto = new KeyValueDto("1", "😐");
+			KeyValueDto keyValueDto = new KeyValueDto("1", "😊");
 			result.add(keyValueDto);
 		}
 		{
-			KeyValueDto keyValueDto = new KeyValueDto("2", "😊");
+			KeyValueDto keyValueDto = new KeyValueDto("2", "😐");
 			result.add(keyValueDto);
 		}
 		{
-			KeyValueDto keyValueDto = new KeyValueDto("3", "😢");
+			KeyValueDto keyValueDto = new KeyValueDto("3", "😔");
 			result.add(keyValueDto);
 		}
 		{
-			KeyValueDto keyValueDto = new KeyValueDto("4", "😡");
+			KeyValueDto keyValueDto = new KeyValueDto("4", "😌");
 			result.add(keyValueDto);
 		}
+	
 		return result;
 	}
 

@@ -199,24 +199,24 @@
 
 </body>
 
-<footer>
 
-	<!--フッター-->
-	<div id="footer">
-		<nav class="nav-bar">
-			<a class="nav-item" href="HomeServlet"> <span class="icon">🏠</span>
-				<span>ホーム</span>
-			</a> <a class="nav-item " href="Regist1Servlet"> <span class="icon">✏️</span>
-				<span>登録</span>
-			</a> <a class="nav-item active" href="ListServlet"> <span
-				class="icon">📋</span> <span>一覧</span>
-			</a> <a class="nav-item" href="LoginServlet"> <span class="icon">🚪</span>
-				<span>ログアウト</span>
-			</a>
-		</nav>
-	</div>
-	<!--フッター終わり-->
+
+<!--フッター-->
+<footer class="footer">
+	<nav class="nav-bar">
+		<a class="nav-item" href="HomeServlet"> <span class="icon">🏠</span>
+			<span>ホーム</span>
+		</a> <a class="nav-item " href="Regist1Servlet"> <span class="icon">✏️</span>
+			<span>登録</span>
+		</a> <a class="nav-item active" href="ListServlet"> <span class="icon">📋</span>
+			<span>一覧</span>
+		</a> <a class="nav-item" href="LoginServlet"> <span class="icon">🚪</span>
+			<span>ログアウト</span>
+		</a>
+	</nav>
 </footer>
+<!--フッター終わり-->
+
 
 
 <script>
