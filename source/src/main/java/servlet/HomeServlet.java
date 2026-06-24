@@ -51,7 +51,7 @@ public class HomeServlet extends HttpServlet {
 		IncomesDao incomesDao = new IncomesDao();
 		// 支出DAO生成
 		ExpensesDao expensesDao = new ExpensesDao();
-		
+		// 我慢DAO生成
 		PatienceDao patienceDao = new PatienceDao();
 
 		// 予算・目標貯金額取得

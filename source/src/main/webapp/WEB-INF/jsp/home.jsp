@@ -124,9 +124,9 @@
 	<!-- フッター -->
 	<footer class="footer">
 		<nav class="nav-bar">
-			<a class="nav-item" href="HomeServlet"> <span class="icon">🏠</span>
+			<a class="nav-item active" href="HomeServlet"> <span class="icon">🏠</span>
 				<span>ホーム</span>
-			</a> <a class="nav-item active" href="Regist1Servlet"> <span
+			</a> <a class="nav-item" href="Regist1Servlet"> <span
 				class="icon">✏️</span> <span>登録</span>
 			</a> <a class="nav-item" href="ListServlet"> <span class="icon">📋</span>
 				<span>一覧</span>
