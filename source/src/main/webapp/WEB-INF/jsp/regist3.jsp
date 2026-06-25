@@ -67,7 +67,7 @@
           </div>
 
         <!-- カテゴリ -->
-        <div class="field-wrap" style="margin-bottom:2px;">
+        <div class="field-wrap" style="margin-bottom:8px;">
           <div class="label-tag">カテゴリ</div>
            <select class="select-field" id ="category" name="category">
           <option value="" disabled selected>カテゴリを選択</option>
