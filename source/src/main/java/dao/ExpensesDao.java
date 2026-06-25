@@ -187,14 +187,15 @@ public class ExpensesDao {
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			// パラメーター設定
 			pStmt.setInt(1, expense.getAmount());
-			pStmt.setString(6, expense.getEmotion());
+			pStmt.setString(2, expense.getCreated_at());
 			pStmt.setString(3, expense.getCategory());
-			pStmt.setString(7, expense.getSituation());
 			pStmt.setString(4, expense.getItem_name());
 			pStmt.setString(5, expense.getMemo());
-			pStmt.setString(2, expense.getCreated_at());
-			pStmt.setString(9, expense.getTag());
+			pStmt.setString(6, expense.getEmotion());
+			pStmt.setString(7, expense.getSituation());
 			pStmt.setString(8, expense.getUser_id());
+			pStmt.setString(9, expense.getTag());
+			
 			// SQL文を実行して結果を取得する
 			if (pStmt.executeUpdate() == 1) {
 				result = true;
