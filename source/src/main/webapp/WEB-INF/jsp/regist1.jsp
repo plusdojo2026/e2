@@ -58,16 +58,17 @@
           </div>
           <div class="field-group2">
             <!-- 感情ボタン -->
+             <div class="field-wrap" style="margin-bottom:2px;">
+            <div class="label-tag">感情</div>
           <button type="button" class="emotion-btn" id="emotionBtn">
-            <span id="emotionLabel">感情</span>
+            <span id="emotionLabel">😊 嬉しい</span>
           </button>
-          <input type="hidden" id="emotion" name="emotion" value="">
+          <input type="hidden" id="emotion" name="emotion" value="1">
+          </div>
           <!-- タグ -->
           <div class="field-wrap" style="margin-bottom:8px;">
             <div class="label-tag">タグ</div>
             <select class="select-field" id="tag" name="tag">
-		  	<option value="" disabled selected>タグ選択</option>
-		
 		  	<c:forEach var="c" items="${tagList}">
 		    <option value="${c.key}">
 		      ${c.value}
@@ -106,6 +107,8 @@
 		    </option>
 		  </c:forEach>
 		</select>
+		<div class="error-msg" id="errSituation">状況を選択してください
+		</div>
 		</div>
 
         <!-- 備考 -->

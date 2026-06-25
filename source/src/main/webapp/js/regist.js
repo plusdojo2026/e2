@@ -84,12 +84,10 @@ document.getElementById('expenditureForm').addEventListener('submit', function (
     if (!category) {
         catErr.style.display = 'block'; valid = false;
     } else { catErr.style.display = 'none'; }
-
- // 状況
     
+	 // 状況
 	var situationEl = document.getElementById('situation');
 	var sitErr = document.getElementById('errSituation');
-		
 	if (situationEl && sitErr) {
 		   if (!situationEl.value) {
 		       sitErr.style.display = 'block';

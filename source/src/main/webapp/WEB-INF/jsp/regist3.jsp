@@ -58,18 +58,16 @@
           </div>
           <div class="field-group2">
             <!-- 感情ボタン -->
-          <button type="button" class="emotion-btn" id="emotionBtn">
-            <span id="emotionLabel">感情</span>
+              <div class="label-tag" style="margin-bottom:2px;">感情</div>
+          <button type="button" class="emotion-btn" id="emotionBtn" style="margin-top:-5px;">
+            <span id="emotionLabel">😊 嬉しい</span>
           </button>
-          <input type="hidden" id="emotion" name="emotion" value="">
-          <!-- タグ -->
-          
+          <input type="hidden" id="emotion" name="emotion" value="1">
           </div>
-          
-        </div>
+          </div>
 
         <!-- カテゴリ -->
-        <div class="field-wrap" style="margin-bottom:8px;">
+        <div class="field-wrap" style="margin-bottom:2px;">
           <div class="label-tag">カテゴリ</div>
            <select class="select-field" id ="category" name="category">
           <option value="" disabled selected>カテゴリを選択</option>
