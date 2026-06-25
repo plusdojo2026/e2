@@ -183,18 +183,18 @@ public class ExpensesDao {
 					+ "characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B9&rewriteBatchedStatements=true",
 					"root", "password");
 			// SQL
-			String sql = "INSERT  INTO expenses (amount,created_at,category,item_name,memo,emotion,situation,user_id)VALUES(?,?,?,?,?,?,?,?,?)";
+			String sql = "INSERT  INTO expenses (amount,created_at,category,item_name,memo,emotion,situation,user_id,tag) VALUES(?,?,?,?,?,?,?,?,?)";
 			PreparedStatement pStmt = conn.prepareStatement(sql);
 			// パラメーター設定
 			pStmt.setInt(1, expense.getAmount());
-			pStmt.setString(2, expense.getEmotion());
+			pStmt.setString(6, expense.getEmotion());
 			pStmt.setString(3, expense.getCategory());
-			pStmt.setString(4, expense.getSituation());
-			pStmt.setString(5, expense.getItem_name());
-			pStmt.setString(6, expense.getMemo());
-			pStmt.setString(7, expense.getCreated_at());
-			pStmt.setString(8, expense.getTag());
-			pStmt.setString(9, expense.getUser_id());
+			pStmt.setString(7, expense.getSituation());
+			pStmt.setString(4, expense.getItem_name());
+			pStmt.setString(5, expense.getMemo());
+			pStmt.setString(2, expense.getCreated_at());
+			pStmt.setString(9, expense.getTag());
+			pStmt.setString(8, expense.getUser_id());
 			// SQL文を実行して結果を取得する
 			if (pStmt.executeUpdate() == 1) {
 				result = true;
