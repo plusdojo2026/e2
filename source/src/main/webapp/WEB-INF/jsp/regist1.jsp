@@ -58,7 +58,7 @@
           </div>
           <div class="field-group2">
             <!-- 感情ボタン -->
-             <div class="field-wrap" style="margin-bottom:2px;">
+             <div class="field-wrap" >
             <div class="label-tag">感情</div>
           <button type="button" class="emotion-btn" id="emotionBtn">
             <span id="emotionLabel">😊 嬉しい</span>
