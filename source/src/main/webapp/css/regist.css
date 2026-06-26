@@ -117,13 +117,16 @@ body {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    flex: 4;
+    flex: 1;
+    min-width: 0;
 }
 
 .field-group2 {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    flex: 1;
+    min-width: 0;
 }
 
 .field-wrap {
