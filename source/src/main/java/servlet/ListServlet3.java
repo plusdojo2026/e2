@@ -130,7 +130,7 @@ public class ListServlet3 extends HttpServlet {
 			}
 		}
 		String submit = request.getParameter("submit");
-		if ("delete".equals(submit)) {
+		if ("削除".equals(submit)) {
 			String[] deleteIds = request.getParameterValues("deleteIds");
 			if (deleteIds != null) {
 				PatienceDao dao = new PatienceDao();
@@ -139,8 +139,7 @@ public class ListServlet3 extends HttpServlet {
 				}
 			}
 			response.sendRedirect("ListServlet3");
-			return;
-		} else if ("edit".equals(submit)) {
+		} else if ("編集".equals(submit)) {
 			String[] ids = request.getParameterValues("id");
 			String[] dates = request.getParameterValues("created_at");
 			String[] categories = request.getParameterValues("category");
@@ -154,7 +153,9 @@ public class ListServlet3 extends HttpServlet {
 						emotions[i], categories[i], situation[i]));
 			}
 			response.sendRedirect("ListServlet3");
-			return;
+		} else {
+			// 何か不測のケース
+			response.sendRedirect("ListServlet3");
 		}
 	}
 

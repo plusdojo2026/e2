@@ -115,7 +115,7 @@ public class ListServlet extends HttpServlet {
 			}
 		}
 		String submit = request.getParameter("submit");
-		if ("delete".equals(submit)) {
+		if ("削除".equals(submit)) {
 			String[] deleteIds = request.getParameterValues("deleteIds");
 			if (deleteIds != null) {
 				IncomesDao dao = new IncomesDao();
@@ -125,7 +125,7 @@ public class ListServlet extends HttpServlet {
 			}
 			response.sendRedirect("ListServlet");
 			return;
-		} else if ("edit".equals(submit)) {
+		} else if ("編集".equals(submit)) {
 			String[] ids = request.getParameterValues("id");
 			String[] dates = request.getParameterValues("created_at");
 			String[] categories = request.getParameterValues("category");
@@ -133,7 +133,6 @@ public class ListServlet extends HttpServlet {
 			String[] amounts = request.getParameterValues("amount");
 			if (ids == null || dates == null || categories == null || emotions == null || amounts == null) {
 				System.out.println("送信データ不足");
-				return;
 			}
 			IncomesDao dao = new IncomesDao();
 			for (int i = 0; i < ids.length; i++) {
@@ -141,7 +140,9 @@ public class ListServlet extends HttpServlet {
 						emotions[i], categories[i]));
 			}
 			response.sendRedirect("ListServlet");
-			return;
+		} else {
+			// 何か不測のケース
+			response.sendRedirect("ListServlet");
 		}
 	}
 

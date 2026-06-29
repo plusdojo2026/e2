@@ -52,8 +52,8 @@
 				<form method="post" action="ListServlet">
 					<c:forEach var="e" items="${incomeList}">
 						<div class="row-item">
-							<input type="checkbox" name="deleteIds" value="${e.id}">
-							<input type="hidden" name="id" value="${e.id}"> <input
+							<input type="checkbox" name="deleteIds" value="${e.id}"> <input
+								type="hidden" name="id" value="${e.id}"> <input
 								type="date" name="created_at" value="${e.created_at}"> <select
 								name="category">
 								<c:forEach var="c" items="${categoryList}">
@@ -72,8 +72,8 @@
 						</div>
 					</c:forEach>
 					<div class="buttons">
-						<input type="submit" name="submit" value="edit">編集 <input
-							type="submit" name="submit" value="delete">削除
+						<input type="submit" name="submit" value="編集"> <input
+							type="submit" name="submit" value="削除">
 					</div>
 				</form>
 			</div>
@@ -104,8 +104,8 @@
 
 							<div class="row-item">
 
-								<input type="checkbox" name="deleteIds" value="${e.id}">
-								<input type="hidden" name="id" value="${e.id}"> <input
+								<input type="checkbox" name="deleteIds" value="${e.id}"> <input
+									type="hidden" name="id" value="${e.id}"> <input
 									type="date" name="created_at" value="${e.created_at}">
 								<select name="category">
 									<c:forEach var="c" items="${categoryList}">
@@ -124,8 +124,8 @@
 							</div>
 						</c:forEach>
 						<div class="buttons">
-							<input type="submit" name="submit" value="edit"> <input
-								type="submit" name="submit" value="delete">
+							<input type="submit" name="submit" value="編集"> <input
+								type="submit" name="submit" value="削除">
 						</div>
 					</div>
 				</c:forEach>
@@ -159,9 +159,8 @@
 							<div class="row-item">
 
 
-								<input type="checkbox" name="deleteIds" value="${e.id}">
-
-								<input type="hidden" name="id" value="${e.id}"> <input
+								<input type="checkbox" name="deleteIds" value="${e.id}"> <input
+									type="hidden" name="id" value="${e.id}"> <input
 									type="date" name="created_at" value="${e.created_at}">
 								<select name="category">
 									<c:forEach var="c" items="${categoryList}">
@@ -180,7 +179,6 @@
 							</div>
 						</c:forEach>
 						<div class="buttons">
-
 							<input type="submit" name="submit" value="編集"> <input
 								type="submit" name="submit" value="削除">
 						</div>

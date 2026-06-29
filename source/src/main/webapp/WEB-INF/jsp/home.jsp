@@ -16,8 +16,11 @@
 
 <body>
 
-	<!-- ヘッダー -->
-	<header class="header"> ホーム </header>
+	<header class="header">
+		<div class="title">
+			<b> ホーム </b>
+		</div>
+	</header>
 
 	<!-- メイン -->
 	<main class="main">
@@ -114,7 +117,8 @@
 					</div>
 				</div>
 				<div class="card-right">
-					<div class="balance <c:if test='${balance < 0}'>red</c:if>">￥ ${balance}</div>
+					<div class="balance <c:if test='${balance < 0}'>red</c:if>">￥
+						${balance}</div>
 				</div>
 			</div>
 		</section>
@@ -126,8 +130,8 @@
 		<nav class="nav-bar">
 			<a class="nav-item active" href="HomeServlet"> <span class="icon">🏠</span>
 				<span>ホーム</span>
-			</a> <a class="nav-item" href="Regist1Servlet"> <span
-				class="icon">✏️</span> <span>登録</span>
+			</a> <a class="nav-item" href="Regist1Servlet"> <span class="icon">✏️</span>
+				<span>登録</span>
 			</a> <a class="nav-item" href="ListServlet"> <span class="icon">📋</span>
 				<span>一覧</span>
 			</a> <a class="nav-item" href="LoginServlet"> <span class="icon">🚪</span>

@@ -1,104 +1,105 @@
 html {
-    font-size: 15px;
-    font-family: 'Courier New', Courier, monospace;
-    text-align: center;
-    color: #696167;
+	font-size: 15px;
+	font-family: 'Courier New', Courier, monospace;
+	text-align: center;
+	color: #696167;
 }
 
 * {
-    margin: 0;
-    padding: 0;
+	margin: 0;
+	padding: 0;
 }
 /* ヘッダー背景*/
-header{
-    background-color: #EFD8EA;
-    height: 90px;
+header  {
+	background-color: #EFD8EA;
+	height: 90px;
+	position: sticky;
 }
 /*ヘッダーの文字*/
-#logo{
-    padding-top: 30px;
+#logo {
+	padding-top: 30px;
 }
 
 /*テーブルの位置調整*/
-.forms{
-    padding-top: 150px;
+.forms {
+	padding-top: 150px;
 }
 /*テーブルの間隔調整*/
 .forms td {
-    padding-bottom: 12px;
+	padding-bottom: 12px;
 }
 /*入力フォーム(ここから）*/
 label {
-    font-size: 20px;
-    padding-right: 0px;
+	font-size: 20px;
+	padding-right: 0px;
 }
 
 #error_message {
-    font-size: 18px;
-    display: block;
-    height: 5px;
+	font-size: 18px;
+	display: block;
+	height: 5px;
 }
 
-.idpw{
-    margin-left: auto;
-    margin-right: auto;
-    text-align: left;
-    width:60%;
-    max-width:250px;
+.idpw {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
+	width: 60%;
+	max-width: 250px;
 }
 
 input {
-    width: 250px;
-    height: 40px;
-    font-size: 20px;
+	width: 250px;
+	height: 40px;
+	font-size: 20px;
 }
 
 /*入力フォーム(ここまで）*/
 
 /*登録＆リセットボタン*/
 .image-button {
-background: transparent;
-    border: none;
-    cursor: pointer;
-    width: 90%;
-    max-width:111px;
-    
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	width: 90%;
+	max-width: 111px;
 }
 
-.image-button > img {
-    width: 100%;
+.image-button>img {
+	width: 100%;
 }
 
 /*フッターの背景色調整*/
-footer{
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 90px;
-    background-color: #EFD8EA;
+footer {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 90px;
+	background-color: #EFD8EA;
 }
 
-.imgb{
-    margin-left: auto;
-    margin-right: auto;
-    text-align: left;
-    width:60%;
-    max-width:250px;   
+.imgb {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: left;
+	width: 60%;
+	max-width: 250px;
 }
 /*ボタン位置調整*/
-.signup{
-	margin-top:15px;
+.signup {
+	margin-top: 15px;
 }
-.reset{
-	margin-top:15px;
+
+.reset {
+	margin-top: 15px;
 }
 /*登録ボタンだけ微調整*/
 .signup button {
-    margin-top: 10px;
+	margin-top: 10px;
 }
 
 /*bodyの背景色*/
 body {
-background-color: #F8F8F8;
+	background-color: #F8F8F8;
 }

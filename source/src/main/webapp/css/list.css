@@ -21,14 +21,14 @@ body {
 }
 
 .title {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    background: #FAF0F6;
-    text-align: center;
-    padding: 14px 0;
-    font-weight: bold;
-    color: #a06080;
+	position: sticky;
+	top: 0;
+	z-index: 10;
+	background: #FAF0F6;
+	text-align: center;
+	padding: 14px 0;
+	font-weight: bold;
+	color: #a06080;
 }
 
 .accordion-header {
@@ -50,25 +50,25 @@ body {
 
 /*切り替えタブ用*/
 .tabs {
-    display: flex;
-    gap: 10px;
-    margin-top: 15px;
-    margin-bottom: 15px;
+	display: flex;
+	gap: 10px;
+	margin-top: 15px;
+	margin-bottom: 15px;
 }
 
 .tab {
-    flex: 1;
-    padding: 20px 10px;
-    border-radius: 15px;
-    border: none;
-    background: #FAF0F6;
-    font-size: 17px;
+	flex: 1;
+	padding: 20px 10px;
+	border-radius: 15px;
+	border: none;
+	background: #FAF0F6;
+	font-size: 17px;
 }
 
 .tab.active {
-    background: #FFFFFF;
-    border: 1px solid #F0DCEA;
-    font-weight: bold;
+	background: #FFFFFF;
+	border: 1px solid #F0DCEA;
+	font-weight: bold;
 }
 /* タブの中身用 */
 .content {
@@ -163,7 +163,8 @@ select {
 .row-item {
 	min-width: 500px;
 	display: grid;
-	grid-template-columns: 30px 110px 80px 80px 80px 80px 80px 80px 80px;
+	grid-template-columns: 30px 140px 120px 120px 100px 100px 100px 100px
+		100px;
 	gap: 8px;
 	align-items: center;
 	padding: 16px;
@@ -181,10 +182,31 @@ select {
 	box-sizing: border-box;
 }
 
+.row-item input[type="date"], .row-item select {
+	min-width: 0;
+	width: 100%;
+	max-width: 100%;
+}
+
+.row-item input[type="date"] {
+	-webkit-appearance: none;
+	appearance: none;
+}
+
 .row-item input[type="checkbox"] {
 	width: 16px;
 	height: 16px;
 	margin: auto;
+}
+
+.row-item input[type="month"] {
+	width: 100px;
+}
+
+/* カレンダーアイコンの色をピンクに */
+input[type="date"]::-webkit-calendar-picker-indicator {
+	filter: invert(40%) sepia(30%) saturate(500%) hue-rotate(280deg);
+	cursor: pointer;
 }
 
 #select_menu {
@@ -276,12 +298,12 @@ select {
 }
 
 /* 編集ボタン */
-.buttons input[value="edit"] {
+.buttons input[value="編集"] {
 	background: #ffffff;
 }
 
 /* 削除ボタン */
-.buttons input[value="delete"] {
+.buttons input[value="削除"] {
 	background: #fff5f5;
 	border-color: #f0caca;
 }

@@ -16,6 +16,7 @@ html {
 header {
 	background-color: #EFD8EA;
 	height: 90px;
+	position: sticky;
 }
 
 /*ヘッダーの文字*/

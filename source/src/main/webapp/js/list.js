@@ -60,7 +60,7 @@ window.onload = function() {
 			const cnt = formObj.querySelectorAll(
 				'input[name="deleteIds"]:checked'
 			).length;
-			if (btn.value === "delete") {
+			if (btn.value === "削除") {
 				//選択０件のとき
 				if (cnt === 0) {
 					alert("削除するデータを選択してください");
@@ -73,7 +73,7 @@ window.onload = function() {
 					event.preventDefault();
 				}
 			}
-			if (btn.value === "edit") {
+			if (btn.value === "編集") {
 				if (!confirm(
 					"このデータを編集してもよいですか？"
 				)) {

@@ -65,16 +65,16 @@ public class ListServlet2 extends HttpServlet {
 		List<ExpensesDto> expensesList = expensesDao.selectByCalendar(userId, yearMonth);
 		// カテゴリを取得
 		Map<String, List<ExpensesDto>> expenseCategoryMap = expensesList.stream()
-			    .collect(Collectors.groupingBy(e -> e.getCategory() != null ? e.getCategory() : ""));
+				.collect(Collectors.groupingBy(e -> e.getCategory() != null ? e.getCategory() : ""));
 
-			Map<String, List<ExpensesDto>> expenseEmotionMap = expensesList.stream()
-			    .collect(Collectors.groupingBy(e -> e.getEmotion() != null ? e.getEmotion() : ""));
+		Map<String, List<ExpensesDto>> expenseEmotionMap = expensesList.stream()
+				.collect(Collectors.groupingBy(e -> e.getEmotion() != null ? e.getEmotion() : ""));
 
-			Map<String, List<ExpensesDto>> expenseTagMap = expensesList.stream()
-			    .collect(Collectors.groupingBy(e -> e.getTag() != null ? e.getTag() : ""));
+		Map<String, List<ExpensesDto>> expenseTagMap = expensesList.stream()
+				.collect(Collectors.groupingBy(e -> e.getTag() != null ? e.getTag() : ""));
 
-			Map<String, List<ExpensesDto>> expenseSituationMap = expensesList.stream()
-			    .collect(Collectors.groupingBy(e -> e.getSituation() != null ? e.getSituation() : ""));
+		Map<String, List<ExpensesDto>> expenseSituationMap = expensesList.stream()
+				.collect(Collectors.groupingBy(e -> e.getSituation() != null ? e.getSituation() : ""));
 		// 収入合計の算出
 		int expenseTotal = expensesList.stream().mapToInt(ExpensesDto::getAmount).sum();
 		// カテゴリ収入合計の算出
@@ -123,7 +123,6 @@ public class ListServlet2 extends HttpServlet {
 		String userId = (String) session.getAttribute("user_id");
 		if (session.getAttribute("user_id") == null) {
 			response.sendRedirect("LoginServlet");
-			return;
 		}
 		// 現在の年月を取得
 		String yearMonth = request.getParameter("month");
@@ -140,7 +139,7 @@ public class ListServlet2 extends HttpServlet {
 			}
 		}
 		String submit = request.getParameter("submit");
-		if ("delete".equals(submit)) {
+		if ("削除".equals(submit)) {
 			String[] deleteIds = request.getParameterValues("deleteIds");
 			if (deleteIds != null) {
 				ExpensesDao dao = new ExpensesDao();
@@ -149,8 +148,7 @@ public class ListServlet2 extends HttpServlet {
 				}
 			}
 			response.sendRedirect("ListServlet2");
-			return;
-		} else if ("edit".equals(submit)) {
+		} else if ("編集".equals(submit)) {
 			String[] ids = request.getParameterValues("id");
 			String[] dates = request.getParameterValues("created_at");
 			String[] categories = request.getParameterValues("category");
@@ -164,7 +162,9 @@ public class ListServlet2 extends HttpServlet {
 						emotions[i], categories[i], tag[i], situation[i]));
 			}
 			response.sendRedirect("ListServlet2");
-			return;
+		} else {
+			// 何か不測のケース
+			response.sendRedirect("ListServle2t");
 		}
 	}
 }

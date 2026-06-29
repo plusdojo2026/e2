@@ -87,8 +87,8 @@
 						</div>
 					</c:forEach>
 					<div class="buttons">
-						<input type="submit" name="submit" value="edit">編集 <input
-							type="submit" name="submit" value="delete">削除
+						<input type="submit" name="submit" value="編集"><input
+							type="submit" name="submit" value="削除">
 					</div>
 
 
@@ -154,8 +154,8 @@
 						</c:forEach>
 
 						<div class="buttons">
-							<input type="submit" name="submit" value="edit"> <input
-								type="submit" name="submit" value="delete">
+							<input type="submit" name="submit" value="編集"> <input
+								type="submit" name="submit" value="削除">
 						</div>
 					</div>
 				</c:forEach>
@@ -218,8 +218,8 @@
 						</c:forEach>
 
 						<div class="buttons">
-							<input type="submit" name="submit" value="edit"> <input
-								type="submit" name="submit" value="delete">
+							<input type="submit" name="submit" value="編集"> <input
+								type="submit" name="submit" value="削除">
 						</div>
 					</div>
 				</c:forEach>
@@ -282,8 +282,8 @@
 						</c:forEach>
 
 						<div class="buttons">
-							<input type="submit" name="submit" value="edit"> <input
-								type="submit" name="submit" value="delete">
+							<input type="submit" name="submit" value="編集"> <input
+								type="submit" name="submit" value="削除">
 						</div>
 					</div>
 				</c:forEach>
@@ -346,8 +346,8 @@
 						</c:forEach>
 						<div class="buttons">
 
-							<input type="submit" name="submit" value="edit"> <input
-								type="submit" name="submit" value="delete">
+							<input type="submit" name="submit" value="編集"> <input
+								type="submit" name="submit" value="削除">
 						</div>
 					</div>
 				</c:forEach>
